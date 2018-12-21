@@ -16,14 +16,15 @@ import TradingModal from './screens/tradingModal';
 import TabIcon from './components/tabIcon';
 import { colors } from './style/colors';
 import tabStyle from './style/components/tabBar';
+import store from './store/store';
 
-const Routes = (store) => (
+const Routes = () => (
    <Provider store={store}>
       <CustomRouter>
          <Scene key="root" hideNavBar>
-            {/* <Scene key="login" component={Login}/>
-        <Scene key="register" component={Register}/>
-            <Drawer
+            <Scene key="login" component={Login}/>
+            <Scene key="register" component={Register}/>
+            {/* <Drawer
               key="drawer"  
               contentComponent={LeagueDrawer} 
               type="replace"
