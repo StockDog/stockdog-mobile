@@ -6,6 +6,7 @@ import text from '../style/text';
 import StockChart from '../components/stockchart';
 import NavBar from '../components/navbar';
 import PortfolioStockList from '../components/portfolioStockList';
+import { getStockHistory } from '../api';
 
 export default class Portfolio extends Component {
    constructor(props) {
