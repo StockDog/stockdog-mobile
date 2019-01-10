@@ -28,7 +28,7 @@ export default class Stock extends Component {
    componentDidMount() {
       var xData = [];
       var yData = [];
-      getStockHistory('AMD', lengthMap[this.state.length]).then((res) => {
+      getStockHistory(this.props.ticker, lengthMap[this.state.length]).then((res) => {
          res.data.forEach((val) => {
             var timeStrArray = val.time.split(" ");
             var date = this.state.length === 'D' ? 
@@ -66,7 +66,7 @@ export default class Stock extends Component {
             <NavBar/>
             <View style={styles.stockContent}>
                <View style={styles.tickerContainer}>
-                  <Text style={styles.tickerText}>GRPN</Text>
+                  <Text style={styles.tickerText}>{this.props.ticker}</Text>
                </View>
                <StockChart xData={this.state.xData} yData={this.state.yData} isLoading={this.state.isLoading}/>
                <ButtonGroup
