@@ -30,7 +30,7 @@ const Routes = () => (
               type="replace"
             >
               <Modal key="modal">  */}
-            <Tabs
+            {/* <Tabs
                key="main"
                tabBarStyle={tabStyle.tabBar}
                tabStyle={tabStyle.tabStyle}
@@ -48,8 +48,8 @@ const Routes = () => (
                <Scene key="feed" title="Feed" component={Feed} hideNavBar iconName="activity" icon={TabIcon} onEnter={Feed.onEnterFeed} />
                {/*<Scene key="searchmain" hideNavBar title="Search" iconName="search" icon={TabIcon}>
                     <Scene key="search" component={Search}/>
-                  </Scene> */}
-            </Tabs>
+                  </Scene>
+            </Tabs> */}
             {/*<Lightbox key="lightbox">
                   <Scene key="noportfolios" hideNavBar component={noPortfoliosProfile}/>
                   <Scene key="addportfolio" hideNavBar component={AddPortfolioModal}/>
@@ -58,8 +58,9 @@ const Routes = () => (
                 </Lightbox>*/}
 
 
+            <Scene key="stock" component={Stock} hideNavBar swipeDownToClose={false} />
             <Lightbox>
-               <Scene key="stock" component={Stock} hideNavBar swipeDownToClose={false} />
+               
                <Scene key="tradingmodal" component={TradingModal} swipeDownToClose={true} />
             </Lightbox>
             {/* <Scene key="settings" component={SettingsModal} hideNavBar />
