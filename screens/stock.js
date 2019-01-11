@@ -5,17 +5,52 @@ import { ButtonGroup } from 'react-native-elements';
 import styles from '../style/screens/stock';
 import StockChart from '../components/stockchart';
 import NavBar from '../components/navbar';
+import { getStockHistory } from '../api';
+
+const lengthMap = {
+   'D': 'day',
+   'M': 'month',
+   'Y': 'year'
+}
 
 export default class Stock extends Component {
    constructor(props) {
       super(props);
       this.state = {
+         length: 'D',
+         xData: [],
+         yData: [],
+         isLoading: true
       };
 
    };
 
    componentDidMount() {
+      this.updateIndex(0);
+   }
 
+   updateIndex = (idx) => {
+      const buttonVal = Object.keys(lengthMap)[idx];
+      var xData = [];
+      var yData = [];
+      getStockHistory(this.props.ticker, lengthMap[buttonVal]).then((res) => {
+         res.data.forEach((val) => {
+            var timeStrArray = val.time.split(" ");
+            var date = buttonVal == 'D' ? 
+               timeStrArray[1].split(":")[0] + ":" + timeStrArray[1].split(":")[1] :
+               this.createDateString(timeStrArray)
+            xData.push(date);
+            yData.push(val.price);
+         });
+         this.setState({xData, yData, length: buttonVal, isLoading: false})
+      }).catch((err) => console.log(err));
+   }
+
+   createDateString = (timeStrArray) => {
+      var d = new Date(timeStrArray[0]);
+      var mo = d.toLocaleString("en-us", {month: "short"});
+      var day = d.toLocaleString("en-us", {day: "numeric"});
+      return mo + " " + day;
    }
 
    openModal() {
@@ -26,23 +61,24 @@ export default class Stock extends Component {
       });
    }
 
-   updateIndex(selectedIndex) {
-
-   }
-
    render() {
       return (
          <View style={styles.background}>
             <NavBar/>
             <View style={styles.stockContent}>
                <View style={styles.tickerContainer}>
-                  <Text style={styles.tickerText}>GRPN</Text>
+                  <Text style={styles.tickerText}>{this.props.ticker}</Text>
                </View>
-               <StockChart/>
+               <StockChart 
+                  xData={this.state.xData} 
+                  yData={this.state.yData} 
+                  isLoading={this.state.isLoading}/>
                <ButtonGroup
-                  // onPress={this.updateIndex.bind(this)}
-                  selectedIndex={0}
-                  buttons={['D', 'M', 'Y']}
+                  onPress={this.updateIndex}
+                  selectedIndex={
+                     Object.keys(lengthMap).indexOf(this.state.length)
+                  }
+                  buttons={Object.keys(lengthMap)}
                   containerStyle={styles.dateRangeButtonGroup}
                   textStyle={text.whiteText}
                   buttonStyle={styles.transparentBackground}
@@ -66,7 +102,9 @@ export default class Stock extends Component {
                   </View>
                </View>
                <View style={styles.tradingButtonContainer}>
-                  <TouchableOpacity style={styles.tradingButton} onPress={this.openModal}>
+                  <TouchableOpacity 
+                     style={styles.tradingButton} 
+                     onPress={this.openModal}>
                      <Text style={styles.tradingButtonText}>Trade</Text>
                   </TouchableOpacity>
                </View>

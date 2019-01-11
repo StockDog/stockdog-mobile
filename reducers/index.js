@@ -15,6 +15,6 @@ const sceneReducer = (state = {}, action) => {
 
 
 export default reducers = combineReducers({
-    sceneReducer,
-    authReducer,
+    'scenes': sceneReducer,
+    'auth': authReducer,
 });

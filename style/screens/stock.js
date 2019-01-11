@@ -15,9 +15,9 @@ export default styles = StyleSheet.create({
       justifyContent: 'space-around'
    },
    tickerContainer: {
-      flex: 0.2,
+      flex: 0.5,
       justifyContent: 'center',
-      alignItems: 'center',
+      alignItems: 'center'
    },
    dateRangeButtonGroup: {
       height: height * 0.05,
