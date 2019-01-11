@@ -4,7 +4,7 @@ import store from './store/store';
 const baseurl = 'http://localhost:5005/api';
 
 const getConfig = (auth = true) => {
-   var token = auth ? store.getState().auth.token : null;
+   const token = auth ? store.getState().auth.token : null;
    return {
       headers: {
          'Content-Type': 'application/json',
@@ -15,7 +15,7 @@ const getConfig = (auth = true) => {
 }
 
 const register = async (firstName, lastName, email, password) => {
-   var data = {
+   const data = {
       "firstName": firstName,
       "lastName": lastName,
       "email": email,
@@ -25,7 +25,7 @@ const register = async (firstName, lastName, email, password) => {
 }
 
 const login = async (email, password) => {
-   var data = {
+   const data = {
       'email': email,
       'password': password
    };
@@ -33,7 +33,7 @@ const login = async (email, password) => {
 };
 
 const getStockHistory = async (ticker, length) => {
-   var config = getConfig();
+   let config = getConfig();
    config['params'] = {
       ticker,
       length
