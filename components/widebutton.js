@@ -24,8 +24,8 @@ export default class WideButton extends Component {
             buttonText = 'SELL';
             style = styles.sellModalButton;
             break;
-         case 'portfolio':
-            buttonText = 'Next';
+         case 'addLeague':
+            buttonText = 'Create league';
             break;
          case 'join':
             buttonText = 'Join league!';
