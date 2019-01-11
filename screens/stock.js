@@ -33,7 +33,7 @@ export default class Stock extends Component {
       const buttonVal = Object.keys(lengthMap)[idx];
       var xData = [];
       var yData = [];
-      getStockHistory('GRPN', lengthMap[buttonVal]).then((res) => {
+      getStockHistory(this.props.ticker, lengthMap[buttonVal]).then((res) => {
          res.data.forEach((val) => {
             var timeStrArray = val.time.split(" ");
             var date = buttonVal == 'D' ? 
@@ -67,7 +67,7 @@ export default class Stock extends Component {
             <NavBar/>
             <View style={styles.stockContent}>
                <View style={styles.tickerContainer}>
-                  <Text style={styles.tickerText}>GRPN</Text>
+                  <Text style={styles.tickerText}>{this.props.ticker}</Text>
                </View>
                <StockChart 
                   xData={this.state.xData} 
