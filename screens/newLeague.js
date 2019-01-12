@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import Lightbox from '../components/baseLightbox';
 import DatePicker from 'react-native-datepicker';
 import { Actions } from 'react-native-router-flux';
 import FormInput from '../components/formInput';
 import WideButton from '../components/widebutton';
 import Icon from 'react-native-vector-icons/Feather';
+import styles from '../style/screens/newLeague';
+import NavBar from '../components/navbar';
 import Api from '../api';
 
 export default class AddPortfolioModal extends Component {
@@ -19,7 +20,6 @@ export default class AddPortfolioModal extends Component {
          minDate: "01-01-2001"
       };
 
-      this.api = new Api();
    }
 
    componentDidMount() {
@@ -57,25 +57,18 @@ export default class AddPortfolioModal extends Component {
       }
    }
 
-   close = () => {
-      Actions.pop();
-   };
-
    render() {
       var disabled = !(this.state.name &&
-         this.state.buyPower &&
-         this.state.startDate &&
-         this.state.endDate)
+         this.state.buyPower)
 
       return (
-         <View>
-            <View>
-               <Text style={text.modalHeader}> Create a League </Text>
-               <TouchableOpacity onPress={this.close}>
-                  <Icon name='x' size={30} color='white' />
-               </TouchableOpacity>
+         <View style={styles.background}>
+            <View style={styles.backgroundCircle} />
+            <NavBar/>
+            <View style={styles.titleContainer}>
+               <Text style={styles.title}> Create a League </Text>
             </View>
-            <View>
+            <View style={styles.form}>
                <FormInput
                   type="Name"
                   onchange={(name) => this.setState({ name })}
@@ -84,8 +77,7 @@ export default class AddPortfolioModal extends Component {
                   type="Buying Power"
                   onchange={(buyPower) => this.setState({ buyPower })}
                   value={this.state.buyPower} />
-               <DatePicker
-                  style={elements.roundedInput}
+               {/* <DatePicker
                   date={this.state.startDate}
                   mode="date"
                   placeholder="Select start date"
@@ -110,7 +102,6 @@ export default class AddPortfolioModal extends Component {
                   onDateChange={(startDate) => { this.setState({ startDate }) }}
                />
                <DatePicker
-                  style={elements.roundedInput}
                   date={this.state.endDate}
                   mode="date"
                   placeholder="Select end date"
@@ -133,8 +124,8 @@ export default class AddPortfolioModal extends Component {
                   }}
                   iconComponent={<Icon name='calendar' size={30} color='grey' />}
                   onDateChange={(endDate) => { this.setState({ endDate }) }}
-               />
-               <WideButton disabled={disabled} type="portfolio" onpress={this.onpress} />
+               /> */}
+               <WideButton disabled={disabled} type="addLeague" onpress={this.onpress} />
             </View>
          </View>
       );
