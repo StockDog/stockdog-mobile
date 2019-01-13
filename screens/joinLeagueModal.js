@@ -1,66 +1,69 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, TextInput, Button } from 'react-native';
-import Lightbox from '../components/baseLightbox';
+import { Text, TouchableOpacity, View, TextInput, Button } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import Modal from 'react-native-modal';
 import FormInput from '../components/formInput';
 import WideButton from '../components/widebutton';
 import Icon from 'react-native-vector-icons/Feather';
-import Api from '../api';
+import styles from '../style/screens/joinLeague';
+import NavBar from '../components/navbar';
+import { joinLeague } from '../api';
 
 export default class JoinLeagueModal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inviteCode: ""
-    };
-    this.api = new Api();
-  }
+   constructor(props) {
+      super(props);
+      this.state = {
+         inviteCode: "",
+         buyPower: "",
+         nickname: ""
+      };
+   }
 
-  onchangename = (inviteCode) => {
-    this.setState({inviteCode})
-  }
+   close = () => {
+      Actions.pop();
+   }
 
-  close = () => {
-    Actions.pop();
-  }
+   submitJoinLeague = () => {
+      joinLeague(this.state.inviteCode, parseInt(this.state.buyPower), 'sigal\'s league').then((res) => {
+         if (res.valid) {
+            Actions.setnickname({ league: res.league, inviteCode: this.state.inviteCode });
+         }
+         else {
+            alert("Invite code not found.");
+         }
+      }).catch((err) => {
+         console.log(err.response);
+      });
+   }
 
-  submitCode = () => {
-    this.api.isValidInviteCode(this.state.inviteCode, (res) => {
-      if (res.valid) {
-        Actions.setnickname({league: res.league, inviteCode: this.state.inviteCode});
+   render() {
+      var notFound;
+      if (this.state.notFound) {
+         notFound = <Text style={styles.joinLeagueWarning}> League Not Found </Text>
       }
-      else {
-        alert("Invite code not found.");
-      }
-    });
-  }
-
-  render() {
-    var notFound;
-    if (this.state.notFound) {
-      notFound = <Text style={text.joinLeagueWarning}> League Not Found </Text>
-    }
-    return (
-      <Lightbox verticalPercent={0.7} horizontalPercent={0.8}>
-        <View style={containers.addGroupOuterModal}>
-          <View style={containers.addGroupModalHeader}>
-            <Text style={text.modalHeader}> Join a League </Text>
-            <TouchableOpacity onPress={this.close}>
-              <Icon name='x' size={30} color='white' />
-            </TouchableOpacity>
-          </View>
-          <View style={containers.addGroupInnerModal}>
-            <Text style={text.joinLeagueTitle}> Invite Code: </Text>
-            <FormInput 
-              type="Code" 
-              onchange={this.onchangename.bind(this)} 
-              value={this.state.inviteCode}/>
-            <WideButton type="portfolio" onpress={this.submitCode}/>
-            {notFound}
-          </View>
-        </View>
-      </Lightbox>
-    );
-  }
+      return (
+         <View style={styles.background}>
+            <View style={styles.backgroundCircle}></View>
+            <NavBar />
+            <View style={styles.titleContainer}>
+               <Text style={styles.title}> Join a League </Text>
+            </View>
+            <View style={styles.contentContainer}>
+               <FormInput
+                  type="Invite Code"
+                  onchange={(code) => { this.setState({ inviteCode: code }) }}
+                  value={this.state.inviteCode} />
+               <FormInput
+                  type="Buy Power"
+                  onchange={(bp) => { this.setState({ buyPower: bp }) }}
+                  value={this.state.buyPower} />
+               <FormInput
+                  type="Your nickname"
+                  onchange={(name) => { this.setState({ nickname: name }) }}
+                  value={this.state.nickname} />
+               <WideButton type="portfolio" onpress={this.submitJoinLeague} />
+               {notFound}
+            </View>
+         </View>
+      );
+   }
 };

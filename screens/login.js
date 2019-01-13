@@ -37,7 +37,7 @@ class Login extends Component {
       login(this.state.email, this.state.password).then((res) => {
          this.props.loginUser(res.data.userId, res.data.token);
          // Actions.portfoliomain();
-         Actions.stock();
+         Actions.joinportfolio();
       }).catch((e) => {
          alert('Invalid credentials. Please try again.');
       });

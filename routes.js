@@ -24,6 +24,7 @@ const Routes = () => (
          <Scene key="root" hideNavBar>
             <Scene key="login" component={Login}/>
             <Scene key="register" component={Register}/>
+            <Scene key="joinportfolio" hideNavBar component={JoinLeagueModal}/>
             {/* <Drawer
               key="drawer"  
               contentComponent={LeagueDrawer} 
@@ -58,11 +59,11 @@ const Routes = () => (
                 </Lightbox>*/}
 
 
-            <Scene key="stock" component={Stock} hideNavBar swipeDownToClose={false} />
+            {/* <Scene key="stock" component={Stock} hideNavBar swipeDownToClose={false} />
             <Lightbox>
                
                <Scene key="tradingmodal" component={TradingModal} swipeDownToClose={true} />
-            </Lightbox>
+            </Lightbox> */}
             {/* <Scene key="settings" component={SettingsModal} hideNavBar />
         </Modal>
       </Drawer> */}

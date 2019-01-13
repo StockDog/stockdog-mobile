@@ -15,21 +15,23 @@ const getConfig = (auth = true) => {
 }
 
 const register = async (firstName, lastName, email, password) => {
+   const config = getConfig();
    const data = {
       "firstName": firstName,
       "lastName": lastName,
       "email": email,
       "password": password
    };
-   return await axios.post(baseurl + '/users', data, getConfig(auth=false));
+   return await axios.post(baseurl + '/users', data, config);
 }
 
 const login = async (email, password) => {
+   const config = getConfig();
    const data = {
       'email': email,
       'password': password
    };
-   return await axios.post(baseurl + '/users/session', data, getConfig(auth=false));
+   return await axios.post(baseurl + '/users/session', data, config);
 };
 
 const getStockHistory = async (ticker, length) => {
@@ -41,8 +43,19 @@ const getStockHistory = async (ticker, length) => {
    return await axios.get(baseurl + '/charts', config);
 };
 
+const joinLeague = async (inviteCode, buyPower, name) => {
+   const config = getConfig();
+   const data = {
+      inviteCode,
+      buyPower,
+      name
+   };
+   return await axios.post(baseurl + '/portfolios', data, config);
+};
+
 export {
    register,
    login,
-   getStockHistory
+   getStockHistory,
+   joinLeague
 };
