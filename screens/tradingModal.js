@@ -5,6 +5,7 @@ import Lightbox from '../components/baseLightbox';
 import { Actions } from 'react-native-router-flux';
 import { colors } from '../style/colors';
 import styles from '../style/screens/tradingmodal';
+import { tradeStock } from '../api';
 
 export default class TradingModal extends Component {
    constructor(props) {
@@ -16,8 +17,13 @@ export default class TradingModal extends Component {
       };
    }
 
-   buysellstock() {
-
+   tradeStock = () => {
+      const props = this.props.navigation.state.params.ticker;
+      tradeStock(amount, props.ticker, this.state.action.toUpperCase()).then((res) => {
+         console.log(res);
+      }).catch((err) => {
+         console.log(err);
+      });
    }
 
    onChangeAction = (actionIndex) => {
@@ -75,7 +81,7 @@ export default class TradingModal extends Component {
             <View style={styles.total}>
                <Text style={styles.totalText}>Total: ${total}</Text>
             </View>
-            <TouchableOpacity style={buttonStyle}>
+            <TouchableOpacity style={buttonStyle} onPress={this.tradeStock}>
                <Text style={buttonTextStyle}>Execute</Text>
             </TouchableOpacity>
          </Lightbox>
