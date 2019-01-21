@@ -1,7 +1,7 @@
 import axios from 'axios';
 import store from './store/store';
 
-const baseurl = 'http://localhost:5005/api';
+const baseurl = 'http://localhost:5005/api/v1.0';
 
 const getConfig = (auth = true) => {
    const token = auth ? store.getState().auth.token : null;
