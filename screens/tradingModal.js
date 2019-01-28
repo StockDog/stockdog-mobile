@@ -17,12 +17,18 @@ export default class TradingModal extends Component {
       };
    }
 
-   tradeStock = () => {
-      const props = this.props.navigation.state.params.ticker;
-      tradeStock(amount, props.ticker, this.state.action.toUpperCase()).then((res) => {
+   executeTrade = () => {
+      const props = this.props.navigation.state.params;
+      console.log(props.ticker);
+      console.log(this.state.amount);
+      tradeStock(
+         parseInt(this.state.amount), 
+         props.ticker, 
+         this.state.action.toUpperCase()
+      ).then((res) => {
          console.log(res);
       }).catch((err) => {
-         console.log(err);
+         console.log(err.response);
       });
    }
 
@@ -81,7 +87,7 @@ export default class TradingModal extends Component {
             <View style={styles.total}>
                <Text style={styles.totalText}>Total: ${total}</Text>
             </View>
-            <TouchableOpacity style={buttonStyle} onPress={this.tradeStock}>
+            <TouchableOpacity style={buttonStyle} onPress={this.executeTrade}>
                <Text style={buttonTextStyle}>Execute</Text>
             </TouchableOpacity>
          </Lightbox>
