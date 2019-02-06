@@ -13,22 +13,21 @@ export default class TradingModal extends Component {
       this.state = {
          action: '',
          price: '',
-         amount: ''
+         amount: '',
+         complete: false
       };
    }
 
    executeTrade = () => {
       const props = this.props.navigation.state.params;
-      console.log(props.ticker);
-      console.log(this.state.amount);
       tradeStock(
          parseInt(this.state.amount), 
          props.ticker, 
          this.state.action.toUpperCase()
       ).then((res) => {
-         console.log(res);
+         this.setState({complete: true});
       }).catch((err) => {
-         console.log(err.response);
+         alert(Object.values(err.response.data)[0]);
       });
    }
 
@@ -42,9 +41,24 @@ export default class TradingModal extends Component {
 
    render() {
       var props = this.props.navigation.state.params;
-      var buyingPower = props.buyingPower;
-      var price = props.price;
+
+      if (this.state.complete) {
+         return (
+            <Lightbox verticalPercent={0.5} horizontalPercent={0.8}>
+               <View style={styles.outermostBaseContainer}>
+                  <Text style={styles.successMessageText}>
+                     Nice trade! {"\n"}
+                     You just {this.state.action === 'Buy' ? 'bought ' : 'sold '}  
+                     {this.state.amount} shares of {props.ticker}.
+                  </Text>
+               </View>
+            </Lightbox>
+         )
+      }
+      var buyingPower = props.buyingPower.toFixed(2);
+      var price = props.price.toFixed(2);
       var total = this.state.amount ? price * parseInt(this.state.amount) : 0;
+      total = total.toFixed(2);
 
       var isDisabled = !(this.state.amount && this.state.action) 
          || this.state.amount <= 0;
@@ -64,7 +78,7 @@ export default class TradingModal extends Component {
             </View>
             <View style={styles.inputs}>
                <Text style={styles.buyingPowerText}>
-                  Current Price: {price}
+                  Current Price: ${price}
                </Text>
                <ButtonGroup
                   onPress={this.onChangeAction}
@@ -77,11 +91,11 @@ export default class TradingModal extends Component {
                   selectedTextStyle={{color: 'white'}}/>
                <TextInput
                   style={styles.amountInput}
-                  keyboardType="numeric"
+                  keyboardType="number-pad"
                   placeholder="Amount"
                   placeholderColor={colors.grey}
                   value={this.state.amount}
-                  onChangeText={(amount) => this.setState({amount})}
+                  onChangeText={(amt) => {this.setState({amount: amt})}}
                   returnKeyType="done"/>
             </View>
             <View style={styles.total}>

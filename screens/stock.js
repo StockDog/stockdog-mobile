@@ -53,12 +53,14 @@ export default class Stock extends Component {
       return mo + " " + day;
    }
 
-   openModal() {
+   openModal = () => {
+      const currentPrice = this.state.yData[this.state.yData.length - 1];
+
       Actions.tradingmodal({ 
          ticker: 'GRPN',
          buyingPower: 10,
          total: 0,
-         price: 2
+         price: currentPrice
       });
    }
 

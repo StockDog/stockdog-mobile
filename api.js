@@ -21,7 +21,7 @@ const register = async (firstName, lastName, email, password) => {
     "email": email,
     "password": password
   };
-  return await axios.post(baseurl + '/users', data, getConfig(auth = false));
+  return await axios.post(`${baseurl}/users`, data, getConfig(auth = false));
 }
 
 const login = async (email, password) => {
@@ -29,16 +29,15 @@ const login = async (email, password) => {
     'email': email,
     'password': password
   };
-  return await axios.post(baseurl + '/users/session', data, getConfig(auth = false));
+  return await axios.post(`${baseurl}/users/session`, data, getConfig(auth = false));
 };
 
 const getStockHistory = async (ticker, length) => {
   let config = getConfig();
   config['params'] = {
-    ticker,
     length
   };
-  return await axios.get(baseurl + '/charts', config);
+  return await axios.get(`${baseurl}/charts/${ticker}`, config);
 };
 
 const tradeStock = async (shareCount, ticker, action) => {
