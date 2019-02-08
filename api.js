@@ -40,8 +40,23 @@ const getStockHistory = async (ticker, length) => {
   return await axios.get(`${baseurl}/charts/${ticker}`, config);
 };
 
+const tradeStock = async (shareCount, ticker, action) => {
+  const config = getConfig();
+  // TODO: Implement portfolios in store
+  // const portfolioId = store.getState().portfolios.currentPortfolio;
+  const portfolioId = 1;
+  const data = {
+    shareCount,
+    ticker,
+    action,
+    portfolioId
+  };
+  return await axios.post(baseurl + '/transactions', data, config);
+}
+
 export {
   register,
   login,
-  getStockHistory
+  getStockHistory,
+  tradeStock
 };

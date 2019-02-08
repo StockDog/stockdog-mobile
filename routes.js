@@ -21,16 +21,17 @@ import store from './store/store';
 const Routes = () => (
    <Provider store={store}>
       <CustomRouter>
-         <Scene key="root" hideNavBar>
-            <Scene key="login" component={Login}/>
-            <Scene key="register" component={Register}/>
-            {/* <Drawer
+         <Lightbox key="lightbox">
+            <Scene key="root" hideNavBar>
+               <Scene key="login" component={Login} />
+               <Scene key="register" component={Register} />
+               {/* <Drawer
               key="drawer"  
               contentComponent={LeagueDrawer} 
               type="replace"
             >
               <Modal key="modal">  */}
-            {/* <Tabs
+               {/* <Tabs
                key="main"
                tabBarStyle={tabStyle.tabBar}
                tabStyle={tabStyle.tabStyle}
@@ -50,7 +51,7 @@ const Routes = () => (
                     <Scene key="search" component={Search}/>
                   </Scene>
             </Tabs> */}
-            {/*<Lightbox key="lightbox">
+               {/*<Lightbox key="lightbox">
                   <Scene key="noportfolios" hideNavBar component={noPortfoliosProfile}/>
                   <Scene key="addportfolio" hideNavBar component={AddPortfolioModal}/>
                   <Scene key="joinportfolio" hideNavBar component={JoinLeagueModal}/>
@@ -58,15 +59,15 @@ const Routes = () => (
                 </Lightbox>*/}
 
 
-            <Scene key="stock" component={Stock} hideNavBar swipeDownToClose={false} />
-            <Lightbox>
-               
-               <Scene key="tradingmodal" component={TradingModal} swipeDownToClose={true} />
-            </Lightbox>
-            {/* <Scene key="settings" component={SettingsModal} hideNavBar />
+               <Scene key="stock" component={Stock} hideNavBar swipeDownToClose={false} />
+
+
+               {/* <Scene key="settings" component={SettingsModal} hideNavBar />
         </Modal>
       </Drawer> */}
-         </Scene>
+            </Scene>
+            <Scene key="tradingmodal" component={TradingModal} swipeDownToClose={true} />
+         </Lightbox>
       </CustomRouter>
    </Provider>
 );
