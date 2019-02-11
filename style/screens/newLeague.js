@@ -19,8 +19,8 @@ export default styles = StyleSheet.create({
       top: height * -1.55,
       right: width * -1.1,
       zIndex: -1,
-      borderBottomLeftRadius: 1978/2,
-      borderBottomRightRadius: 1978/2
+      borderBottomLeftRadius: 1978 / 2,
+      borderBottomRightRadius: 1978 / 2
    },
    iconHeaders: {
       flex: 0.1,
@@ -33,15 +33,14 @@ export default styles = StyleSheet.create({
    },
    titleContainer: {
       flex: 0.15,
-      // backgroundColor: 'pink',
       justifyContent: 'center',
       alignItems: 'center'
    },
    form: {
-      flex: 0.75,
-      // backgroundColor: 'yellow',
+      flex: 0.65,
       marginTop: height * 0.05,
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
+      alignItems: 'center'
    },
    // ----------------- Text ------------- //
    title: {
@@ -49,5 +48,10 @@ export default styles = StyleSheet.create({
       fontSize: 42,
       color: colors.white
    },
-   
+   datePlaceholderText: {
+      fontFamily: 'assistant',
+      textAlign: 'left',
+      color: "#aaaaaa",
+      marginLeft: -30
+   }
 });
