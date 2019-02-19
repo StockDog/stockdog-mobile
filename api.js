@@ -54,10 +54,11 @@ const tradeStock = async (shareCount, ticker, action) => {
   return await axios.post(`${baseurl}/transactions`, data, config);
 }
 
-const createLeague = async (namel, startPos, start, end) => {
+const createLeague = async (name, sp, start, end) => {
   const config = getConfig();
+  const startPos = parseInt(sp);
   const data = {
-    namel,
+    name,
     startPos,
     start,
     end

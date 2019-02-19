@@ -37,10 +37,27 @@ export default styles = StyleSheet.create({
       alignItems: 'center'
    },
    form: {
-      flex: 0.65,
+      flex: 0.55,
       marginTop: height * 0.05,
-      justifyContent: 'space-between',
+      justifyContent: 'space-around',
       alignItems: 'center'
+   },
+   formBuffer: {
+      flex: 0.1
+   },
+   submitButton: {
+      flex: 0.1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      // paddingTop: height * 0.2
+   },
+   datepicker: {
+      width: width * 0.7
+   },
+   dateInput: {
+      flex: 0.7,
+      alignItems: 'flex-start',
+      borderWidth: 0
    },
    // ----------------- Text ------------- //
    title: {
@@ -50,8 +67,14 @@ export default styles = StyleSheet.create({
    },
    datePlaceholderText: {
       fontFamily: 'assistant',
+      fontSize: 18,
       textAlign: 'left',
-      color: "#aaaaaa",
-      marginLeft: -30
+      color: colors.lightGrey
+   },
+   dateText: {
+      fontFamily: 'assistant',
+      textAlign: 'left',
+      fontSize: 18,
+      color: colors.lightGrey
    }
 });

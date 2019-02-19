@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 import { Actions } from 'react-native-router-flux';
 import FormInput from '../components/formInput';
@@ -44,20 +44,27 @@ export default class NewLeague extends Component {
     return today;
   }
 
+  validDates = (start, end) => {
+    var startSplit = start.split('-').map(val => parseInt(val, 10));
+    var endSplit = end.split('-').map(val => parseInt(val, 10));
+    return new Date(startSplit[2], startSplit[0], startSplit[1]) < 
+      new Date(endSplit[2], endSplit[0], endSplit[1]);
+  }
+
   onpress = () => {
     if (/[a-zA-Z]/.test(this.state.buyPower)) {
-      alert("Invalid buypower value. Please enter numbers only.");
+      alert("Invalid Buying Power value. Please enter numbers only.");
     }
-    else if (this.state.startDate && this.state.endDate &&
-      (this.state.startDate >= this.state.endDate)) {
+    else if (this.state.startDate && this.state.endDate && 
+      !this.validDates(this.state.startDate, this.state.endDate)) { 
       alert("Invalid dates. Please make the end date later than the start date.");
     }
     else {
       createLeague(this.state.name, this.state.buyPower,
         this.state.startDate, this.state.endDate).then((res) => {
-          console.log('success!', res);
+          console.log('success!', res);  // Redirect to homepage
         }).catch((err) => {
-          console.log(err.response);
+          alert(Object.values(err.response.data)[0]);
         });
     }
   }
@@ -85,6 +92,7 @@ export default class NewLeague extends Component {
           <DatePicker
             date={this.state.startDate}
             mode="date"
+            style={styles.datepicker}
             placeholder="Select start date"
             format="MM-DD-YYYY"
             minDate={this.state.minDate}
@@ -92,11 +100,8 @@ export default class NewLeague extends Component {
             cancelBtnText="Cancel"
             customStyles={{
               placeholderText: styles.datePlaceholderText,
-              dateInput: {
-                flex: 0.7,
-                alignItems: 'flex-start',
-                borderWidth: 0
-              }
+              dateInput: styles.dateInput,
+              dateText: styles.dateText
             }}
             iconComponent={<Icon name='calendar' size={30} color='grey' />}
             onDateChange={(startDate) => { this.setState({ startDate }) }}
@@ -104,6 +109,7 @@ export default class NewLeague extends Component {
           <DatePicker
             date={this.state.endDate}
             mode="date"
+            style={styles.datepicker}
             placeholder="Select end date"
             format="MM-DD-YYYY"
             minDate={this.state.minDate}
@@ -111,15 +117,15 @@ export default class NewLeague extends Component {
             cancelBtnText="Cancel"
             customStyles={{
               placeholderText: styles.datePlaceholderText,
-              dateInput: {
-                flex: 0.7,
-                alignItems: 'flex-start',
-                borderWidth: 0
-              }
+              dateInput: styles.dateInput,
+              dateText: styles.dateText
             }}
-            iconComponent={<Icon name='calendar' size={30} color='grey' />}
+            iconComponent={<Icon name='calendar' size={36} color='grey' />}
             onDateChange={(endDate) => { this.setState({ endDate }) }}
-          />
+          /> 
+        </View>
+        <View style={styles.formBuffer}/>
+        <View style={styles.submitButton}>
           <WideButton disabled={disabled} type="addLeague" onpress={this.onpress} />
         </View>
       </View>
