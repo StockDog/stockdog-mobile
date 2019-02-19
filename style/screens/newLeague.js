@@ -48,8 +48,7 @@ export default styles = StyleSheet.create({
    submitButton: {
       flex: 0.1,
       justifyContent: 'center',
-      alignItems: 'center',
-      // paddingTop: height * 0.2
+      alignItems: 'center'
    },
    datepicker: {
       width: width * 0.7
