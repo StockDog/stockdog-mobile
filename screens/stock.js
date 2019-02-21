@@ -33,7 +33,7 @@ export default class Stock extends Component {
       const buttonVal = Object.keys(lengthMap)[idx];
       var xData = [];
       var yData = [];
-      getStockHistory(this.props.ticker, lengthMap[buttonVal]).then((res) => {
+      getStockHistory('GRPN', lengthMap[buttonVal]).then((res) => {
          res.data.forEach((val) => {
             var timeStrArray = val.time.split(" ");
             var date = buttonVal == 'D' ? 
@@ -53,11 +53,14 @@ export default class Stock extends Component {
       return mo + " " + day;
    }
 
-   openModal() {
+   openModal = () => {
+      const currentPrice = this.state.yData[this.state.yData.length - 1];
+
       Actions.tradingmodal({ 
+         ticker: 'GRPN',
          buyingPower: 10,
          total: 0,
-         price: 2
+         price: currentPrice
       });
    }
 

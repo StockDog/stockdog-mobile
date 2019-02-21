@@ -11,7 +11,7 @@ import Stock from './screens/stock';
 import League from './screens/league';
 import Feed from './screens/feed';
 import AddPortfolioModal from './screens/addportfoliomodal';
-import JoinLeagueModal from './screens/joinLeagueModal';
+import JoinLeague from './screens/joinLeague';
 import TradingModal from './screens/tradingModal';
 import TabIcon from './components/tabIcon';
 import { colors } from './style/colors';
@@ -24,14 +24,14 @@ const Routes = () => (
          <Scene key="root" hideNavBar>
             <Scene key="login" component={Login}/>
             <Scene key="register" component={Register}/>
-            <Scene key="joinportfolio" hideNavBar component={JoinLeagueModal}/>
+            <Scene key="joinleague" hideNavBar component={JoinLeague}/>
             {/* <Drawer
               key="drawer"  
               contentComponent={LeagueDrawer} 
               type="replace"
             >
               <Modal key="modal">  */}
-            {/* <Tabs
+               {/* <Tabs
                key="main"
                tabBarStyle={tabStyle.tabBar}
                tabStyle={tabStyle.tabStyle}
@@ -51,7 +51,7 @@ const Routes = () => (
                     <Scene key="search" component={Search}/>
                   </Scene>
             </Tabs> */}
-            {/*<Lightbox key="lightbox">
+               {/*<Lightbox key="lightbox">
                   <Scene key="noportfolios" hideNavBar component={noPortfoliosProfile}/>
                   <Scene key="addportfolio" hideNavBar component={AddPortfolioModal}/>
                   <Scene key="joinportfolio" hideNavBar component={JoinLeagueModal}/>
@@ -67,7 +67,10 @@ const Routes = () => (
             {/* <Scene key="settings" component={SettingsModal} hideNavBar />
         </Modal>
       </Drawer> */}
-         </Scene>
+            
+            <Scene key="tradingmodal" component={TradingModal} swipeDownToClose={true} />
+            </Scene>
+         {/* </Lightbox> */}
       </CustomRouter>
    </Provider>
 );

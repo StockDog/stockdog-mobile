@@ -91,7 +91,7 @@ export default styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: 'transparent',
-      borderColor: colors.bright,
+      borderColor: colors.lightGrey,
       borderWidth: 1,
       borderRadius: 8,
       marginTop: 10
@@ -116,6 +116,12 @@ export default styles = StyleSheet.create({
    disabledExecuteButtonText: {
       fontFamily: 'assistant',
       fontSize: 20,
+      color: colors.black
+   },
+   successMessageText: {
+      textAlign: 'center',
+      fontFamily: 'assistant',
+      fontSize: 36,
       color: colors.black
    },
 });
