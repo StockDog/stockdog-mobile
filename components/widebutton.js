@@ -29,7 +29,7 @@ export default class WideButton extends Component {
             buttonText = 'Join league!';
             break;
          case 'cancel':
-            buttonText = 'CANCEL';
+            buttonText = 'Cancel';
             break;
          case 'logout':
             buttonText = 'LOGOUT';
@@ -38,7 +38,12 @@ export default class WideButton extends Component {
       var style = styles.loginButton;
       if (this.props.type == 'sell') {
          style = styles.sellModalButton;
+      };
+
+      if (this.props.type == 'cancel') {
+         style = styles.cancelButton;
       }
+
       if (this.props.disabled) {
          style = styles.disabledLoginButton;
       };

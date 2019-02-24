@@ -38,7 +38,14 @@ export default styles = StyleSheet.create({
    },
    contentContainer: {
       flex: 0.75,
-      paddingTop: height * 0.05
+      paddingTop: height * 0.05,
+      justifyContent: 'space-around',
+      alignItems: 'center'
+   },
+   inputsContainer: {
+      flex: 0.5,
+      justifyContent: 'space-around',
+      alignItems: 'center'
    },
    // ----------------- Text ------------- //
    title: {
@@ -47,7 +54,7 @@ export default styles = StyleSheet.create({
       color: colors.white
    },
    joinLeagueWarning: {
-      color: colors.white,
+      color: colors.red,
       fontFamily: 'assistant',
       fontSize: 14,
       paddingTop: 10

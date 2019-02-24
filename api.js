@@ -40,11 +40,10 @@ const getStockHistory = async (ticker, length) => {
   return await axios.get(`${baseurl}/charts/${ticker}`, config);
 };
 
-const joinLeague = async (inviteCode, buyPower, name) => {
+const joinLeague = async (inviteCode, name) => {
    const config = getConfig();
    const data = {
       inviteCode,
-      buyPower,
       name
    };
    return await axios.post(baseurl + '/portfolios', data, config);

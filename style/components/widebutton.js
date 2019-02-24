@@ -32,6 +32,16 @@ export default styles = StyleSheet.create({
       justifyContent: 'center',
       marginTop: 10
    },
+   cancelButton: {
+      height: 45,
+      width: 250,
+      borderColor: colors.lightGrey,
+      borderWidth: 1,
+      borderRadius: 25,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 10
+   },
    // ----------------- Text ------------- //
    wideButton: {
       fontSize: 20,
