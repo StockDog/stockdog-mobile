@@ -60,7 +60,8 @@ export default class NewLeague extends Component {
       alert("Invalid dates. Please make the end date later than the start date.");
     }
     else {
-      createLeague(this.state.name, this.state.buyPower,
+      const startPos = parseInt(this.state.buyPower);
+      createLeague(this.state.name, startPos,
         this.state.startDate, this.state.endDate).then((res) => {
           console.log('success!', res);  // Redirect to homepage
         }).catch((err) => {
