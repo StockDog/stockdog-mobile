@@ -7,13 +7,14 @@ import WideButton from '../components/widebutton';
 import Icon from 'react-native-vector-icons/Feather';
 import styles from '../style/screens/newLeague';
 import NavBar from '../components/navbar';
-import { createLeague } from '../api';
+import { createLeague, joinLeague } from '../api';
 
 export default class NewLeague extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
+      leagueName: "",
+      nickname: "",
       buyPower: "",
       startDate: "",
       endDate: "",
@@ -51,7 +52,7 @@ export default class NewLeague extends Component {
       new Date(endSplit[2], endSplit[0], endSplit[1]);
   }
 
-  onpress = () => {
+  onSubmitLeague = () => {
     if (/[a-zA-Z]/.test(this.state.buyPower)) {
       alert("Invalid Buying Power value. Please enter numbers only.");
     }
@@ -61,17 +62,22 @@ export default class NewLeague extends Component {
     }
     else {
       const startPos = parseInt(this.state.buyPower);
-      createLeague(this.state.name, startPos,
+      createLeague(this.state.leagueName, startPos,
         this.state.startDate, this.state.endDate).then((res) => {
-          console.log('success!', res);  // Redirect to homepage
+          joinLeague(res.data.inviteCode, this.state.nickname).then((res) => {
+            // TODO: Set current portfolio in store to joined portfolio
+	          Actions.portfoliomain();
+          }).catch((err) => {
+            alert(Object.values(err.response.data[0]));
+          })
         }).catch((err) => {
-          alert(Object.values(err.response.data)[0]);
+          alert(Object.values(err.response.data[0]));
         });
     }
   }
 
   render() {
-    var disabled = !(this.state.name &&
+    var disabled = !(this.state.leagueName && this.state.nickname &&
       this.state.buyPower)
 
     return (
@@ -83,9 +89,13 @@ export default class NewLeague extends Component {
         </View>
         <View style={styles.form}>
           <FormInput
-            type="Name"
-            onchange={(name) => this.setState({ name })}
-            value={this.state.name} />
+            type="League Name"
+            onchange={(leagueName) => this.setState({ leagueName })}
+            value={this.state.leagueName} />
+          <FormInput
+            type="Your Nickname"
+            onchange={(nickname) => this.setState({ nickname })}
+            value={this.state.nickname} />
           <FormInput
             type="Buying Power"
             onchange={(buyPower) => this.setState({ buyPower })}
@@ -127,7 +137,7 @@ export default class NewLeague extends Component {
         </View>
         <View style={styles.formBuffer}/>
         <View style={styles.submitButton}>
-          <WideButton disabled={disabled} type="addLeague" onpress={this.onpress} />
+          <WideButton disabled={disabled} type="addLeague" onpress={this.onSubmitLeague} />
         </View>
       </View>
     );
