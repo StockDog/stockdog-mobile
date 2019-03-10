@@ -40,15 +40,6 @@ const getStockHistory = async (ticker, length) => {
   return await axios.get(`${baseurl}/charts/${ticker}`, config);
 };
 
-const joinLeague = async (inviteCode, name) => {
-   const config = getConfig();
-   const data = {
-      inviteCode,
-      name
-   };
-   return await axios.post(baseurl + '/portfolios', data, config);
-};
-
 const tradeStock = async (shareCount, ticker, action) => {
   const config = getConfig();
   // TODO: Implement portfolios in store
@@ -60,13 +51,34 @@ const tradeStock = async (shareCount, ticker, action) => {
     action,
     portfolioId
   };
-  return await axios.post(baseurl + '/transactions', data, config);
+  return await axios.post(`${baseurl}/transactions`, data, config);
 }
+
+const createLeague = async (name, startPos, startDate, endDate) => {
+  const config = getConfig();
+  const data = {
+    name,
+    startPos,
+    start: startDate,
+    end: endDate
+  };
+  return await axios.post(`${baseurl}/leagues`, data, config)
+}
+
+const joinLeague = async (inviteCode, name) => {
+   const config = getConfig();
+   const data = {
+      inviteCode,
+      name
+   };
+   return await axios.post(baseurl + '/portfolios', data, config);
+};
 
 export {
   register,
   login,
   getStockHistory,
-  joinLeague,
-  tradeStock
+  tradeStock,
+  createLeague,
+  joinLeague
 };
