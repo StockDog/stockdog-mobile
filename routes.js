@@ -24,7 +24,8 @@ const Routes = () => (
          <Scene key="root" hideNavBar>
             <Scene key="login" component={Login}/>
             <Scene key="register" component={Register}/>
-            <Scene key="joinleague" hideNavBar component={JoinLeague}/>
+            <Scene key="portfolio" component={Portfolio} onEnter={Portfolio.onEnterPortfolio} />
+            {/* <Scene key="joinleague" hideNavBar component={JoinLeague}/> */}
             {/* <Drawer
               key="drawer"  
               contentComponent={LeagueDrawer} 

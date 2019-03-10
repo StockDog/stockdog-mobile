@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { TouchableOpacity, View, AsyncStorage } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Feather';
+import styles from '../style/components/navbar';
 
 export default class NavBar extends Component {
 
@@ -25,7 +26,7 @@ export default class NavBar extends Component {
 
    render() {
       return (
-         <View style={containers.iconHeaders}>
+         <View style={styles.iconHeaders}>
             <TouchableOpacity>
                <Icon name='menu' size={30} color='white' />
             </TouchableOpacity>

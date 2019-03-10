@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 
 class TabIcon extends Component {
    render() {
