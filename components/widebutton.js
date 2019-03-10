@@ -9,6 +9,7 @@ export default class WideButton extends Component {
 
    render() {
       var buttonText = "";
+      var style = styles.loginButton;
       switch (this.props.type) {
          case 'login':
             buttonText = 'LOGIN';
@@ -21,6 +22,7 @@ export default class WideButton extends Component {
             break;
          case 'sell':
             buttonText = 'SELL';
+            style = styles.sellModalButton;
             break;
          case 'portfolio':
             buttonText = 'Next';
@@ -30,18 +32,11 @@ export default class WideButton extends Component {
             break;
          case 'cancel':
             buttonText = 'Cancel';
+            style = styles.cancelButton;
             break;
          case 'logout':
             buttonText = 'LOGOUT';
             break;
-      }
-      var style = styles.loginButton;
-      if (this.props.type == 'sell') {
-         style = styles.sellModalButton;
-      };
-
-      if (this.props.type == 'cancel') {
-         style = styles.cancelButton;
       }
 
       if (this.props.disabled) {
