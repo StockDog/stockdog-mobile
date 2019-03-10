@@ -1,9 +1,14 @@
-export default portfolioReducer = (state = {portfolios: [], portfolioID: null}, action) => {
+const initialState = {
+   portfolios: [], 
+   leagueID: null
+}
+
+export default portfolioReducer = (state = initialState, action) => {
    switch (action.type) {
       case 'CHOOSE_PORTFOLIO':
          return Object.assign({}, state, 
             { 
-               portfolioID: action.payload.portfolioID
+               leagueID: action.payload.leagueID
             });
       case 'UPDATE_PORTFOLIOS':
          return Object.assign({}, state, 

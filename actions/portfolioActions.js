@@ -1,18 +1,20 @@
 import { getPortfolios } from '../api';
 
-const choosePortfolio = (portfolioID) => {
+const chooseLeague = (leagueID) => {
    return {
-      'type': 'CHOOSE_PORTFOLIO',
+      'type': 'CHOOSE_LEAGUE',
       'payload': {
-         portfolioID
+         leagueID
       }
    }
 }
 
 const updatePortfolios = () => {
-   var portfolios;
+   var portfolios = {};
    getPortfolios().then((res) => {
-      portfolios = res.data;
+      res.data.forEach((portfolio) => {
+         portfolios[portfolio.leagueId] = portfolio
+      })
    }).catch((err) => {
       console.log(err);
    })
@@ -26,6 +28,6 @@ const updatePortfolios = () => {
 }
 
 export {
-   choosePortfolio,
+   chooseLeague,
    updatePortfolios
 }
