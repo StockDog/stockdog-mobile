@@ -40,6 +40,15 @@ const getStockHistory = async (ticker, length) => {
   return await axios.get(`${baseurl}/charts/${ticker}`, config);
 };
 
+const joinLeague = async (inviteCode, name) => {
+   const config = getConfig();
+   const data = {
+      inviteCode,
+      name
+   };
+   return await axios.post(baseurl + '/portfolios', data, config);
+};
+
 const tradeStock = async (shareCount, ticker, action) => {
   const config = getConfig();
   // TODO: Implement portfolios in store
@@ -58,5 +67,6 @@ export {
   register,
   login,
   getStockHistory,
+  joinLeague,
   tradeStock
 };
