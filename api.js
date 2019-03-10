@@ -66,13 +66,18 @@ const createLeague = async (name, startPos, startDate, endDate) => {
 }
 
 const joinLeague = async (inviteCode, name) => {
-   const config = getConfig();
-   const data = {
-      inviteCode,
-      name
-   };
-   return await axios.post(baseurl + '/portfolios', data, config);
+  const config = getConfig();
+  const data = {
+    inviteCode,
+    name
+  };
+  return await axios.post(`${baseurl}/portfolios`, data, config);
 };
+
+const getPortfolios = async () => {
+  const config = getConfig();
+  return await axios.get(`${baseurl}/portfolios`, config);
+}
 
 export {
   register,
@@ -80,5 +85,6 @@ export {
   getStockHistory,
   tradeStock,
   createLeague,
-  joinLeague
+  joinLeague,
+  getPortfolios
 };

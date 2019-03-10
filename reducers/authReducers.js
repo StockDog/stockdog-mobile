@@ -1,4 +1,4 @@
-export default authReducer = (state = {}, action) => {
+export default authReducer = (state = {userId: null, token: null, email: null}, action) => {
    switch (action.type) {
       case 'LOGIN_USER':
          return Object.assign({}, state, 

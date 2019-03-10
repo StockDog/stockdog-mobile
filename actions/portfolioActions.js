@@ -1,12 +1,31 @@
-const choosePortfolio = (portfolio) => {
+import { getPortfolios } from '../api';
+
+const choosePortfolio = (portfolioID) => {
    return {
       'type': 'CHOOSE_PORTFOLIO',
       'payload': {
-         portfolio
+         portfolioID
+      }
+   }
+}
+
+const updatePortfolios = () => {
+   var portfolios;
+   getPortfolios().then((res) => {
+      portfolios = res.data;
+   }).catch((err) => {
+      console.log(err);
+   })
+
+   return {
+      'type': 'UPDATE_PORTFOLIOS',
+      'payload': {
+         portfolios
       }
    }
 }
 
 export {
-   choosePortfolio
+   choosePortfolio,
+   updatePortfolios
 }
