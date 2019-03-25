@@ -1,3 +1,5 @@
+import { ACTION_TYPES } from '../actions/actionTypes';
+
 const initialState = {
    portfolios: [], 
    leagueID: null
@@ -5,12 +7,12 @@ const initialState = {
 
 export default portfolioReducer = (state = initialState, action) => {
    switch (action.type) {
-      case 'CHOOSE_PORTFOLIO':
+      case ACTION_TYPES.CHOOSE_PORTFOLIO:
          return Object.assign({}, state, 
             { 
                leagueID: action.payload.leagueID
             });
-      case 'UPDATE_PORTFOLIOS':
+      case ACTION_TYPES.UPDATE_PORTFOLIOS:
          return Object.assign({}, state, 
             {
                portfolios: action.payload.portfolios
