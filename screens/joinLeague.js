@@ -55,7 +55,7 @@ export default class JoinLeague extends Component {
                      value={this.state.nickname} />
                </View>
             </View>
-            <WideButton type="portfolio" onpress={this.submitJoinLeague} />
+            <WideButton type="join" onpress={this.submitJoinLeague} />
             <WideButton type="cancel" onpress={Actions.pop}/>
             {notFound}
          </View>
