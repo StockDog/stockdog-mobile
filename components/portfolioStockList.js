@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList } from 'react-native';
-import containers from '../style/containers';
-import text from '../style/text';
+import { Text, View } from 'react-native';
+import styles from '../style/screens/portfolio';
 
 export default class PortfolioStockList extends Component {
 
@@ -29,21 +28,21 @@ export default class PortfolioStockList extends Component {
 
    renderStockListingItem = (item, index) => {
       var difference = item.difference >= 0 ? 
-         (<Text style={text.greenValue}>(+{item.difference})</Text>) :
-         (<Text style={text.redValue}>({item.difference})</Text>)
+         (<Text style={styles.greenValue}>(+{item.difference})</Text>) :
+         (<Text style={styles.redValue}>({item.difference})</Text>)
 
       return (
-         <View style={containers.listingItem} key={index}>
-            <View style={containers.horizontalEdges}>
-               <Text style={text.listingTickerAndValue}>{item.ticker}</Text>
-               <View style={containers.horizontal}>
-                  <Text style={text.listingTickerAndValue}>${item.value} </Text> 
+         <View style={styles.listingItem} key={index}>
+            <View style={styles.horizontalEdges}>
+               <Text style={styles.listingTickerAndValue}>{item.ticker}</Text>
+               <View style={styles.horizontal}>
+                  <Text style={styles.listingTickerAndValue}>${item.value} </Text> 
                   {difference}
                </View>
             </View>
-            <View style={containers.horizontalEdges}>
-               <Text style={text.smallListingText}>{item.fullName}</Text>
-               {item.numShares ? (<Text style={text.smallListingText}>{item.numShares} shares</Text>) : null}
+            <View style={styles.horizontalEdges}>
+               <Text style={styles.smallListingText}>{item.fullName}</Text>
+               {item.numShares ? (<Text style={styles.smallListingText}>{item.numShares} shares</Text>) : null}
             </View>
          </View>
       );
@@ -51,13 +50,13 @@ export default class PortfolioStockList extends Component {
 
    render() {
       return (
-         <View style={containers.portfolioStockList}>
-            <View style={containers.portfolioStockListHeader}>
-               <Text style={text.portfolioStockListHeader}>
+         <View style={styles.portfolioStockList}>
+            <View style={styles.portfolioStockListHeader}>
+               <Text style={styles.portfolioStockListHeader}>
                   {this.props.listType === 'portfolio' ? 'Portfolio' : 'Watchlist'}
                </Text>
             </View>
-            <View style={containers.portfolioListGroup}>
+            <View style={styles.portfolioListGroup}>
                {this.state.stockList.map((item, index) => {return this.renderStockListingItem(item, index);})}
             </View>
          </View>

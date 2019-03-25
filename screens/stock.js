@@ -83,7 +83,7 @@ export default class Stock extends Component {
                   }
                   buttons={Object.keys(lengthMap)}
                   containerStyle={styles.dateRangeButtonGroup}
-                  textStyle={text.whiteText}
+                  textStyle={styles.whiteText}
                   buttonStyle={styles.transparentBackground}
                   selectedButtonStyle={styles.buttonGroupSelected}
                   selectedTextStyle={styles.whiteText}

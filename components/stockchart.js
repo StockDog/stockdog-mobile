@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { ButtonGroup } from 'react-native-elements';
 import { colors } from '../style/colors';
+import styles from '../style/components/stockchart';
 import ChartView  from 'react-native-highcharts';
 import Api from '../api';
 import SpinningLoader from './spinningloader';
@@ -86,21 +87,21 @@ export default class StockChart extends Component {
     };
 
     return (
-      <ChartView style={containers.chart} config={conf} options={options} originWhitelist={['']}></ChartView>
+      <ChartView style={styles.chart} config={conf} options={options} originWhitelist={['']}></ChartView>
     );
   }
 
   render() {
     if (this.props.isLoading) {
       return (
-        <View style={containers.chartContainer}>
+        <View style={styles.chartContainer}>
           <SpinningLoader />
         </View>
       );
     }
     return (
       <View>
-        <View style={containers.chartContainer}>
+        <View style={styles.chartContainer}>
           {this.createChart()}
         </View>
       </View>

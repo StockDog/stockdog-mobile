@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import SpinningLoader from './spinningloader';
 import NavBar from './navbar';
 
+//------------------------------STILL AN OLD FILE-------------------------------------//
 export default class LoadingProfile extends Component {
   constructor(props) {
     super(props);
