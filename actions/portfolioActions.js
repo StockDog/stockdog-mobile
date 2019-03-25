@@ -1,8 +1,9 @@
 import { getPortfolios } from '../api';
+import { ACTION_TYPES } from './actionTypes';
 
 const chooseLeague = (leagueID) => {
    return {
-      'type': 'CHOOSE_LEAGUE',
+      'type': ACTION_TYPES.CHOOSE_LEAGUE,
       'payload': {
          leagueID
       }
@@ -20,7 +21,7 @@ const updatePortfolios = () => {
    })
 
    return {
-      'type': 'UPDATE_PORTFOLIOS',
+      'type': ACTION_TYPES.UPDATE_PORTFOLIOS,
       'payload': {
          portfolios
       }
