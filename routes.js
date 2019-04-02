@@ -13,6 +13,7 @@ import Feed from './screens/feed';
 import JoinLeague from './screens/joinLeague';
 import NewLeague from './screens/newLeague';
 import TradingModal from './screens/tradingModal';
+import Search from './screens/search';
 import TabIcon from './components/tabIcon';
 import { colors } from './style/colors';
 import tabStyle from './style/components/tabBar';
@@ -22,9 +23,9 @@ const Routes = () => (
    <Provider store={store}>
       <CustomRouter>
          <Scene key="root" hideNavBar>
-            <Scene key="login" component={Login}/>
-            <Scene key="register" component={Register}/>
-            <Scene key="portfolio" component={Portfolio} onEnter={Portfolio.onEnterPortfolio} />
+            {/* <Scene key="login" component={Login}/>
+            <Scene key="register" component={Register}/> */}
+            <Scene key="search" component={Search}/>
             {/* <Scene key="joinleague" hideNavBar component={JoinLeague}/> */}
             {/* <Drawer
               key="drawer"  
