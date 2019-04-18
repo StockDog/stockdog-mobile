@@ -20,7 +20,8 @@ export default class Stock extends Component {
          length: 'D',
          xData: [],
          yData: [],
-         isLoading: true
+         isLoading: true,
+         currentPrice: ''
       };
 
    };
@@ -42,7 +43,12 @@ export default class Stock extends Component {
             xData.push(date);
             yData.push(val.price);
          });
-         this.setState({xData, yData, length: buttonVal, isLoading: false})
+         this.setState({
+            xData, 
+            yData, 
+            length: buttonVal, 
+            isLoading: false, 
+            currentPrice: yData[yData.length - 1].toFixed(2)})
       }).catch((err) => console.log(err));
    }
 
@@ -54,13 +60,11 @@ export default class Stock extends Component {
    }
 
    openModal = () => {
-      const currentPrice = this.state.yData[this.state.yData.length - 1];
-
       Actions.tradingmodal({ 
          ticker: 'GRPN',
          buyingPower: 10,
          total: 0,
-         price: currentPrice
+         price: this.state.currentPrice
       });
    }
 
@@ -71,6 +75,7 @@ export default class Stock extends Component {
             <View style={styles.stockContent}>
                <View style={styles.tickerContainer}>
                   <Text style={styles.tickerText}>{this.props.ticker}</Text>
+                  <Text style={styles.currentPriceText}>${this.state.currentPrice}</Text>
                </View>
                <StockChart 
                   xData={this.state.xData} 

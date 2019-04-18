@@ -25,7 +25,6 @@ const Routes = () => (
          <Scene key="root" hideNavBar>
             {/* <Scene key="login" component={Login}/>
             <Scene key="register" component={Register}/> */}
-            <Scene key="search" component={Search}/>
             {/* <Scene key="joinleague" hideNavBar component={JoinLeague}/> */}
             {/* <Drawer
               key="drawer"  
@@ -61,16 +60,16 @@ const Routes = () => (
                 </Lightbox>*/}
 
 
-            {/* <Scene key="stock" component={Stock} hideNavBar swipeDownToClose={false} />
-            <Lightbox>
-               
+            
+            <Lightbox key="stock" >
+               <Scene key="stockpage" component={Stock} hideNavBar swipeDownToClose={false} />
                <Scene key="tradingmodal" component={TradingModal} swipeDownToClose={true} />
-            </Lightbox> */}
+            </Lightbox>
             {/* <Scene key="settings" component={SettingsModal} hideNavBar />
         </Modal>
       </Drawer> */}
             
-            <Scene key="tradingmodal" component={TradingModal} swipeDownToClose={true} />
+            {/* <Scene key="tradingmodal" component={TradingModal} swipeDownToClose={true} /> */}
             </Scene>
          {/* </Lightbox> */}
       </CustomRouter>
