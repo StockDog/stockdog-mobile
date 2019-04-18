@@ -56,7 +56,7 @@ export default class TradingModal extends Component {
          )
       }
       var buyingPower = props.buyingPower.toFixed(2);
-      var price = props.price.toFixed(2);
+      var price = props.price;
       var total = this.state.amount ? price * parseInt(this.state.amount) : 0;
       total = total.toFixed(2);
 

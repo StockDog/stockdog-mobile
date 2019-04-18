@@ -15,7 +15,6 @@ export default styles = StyleSheet.create({
       justifyContent: 'space-around'
    },
    tickerContainer: {
-      flex: 0.5,
       justifyContent: 'center',
       alignItems: 'center'
    },
@@ -68,6 +67,11 @@ export default styles = StyleSheet.create({
    tickerText: {
       fontFamily: 'assistant',
       fontSize: 36,
+      color: colors.bright
+   },
+   currentPriceText: {
+      fontFamily: 'assistant',
+      fontSize: 24,
       color: colors.bright
    },
    whiteText: {
