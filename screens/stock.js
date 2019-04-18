@@ -48,7 +48,8 @@ export default class Stock extends Component {
             yData, 
             length: buttonVal, 
             isLoading: false, 
-            currentPrice: yData[yData.length - 1].toFixed(2)})
+            currentPrice: yData[yData.length - 1].toFixed(2)
+         })
       }).catch((err) => console.log(err));
    }
 
