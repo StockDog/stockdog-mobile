@@ -6,13 +6,19 @@ const isX = Platform.OS === "ios" && (height > 800 || width > 800) ? true : fals
 
 export default tabStyle = StyleSheet.create({
    // ----------------- Containers ------------- //
+   background: {
+      flex:1, 
+      backgroundColor: 'gray'
+   }, 
    tabBar: {
       borderTopColor: colors.grey,
       borderTopWidth: 1 / PixelRatio.get(),
-      height:isX ? 70 : 50
+      height:isX ? 70 : 50,
+      backgroundColor: colors.activeTab
    },
    tabStyle: {
       paddingBottom:isX ? 20: 0,
+      paddingTop: 10
    },
    // ----------------- Text ------------- //
    tabLabel: {
