@@ -34,9 +34,9 @@ class LeagueDrawer extends Component {
 
    renderPortfolio = (portfolio) => {
       portfolio = portfolio.item;
-      console.log(this.state.chosenPortfolio);
       return (
-         <TouchableOpacity style={styles.portfolioListItem} onPress={() => this.setSelected(portfolio.id)}>
+         <TouchableOpacity style={styles.portfolioListItem} 
+            onPress={() => this.setSelected(portfolio.id)}>
             {
                portfolio.id === this.state.chosenPortfolio ? 
                   <View style={styles.chosenMark}/> :
@@ -51,12 +51,15 @@ class LeagueDrawer extends Component {
    }
 
    setSelected = (id) => {
-      console.log('setting selected...', id)
-      // this.setState({chosenPortfolio: id});
+      this.setState({chosenPortfolio: id});
       chooseLeague(id);
    }
 
    keyExtractor = (item, index) => index.toString();
+
+   navToAddLeague = () => {
+      Actions.addportfolio();
+   }
 
    render() {
       return (
@@ -69,7 +72,8 @@ class LeagueDrawer extends Component {
                style={styles.portfolioList}
                extraDate={this.state}/>
             <View style={styles.buttonContainer}>
-               <TouchableOpacity style={styles.addLeagueButton}>
+               <TouchableOpacity style={styles.addLeagueButton}
+                  onPress={this.navToAddLeague}>
                   <Text style={styles.buttonText}>Add League</Text>
                </TouchableOpacity>
             </View>
