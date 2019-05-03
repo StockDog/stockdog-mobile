@@ -2,33 +2,33 @@ import { getPortfolios } from '../api';
 import { ACTION_TYPES } from './actionTypes';
 
 const chooseLeague = (leagueID) => {
-   return {
-      'type': ACTION_TYPES.CHOOSE_LEAGUE,
-      'payload': {
-         leagueID
-      }
-   }
+  return {
+    'type': ACTION_TYPES.CHOOSE_LEAGUE,
+    'payload': {
+      leagueID
+    }
+  }
 }
 
 const updatePortfolios = () => {
-   var portfolios = {};
-   getPortfolios().then((res) => {
-      res.data.forEach((portfolio) => {
-         portfolios[portfolio.leagueId] = portfolio
-      })
-   }).catch((err) => {
-      console.log(err);
-   })
+  return async (dispatch) => {
+    var portfolios = {};
+    portfolioRes = await getPortfolios();
+    portfolioRes.data.forEach((portfolio) => {
+      portfolios[portfolio.leagueId] = portfolio
+    });
 
-   return {
+    dispatch({
       'type': ACTION_TYPES.UPDATE_PORTFOLIOS,
       'payload': {
-         portfolios
+        portfolios
       }
-   }
+    });
+  }
+
 }
 
 export {
-   chooseLeague,
-   updatePortfolios
+  chooseLeague,
+  updatePortfolios
 }
