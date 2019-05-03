@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import FormInput from '../components/formInput';
-import WideButton from '../components/widebutton';
-import Icon from 'react-native-vector-icons/Feather';
 import styles from '../style/screens/noLeagues';
 import NavBar from '../components/navbar';
 
 export default class NoLeagues extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
-
   }
 
   navToNewLeague = () => {
