@@ -1,7 +1,7 @@
 import { ACTION_TYPES } from '../actions/actionTypes';
 
 const initialState = {
-   portfolios: [], 
+   portfolios: {},   // {leagueID: portfolio}
    leagueID: null
 }
 

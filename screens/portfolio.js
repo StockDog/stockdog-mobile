@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import { ButtonGroup } from 'react-native-elements';
 import styles from '../style/screens/portfolio';
 import StockChart from '../components/stockchart';
 import NavBar from '../components/navbar';
 import PortfolioStockList from '../components/portfolioStockList';
 
-export default class Portfolio extends Component {
+class Portfolio extends Component {
    constructor(props) {
       super(props);
       this.state = {
@@ -15,6 +17,9 @@ export default class Portfolio extends Component {
    }
 
    render() {
+      if (this.props.portfolios.length == 0) {
+         Actions.noportfolios();
+      }
       return (
          <View style={styles.profileBackground}>
             <ScrollView scrollEnabled={this.state.scrollEnabled}>
@@ -49,3 +54,9 @@ export default class Portfolio extends Component {
       );
    }
 }
+
+const mapStateToProps = state => ({
+   portfolios: state.portfolio.portfolios,
+ });
+
+export default connect(mapStateToProps, { })(Portfolio);

@@ -9,6 +9,7 @@ import styles from '../style/screens/loginRegister';
 import FormInput from '../components/formInput';
 import WideButton from '../components/widebutton';
 import { loginUser } from '../actions/authActions';
+import { updatePortfolios } from '../actions/portfolioActions';
 import { login } from '../api';
 
 var logoImage = require('../assets/logo.png');
@@ -34,9 +35,15 @@ class Login extends Component {
    };
 
    submitLogin = () => {
-      login(this.state.email, this.state.password).then((res) => {
+      login(this.state.email, this.state.password).then(async (res) => {
          this.props.loginUser(res.data.userId, res.data.token);
-         Actions.portfolio();
+         await this.props.updatePortfolios();
+         if (Object.keys(this.props.portfolios).length > 0) {
+            Actions.portfoliomain();
+         }
+         else {
+            Actions.noleagues();
+         }
       }).catch((e) => {
          alert('Invalid credentials. Please try again.');
       });
@@ -92,7 +99,8 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-   items: state.email,
+   email: state.auth.email,
+   portfolios: state.portfolio.portfolios
  });
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(mapStateToProps, { loginUser, updatePortfolios })(Login);

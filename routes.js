@@ -10,6 +10,7 @@ import Portfolio from './screens/portfolio';
 import Stock from './screens/stock';
 import League from './screens/league';
 import Feed from './screens/feed';
+import NoLeagues from './screens/noLeagues';
 import JoinLeague from './screens/joinLeague';
 import NewLeague from './screens/newLeague';
 import TradingModal from './screens/tradingModal';
@@ -24,15 +25,16 @@ const Routes = () => (
    <Provider store={store}>
       <CustomRouter>
          <Scene key="root" hideNavBar>
-            {/* <Scene key="login" component={Login}/>
-            <Scene key="register" component={Register}/> */}
+            <Scene key="login" component={Login}/>
+            <Scene key="register" component={Register}/>
             {/* <Scene key="joinleague" hideNavBar component={JoinLeague}/> */}
              <Drawer
               key="drawer"  
               contentComponent={LeagueDrawer} 
               type="replace"
             >
-              {/*<Modal key="modal">  */}
+              <Modal key="modal">  */}
+              <Scene key="noleagues" hideNavBar component={NoLeagues}/>
                <Tabs
                key="main"
                tabBarStyle={tabStyle.tabBar}
@@ -53,12 +55,14 @@ const Routes = () => (
                   <Scene key="search" component={Search}/>
                </Scene>
             </Tabs>
-               {/*<Lightbox key="lightbox">
-                  <Scene key="noportfolios" hideNavBar component={noPortfoliosProfile}/>
-                  <Scene key="addportfolio" hideNavBar component={AddPortfolioModal}/>
-                  <Scene key="joinportfolio" hideNavBar component={JoinLeagueModal}/>
+            <Scene key="newleague" hideNavBar component={NewLeague}/>
+            <Scene key="joinleague" hideNavBar component={JoinLeague}/>
+               {/* <Lightbox key="lightbox">
+                  
+                  
+                  
                   <Scene key="setnickname" hideNavBar component={SetNickname} />
-                </Lightbox>*/}
+                </Lightbox> */}
 
 
             
