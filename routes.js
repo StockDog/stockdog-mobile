@@ -15,6 +15,7 @@ import JoinLeague from './screens/joinLeague';
 import NewLeague from './screens/newLeague';
 import TradingModal from './screens/tradingModal';
 import Search from './screens/search';
+import LeagueDrawer from './screens/leagueDrawer';
 import TabIcon from './components/tabIcon';
 import { colors } from './style/colors';
 import tabStyle from './style/components/tabBar';
@@ -27,7 +28,7 @@ const Routes = () => (
             <Scene key="login" component={Login}/>
             <Scene key="register" component={Register}/>
             {/* <Scene key="joinleague" hideNavBar component={JoinLeague}/> */}
-            {/* <Drawer
+             <Drawer
               key="drawer"  
               contentComponent={LeagueDrawer} 
               type="replace"
@@ -70,8 +71,8 @@ const Routes = () => (
                <Scene key="tradingmodal" component={TradingModal} swipeDownToClose={true} />
             </Lightbox>
             {/* <Scene key="settings" component={SettingsModal} hideNavBar />
-        </Modal>
-      </Drawer> */}
+        </Modal> */}
+      </Drawer>
             
             {/* <Scene key="tradingmodal" component={TradingModal} swipeDownToClose={true} /> */}
             </Scene>

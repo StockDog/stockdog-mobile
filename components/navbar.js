@@ -10,9 +10,9 @@ export default class NavBar extends Component {
       super(props);
    }
 
-   // openDrawer() {
-   //    Actions.drawerOpen();
-   // }
+   openDrawer() {
+      Actions.drawerOpen();
+   }
 
    // openSettings() {
    //    Actions.settings();
@@ -27,7 +27,7 @@ export default class NavBar extends Component {
    render() {
       return (
          <View style={styles.iconHeaders}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.openDrawer}>
                <Icon name='menu' size={30} color='white' />
             </TouchableOpacity>
             <TouchableOpacity>
