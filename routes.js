@@ -1,8 +1,6 @@
 import React from 'react';
 import { Scene, ActionConst, Tabs, Modal, Drawer, Lightbox } from 'react-native-router-flux';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import reducers from './reducers/index';
 import CustomRouter from './components/customRouter';
 import Login from './screens/login';
 import Register from './screens/register';
