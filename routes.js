@@ -33,7 +33,7 @@ const Routes = () => (
           type="replace"
         >
           <Modal key="modal" hideNavBar> 
-            <Scene key="noleagues" hideNavBar component={NoLeagues} />
+            <Scene key="noLeagues" hideNavBar component={NoLeagues} />
             <Tabs
               key="main"
               tabBarStyle={tabStyle.tabBar}
@@ -45,21 +45,21 @@ const Routes = () => (
               activeBackgroundColor={colors.activeTab}
               labelStyle={tabStyle.tabLabel}
             >
-              <Scene key="portfoliomain" hideNavBar title="Portfolio" iconName="user" icon={TabIcon}>
+              <Scene key="portfolioMain" hideNavBar title="Portfolio" iconName="user" icon={TabIcon}>
                 <Scene key="portfolio" component={Portfolio} onEnter={Portfolio.onEnterPortfolio} />
               </Scene>
               <Scene key="league" title="League" component={League} hideNavBar iconName="users" icon={TabIcon} onEnter={League.onEnterLeague} />
               <Scene key="feed" title="Feed" component={Feed} hideNavBar iconName="activity" icon={TabIcon} onEnter={Feed.onEnterFeed} />
-              <Scene key="searchmain" hideNavBar title="Search" iconName="search" icon={TabIcon}>
+              <Scene key="searchMain" hideNavBar title="Search" iconName="search" icon={TabIcon}>
                 <Scene key="search" component={Search} />
               </Scene>
             </Tabs>
-            <Scene key="newleague" hideNavBar component={NewLeague} />
-            <Scene key="joinleague" hideNavBar component={JoinLeague} />
+            <Scene key="newLeague" hideNavBar component={NewLeague} />
+            <Scene key="joinLeague" hideNavBar component={JoinLeague} />
 
             <Lightbox key="stock" >
-              <Scene key="stockpage" component={Stock} hideNavBar swipeDownToClose={false} />
-              <Scene key="tradingmodal" component={TradingModal} swipeDownToClose={true} />
+              <Scene key="stockPage" component={Stock} hideNavBar swipeDownToClose={false} />
+              <Scene key="tradingModal" component={TradingModal} swipeDownToClose={true} />
             </Lightbox>
           </Modal>
         </Drawer>

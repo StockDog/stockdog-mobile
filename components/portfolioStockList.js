@@ -20,11 +20,13 @@ export default class PortfolioStockList extends Component {
       }
    }
 
-   static getDerivedStateFromProps = (props) => {
-      return {
-         stockList: props.stockList
+   static getDerivedStateFromProps = (props, state) => {
+      if (props.stockList !== state.propsList) {
+         return {
+            stockList: props.stockList
+         }
       }
-   }
+   };
 
    renderStockListingItem = (item, index) => {
       var difference = item.difference >= 0 ? 

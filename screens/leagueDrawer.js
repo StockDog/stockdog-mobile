@@ -47,7 +47,7 @@ class LeagueDrawer extends Component {
    keyExtractor = (item, index) => index.toString();
 
    navToAddLeague = () => {
-      Actions.addportfolio();
+      Actions.noLeagues();
    }
 
    render() {

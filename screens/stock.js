@@ -61,7 +61,7 @@ export default class Stock extends Component {
    }
 
    openModal = () => {
-      Actions.tradingmodal({ 
+      Actions.tradingModal({ 
          ticker: 'GRPN',
          buyingPower: 10,
          total: 0,

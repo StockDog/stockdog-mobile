@@ -39,10 +39,10 @@ class Login extends Component {
          this.props.loginUser(res.data.userId, res.data.token);
          await this.props.updatePortfolios();
          if (Object.keys(this.props.portfolios).length > 0) {
-            Actions.portfoliomain();
+            Actions.portfolioMain();
          }
          else {
-            Actions.noleagues();
+            Actions.noLeagues();
          }
       }).catch((e) => {
          alert('Invalid credentials. Please try again.');
