@@ -66,7 +66,7 @@ export default class NewLeague extends Component {
         this.state.startDate, this.state.endDate).then((res) => {
           joinLeague(res.data.inviteCode, this.state.nickname).then((res) => {
             // TODO: Set current portfolio in store to joined portfolio
-	          Actions.portfoliomain();
+	          Actions.portfolioMain();
           }).catch((err) => {
             alert(Object.values(err.response.data[0]));
           })

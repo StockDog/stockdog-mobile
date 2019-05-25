@@ -23,7 +23,7 @@ export default class JoinLeague extends Component {
    submitJoinLeague = () => {
       joinLeague(this.state.inviteCode, this.state.nickname).then((res) => {
          // TODO: Set current portfolio in store to joined portfolio
-         Actions.portfoliomain();
+         Actions.portfolioMain();
       }).catch((err) => {
          if (Object.keys(err.response.data)[0] === 'InviteCodeMismatch') {
             this.setState({notFound: true})

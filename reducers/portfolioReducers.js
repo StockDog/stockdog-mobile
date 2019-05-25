@@ -7,7 +7,7 @@ const initialState = {
 
 export default portfolioReducer = (state = initialState, action) => {
    switch (action.type) {
-      case ACTION_TYPES.CHOOSE_PORTFOLIO:
+      case ACTION_TYPES.CHOOSE_LEAGUE:
          return Object.assign({}, state, 
             { 
                leagueID: action.payload.leagueID

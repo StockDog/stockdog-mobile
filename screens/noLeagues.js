@@ -10,11 +10,11 @@ export default class NoLeagues extends Component {
   }
 
   navToNewLeague = () => {
-    Actions.newleague();
+    Actions.newLeague();
   }
 
   navToJoinLeague = () => {
-    Actions.joinleague();
+    Actions.joinLeague();
   }
 
   render() {

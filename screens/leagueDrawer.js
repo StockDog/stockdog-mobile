@@ -3,33 +3,23 @@ import { Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import styles from '../style/screens/leagueDrawer';
-import WideButton from '../components/widebutton';
-import { chooseLeague } from '../actions/portfolioActions';
+import { chooseLeague, updatePortfolios } from '../actions/portfolioActions';
 
 class LeagueDrawer extends Component {
    constructor(props) {
       super(props);
-      this.state = {
-         portfolios: [
-            {
-               id: 1,
-               name: 'Weekend League',
-               value: 2301.59
-            },
-            {
-               id: 2,
-               name: 'Monthly League',
-               value: 9512.31
-            },
-            {
-               id: 3,
-               name: 'Big Risk League',
-               value: 5281.54
-            }
-         ],
-         chosenPortfolio: 2
-         // chosenPortfolio: this.props.chosenPortfolio
+   }
+
+   componentDidMount() {
+      if (!this.props.chosenLeague) {
+         this.props.chooseLeague(Object.keys(this.props.portfolios)[0]);
       }
+      this.pollPortfolios();
+   }
+
+   pollPortfolios = () => {
+      this.props.updatePortfolios();
+      setTimeout(this.pollPortfolios.bind(this), 10000);
    }
 
    renderPortfolio = (portfolio) => {
@@ -38,7 +28,7 @@ class LeagueDrawer extends Component {
          <TouchableOpacity style={styles.portfolioListItem} 
             onPress={() => this.setSelected(portfolio.id)}>
             {
-               portfolio.id === this.state.chosenPortfolio ? 
+               portfolio.leagueId === parseInt(this.props.chosenLeague) ? 
                   <View style={styles.chosenMark}/> :
                   <View style={styles.regularMark}/>
             }
@@ -51,26 +41,25 @@ class LeagueDrawer extends Component {
    }
 
    setSelected = (id) => {
-      this.setState({chosenPortfolio: id});
-      chooseLeague(id);
+      this.props.chooseLeague(id);
    }
 
    keyExtractor = (item, index) => index.toString();
 
    navToAddLeague = () => {
-      Actions.addportfolio();
+      Actions.noLeagues();
    }
 
    render() {
+      var portfolios = Object.values(this.props.portfolios);
       return (
          <View style={styles.background}>
             <FlatList
                keyExtractor={this.keyExtractor}
-               data={this.state.portfolios}
-               // data={this.props.portfolios}
+               data={portfolios}
                renderItem={this.renderPortfolio}
-               style={styles.portfolioList}
-               extraDate={this.state}/>
+               style={styles.portfolioList}/>
+               
             <View style={styles.buttonContainer}>
                <TouchableOpacity style={styles.addLeagueButton}
                   onPress={this.navToAddLeague}>
@@ -85,7 +74,7 @@ class LeagueDrawer extends Component {
 
 const mapStateToProps = state => ({
    portfolios: state.portfolio.portfolios,
-   chosenPortfolio: state.portfolio.leagueID
+   chosenLeague: state.portfolio.leagueID
 });
 
-export default connect(mapStateToProps, { chooseLeague })(LeagueDrawer);
+export default connect(mapStateToProps, { chooseLeague, updatePortfolios })(LeagueDrawer);
