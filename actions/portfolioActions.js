@@ -13,7 +13,7 @@ const chooseLeague = (leagueID) => {
 const updatePortfolios = () => {
   return async (dispatch) => {
     var portfolios = {};
-    portfolioRes = await getPortfolios();
+    let portfolioRes = await getPortfolios();
     portfolioRes.data.forEach((portfolio) => {
       portfolios[portfolio.leagueId] = portfolio
     });

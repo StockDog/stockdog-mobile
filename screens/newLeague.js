@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
+import { connect } from 'react-redux';
 import DatePicker from 'react-native-datepicker';
 import { Actions } from 'react-native-router-flux';
 import FormInput from '../components/formInput';
@@ -8,8 +9,9 @@ import Icon from 'react-native-vector-icons/Feather';
 import styles from '../style/screens/newLeague';
 import NavBar from '../components/navbar';
 import { createLeague, joinLeague } from '../api';
+import { updatePortfolios, chooseLeague } from '../actions/portfolioActions';
 
-export default class NewLeague extends Component {
+class NewLeague extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -63,14 +65,25 @@ export default class NewLeague extends Component {
     else {
       const startPos = parseInt(this.state.buyPower);
       createLeague(this.state.leagueName, startPos,
-        this.state.startDate, this.state.endDate).then((res) => {
-          joinLeague(res.data.inviteCode, this.state.nickname).then((res) => {
-            // TODO: Set current portfolio in store to joined portfolio
+        this.state.startDate, this.state.endDate).then(async (createRes) => {
+          joinLeague(createRes.data.inviteCode, this.state.nickname).then(async (joinRes) => {
+            if (joinRes.data.leagueId !== createRes.data.id) {
+              throw new Error({
+                'response': 
+                  {
+                    'data': ['There was a problem creating the portfolio in the league.']
+                  }
+                });
+            }
+            await this.props.updatePortfolios();
+            await this.props.chooseLeague(createRes.data.id);
 	          Actions.portfolioMain();
           }).catch((err) => {
+            console.log(err);
             alert(Object.values(err.response.data[0]));
           })
         }).catch((err) => {
+          console.log(err);
           alert(Object.values(err.response.data[0]));
         });
     }
@@ -143,3 +156,5 @@ export default class NewLeague extends Component {
     );
   }
 };
+
+export default connect(null, { updatePortfolios, chooseLeague })(NewLeague);

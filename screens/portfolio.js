@@ -17,11 +17,6 @@ class Portfolio extends Component {
   }
 
   render() {
-    // Handling no portfolios created yet
-    if (this.props.portfolios.length == 0) {
-      Actions.noPortfolios();
-    }
-
     var stockList;
 
     // Waiting for league to be chosen

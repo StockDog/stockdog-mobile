@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import FormInput from '../components/formInput';
 import WideButton from '../components/widebutton';
 import styles from '../style/screens/joinLeague';
 import NavBar from '../components/navbar';
 import { joinLeague } from '../api';
+import { updatePortfolios, chooseLeague } from '../actions/portfolioActions';
 
-export default class JoinLeague extends Component {
+class JoinLeague extends Component {
    constructor(props) {
       super(props);
       this.state = {
          inviteCode: "",
-         nickname: ""
+         nickname: "",
+         notFound: false
       };
    }
 
@@ -21,9 +24,15 @@ export default class JoinLeague extends Component {
    }
 
    submitJoinLeague = () => {
-      joinLeague(this.state.inviteCode, this.state.nickname).then((res) => {
-         // TODO: Set current portfolio in store to joined portfolio
-         Actions.portfolioMain();
+      joinLeague(this.state.inviteCode, this.state.nickname).then(async (joinRes) => {
+         try {
+            await this.props.updatePortfolios();
+            await this.props.chooseLeague(joinRes.data.leagueId);
+            Actions.portfolioMain();
+         }
+         catch(err) {
+            alert('Error updating portfolios.');
+         }
       }).catch((err) => {
          if (Object.keys(err.response.data)[0] === 'InviteCodeMismatch') {
             this.setState({notFound: true})
@@ -62,3 +71,5 @@ export default class JoinLeague extends Component {
       );
    }
 };
+
+export default connect(null, { updatePortfolios, chooseLeague })(JoinLeague);

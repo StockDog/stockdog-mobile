@@ -30,36 +30,36 @@ const Routes = () => (
           contentComponent={LeagueDrawer}
           type="replace"
         >
-          <Modal key="modal" hideNavBar> 
+          <Modal key="leagueManagement" hideNavBar> 
             <Scene key="noLeagues" hideNavBar component={NoLeagues} />
-            <Tabs
-              key="main"
-              tabBarStyle={tabStyle.tabBar}
-              tabStyle={tabStyle.tabStyle}
-              tabBarPosition="bottom"
-              activeTintColor={colors.white}
-              inactiveTintColor={colors.white}
-              inactiveBackgroundColor={colors.grey}
-              activeBackgroundColor={colors.activeTab}
-              labelStyle={tabStyle.tabLabel}
-            >
-              <Scene key="portfolioMain" hideNavBar title="Portfolio" iconName="user" icon={TabIcon}>
-                <Scene key="portfolio" component={Portfolio} onEnter={Portfolio.onEnterPortfolio} />
-              </Scene>
-              <Scene key="league" title="League" component={League} hideNavBar iconName="users" icon={TabIcon} onEnter={League.onEnterLeague} />
-              <Scene key="feed" title="Feed" component={Feed} hideNavBar iconName="activity" icon={TabIcon} onEnter={Feed.onEnterFeed} />
-              <Scene key="searchMain" hideNavBar title="Search" iconName="search" icon={TabIcon}>
-                <Scene key="search" component={Search} />
-              </Scene>
-            </Tabs>
             <Scene key="newLeague" hideNavBar component={NewLeague} />
             <Scene key="joinLeague" hideNavBar component={JoinLeague} />
-
-            <Lightbox key="stock" >
-              <Scene key="stockPage" component={Stock} hideNavBar swipeDownToClose={false} />
-              <Scene key="tradingModal" component={TradingModal} swipeDownToClose={true} />
-            </Lightbox>
           </Modal>
+          <Tabs
+            key="main"
+            tabBarStyle={tabStyle.tabBar}
+            tabStyle={tabStyle.tabStyle}
+            tabBarPosition="bottom"
+            activeTintColor={colors.white}
+            inactiveTintColor={colors.white}
+            inactiveBackgroundColor={colors.grey}
+            activeBackgroundColor={colors.activeTab}
+            labelStyle={tabStyle.tabLabel}
+          >
+            <Scene key="portfolioMain" hideNavBar title="Portfolio" iconName="user" icon={TabIcon}>
+              <Scene key="portfolio" component={Portfolio} onEnter={Portfolio.onEnterPortfolio} />
+            </Scene>
+            <Scene key="league" title="League" component={League} hideNavBar iconName="users" icon={TabIcon} onEnter={League.onEnterLeague} />
+            <Scene key="feed" title="Feed" component={Feed} hideNavBar iconName="activity" icon={TabIcon} onEnter={Feed.onEnterFeed} />
+            <Scene key="searchMain" hideNavBar title="Search" iconName="search" icon={TabIcon}>
+              <Scene key="search" component={Search} />
+            </Scene>
+          </Tabs>
+
+          <Lightbox key="stock" >
+            <Scene key="stockPage" component={Stock} hideNavBar swipeDownToClose={false} />
+            <Scene key="tradingModal" component={TradingModal} swipeDownToClose={true} />
+          </Lightbox>
         </Drawer>
       </Scene>
     </CustomRouter>

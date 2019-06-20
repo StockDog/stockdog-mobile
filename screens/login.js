@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { LinearGradient } from 'expo';
+import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../style/colors';
 import styles from '../style/screens/loginRegister';
 import FormInput from '../components/formInput';
@@ -42,10 +42,10 @@ class Login extends Component {
             Actions.portfolioMain();
          }
          else {
-            Actions.noLeagues();
+            Actions.leagueManagement();
          }
       }).catch((e) => {
-         alert('Invalid credentials. Please try again.');
+         alert(e);
       });
    };
 
