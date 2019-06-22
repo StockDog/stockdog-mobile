@@ -54,7 +54,7 @@ class NewLeague extends Component {
       new Date(endSplit[2], endSplit[0], endSplit[1]);
   }
 
-  onSubmitLeague = () => {
+  onSubmitLeague = async () => {
     if (/[a-zA-Z]/.test(this.state.buyPower)) {
       alert("Invalid Buying Power value. Please enter numbers only.");
     }
@@ -64,28 +64,17 @@ class NewLeague extends Component {
     }
     else {
       const startPos = parseInt(this.state.buyPower);
-      createLeague(this.state.leagueName, startPos,
-        this.state.startDate, this.state.endDate).then(async (createRes) => {
-          joinLeague(createRes.data.inviteCode, this.state.nickname).then(async (joinRes) => {
-            if (joinRes.data.leagueId !== createRes.data.id) {
-              throw new Error({
-                'response': 
-                  {
-                    'data': ['There was a problem creating the portfolio in the league.']
-                  }
-                });
-            }
-            await this.props.updatePortfolios();
-            await this.props.chooseLeague(createRes.data.id);
-	          Actions.portfolioMain();
-          }).catch((err) => {
-            console.log(err);
-            alert(Object.values(err.response.data[0]));
-          })
-        }).catch((err) => {
-          console.log(err);
-          alert(Object.values(err.response.data[0]));
-        });
+      try {
+        const createRes = await createLeague(this.state.leagueName, startPos,
+          this.state.startDate, this.state.endDate);
+        await joinLeague(createRes.data.inviteCode, this.state.nickname);
+        await this.props.updatePortfolios();
+        await this.props.chooseLeague(createRes.data.id);
+        Actions.portfolioMain();
+      }
+      catch (err) {
+        alert(Object.values(err.response.data[0]));
+      }
     }
   }
 

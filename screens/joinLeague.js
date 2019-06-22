@@ -23,21 +23,21 @@ class JoinLeague extends Component {
       Actions.pop();
    }
 
-   submitJoinLeague = () => {
-      joinLeague(this.state.inviteCode, this.state.nickname).then(async (joinRes) => {
-         try {
-            await this.props.updatePortfolios();
-            await this.props.chooseLeague(joinRes.data.leagueId);
-            Actions.portfolioMain();
-         }
-         catch(err) {
-            alert('Error updating portfolios.');
-         }
-      }).catch((err) => {
+   submitJoinLeague = async () => {
+      try {
+         const joinRes = await joinLeague(this.state.inviteCode, this.state.nickname);
+         await this.props.updatePortfolios();
+         await this.props.chooseLeague(joinRes.data.leagueId);
+         Actions.portfolioMain();
+      }
+      catch (err) {
          if (Object.keys(err.response.data)[0] === 'InviteCodeMismatch') {
             this.setState({notFound: true})
          }
-      });
+         else {
+            alert('Error updating portfolios.');
+         }
+      }
    }
 
    render() {
