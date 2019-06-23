@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Routes from './routes.js';
-import { Font } from 'expo';
+import * as Font from 'expo-font';
 
 
 export default class App extends Component {

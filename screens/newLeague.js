@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
+import { connect } from 'react-redux';
 import DatePicker from 'react-native-datepicker';
 import { Actions } from 'react-native-router-flux';
 import FormInput from '../components/formInput';
@@ -8,8 +9,9 @@ import Icon from 'react-native-vector-icons/Feather';
 import styles from '../style/screens/newLeague';
 import NavBar from '../components/navbar';
 import { createLeague, joinLeague } from '../api';
+import { updatePortfolios, chooseLeague } from '../actions/portfolioActions';
 
-export default class NewLeague extends Component {
+class NewLeague extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -52,7 +54,7 @@ export default class NewLeague extends Component {
       new Date(endSplit[2], endSplit[0], endSplit[1]);
   }
 
-  onSubmitLeague = () => {
+  onSubmitLeague = async () => {
     if (/[a-zA-Z]/.test(this.state.buyPower)) {
       alert("Invalid Buying Power value. Please enter numbers only.");
     }
@@ -62,17 +64,17 @@ export default class NewLeague extends Component {
     }
     else {
       const startPos = parseInt(this.state.buyPower);
-      createLeague(this.state.leagueName, startPos,
-        this.state.startDate, this.state.endDate).then((res) => {
-          joinLeague(res.data.inviteCode, this.state.nickname).then((res) => {
-            // TODO: Set current portfolio in store to joined portfolio
-	          Actions.portfolioMain();
-          }).catch((err) => {
-            alert(Object.values(err.response.data[0]));
-          })
-        }).catch((err) => {
-          alert(Object.values(err.response.data[0]));
-        });
+      try {
+        const createRes = await createLeague(this.state.leagueName, startPos,
+          this.state.startDate, this.state.endDate);
+        await joinLeague(createRes.data.inviteCode, this.state.nickname);
+        await this.props.updatePortfolios();
+        await this.props.chooseLeague(createRes.data.id);
+        Actions.portfolioMain();
+      }
+      catch (err) {
+        alert(Object.values(err.response.data[0]));
+      }
     }
   }
 
@@ -143,3 +145,5 @@ export default class NewLeague extends Component {
     );
   }
 };
+
+export default connect(null, { updatePortfolios, chooseLeague })(NewLeague);
