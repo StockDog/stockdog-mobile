@@ -4,6 +4,12 @@
   "private": true,
   "devDependencies": {
     "babel-plugin-transform-react-jsx-source": "^6.22.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.2",
+    "husky": "^3.0.0",
     "jest-expo": "^33.0.0",
     "react-test-renderer": "16.7.0",
     "schedule": "^0.4.0"
@@ -14,7 +20,13 @@
     "eject": "expo eject",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint"
+    }
   },
   "jest": {
     "preset": "jest-expo"
