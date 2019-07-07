@@ -21,7 +21,7 @@ const register = async (firstName, lastName, email, password) => {
     email,
     password,
   };
-  return await axios.post(`${baseurl}/users`, data, getConfig(auth = false));
+  return axios.post(`${baseurl}/users`, data, getConfig(false));
 };
 
 const login = async (email, password) => {
@@ -29,7 +29,7 @@ const login = async (email, password) => {
     email,
     password,
   };
-  return await axios.post(`${baseurl}/users/session`, data, getConfig(auth = false));
+  return axios.post(`${baseurl}/users/session`, data, getConfig(false));
 };
 
 const getStockHistory = async (ticker, length) => {
@@ -37,7 +37,7 @@ const getStockHistory = async (ticker, length) => {
   config.params = {
     length,
   };
-  return await axios.get(`${baseurl}/charts/${ticker}`, config);
+  return axios.get(`${baseurl}/charts/${ticker}`, config);
 };
 
 const tradeStock = async (shareCount, ticker, action) => {
@@ -51,7 +51,7 @@ const tradeStock = async (shareCount, ticker, action) => {
     action,
     portfolioId,
   };
-  return await axios.post(`${baseurl}/transactions`, data, config);
+  return axios.post(`${baseurl}/transactions`, data, config);
 };
 
 const createLeague = async (name, startPos, startDate, endDate) => {
@@ -62,7 +62,7 @@ const createLeague = async (name, startPos, startDate, endDate) => {
     start: startDate,
     end: endDate,
   };
-  return await axios.post(`${baseurl}/leagues`, data, config);
+  return axios.post(`${baseurl}/leagues`, data, config);
 };
 
 const joinLeague = async (inviteCode, name) => {
@@ -71,12 +71,12 @@ const joinLeague = async (inviteCode, name) => {
     inviteCode,
     name,
   };
-  return await axios.post(`${baseurl}/portfolios`, data, config);
+  return axios.post(`${baseurl}/portfolios`, data, config);
 };
 
 const getPortfolios = async () => {
   const config = getConfig();
-  return await axios.get(`${baseurl}/portfolios`, config);
+  return axios.get(`${baseurl}/portfolios`, config);
 };
 
 export {

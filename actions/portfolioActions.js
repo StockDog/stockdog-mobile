@@ -1,5 +1,5 @@
 import { getPortfolios } from '../api';
-import { ACTION_TYPES } from './actionTypes';
+import ACTION_TYPES from './actionTypes';
 
 const chooseLeague = leagueID => ({
   type: ACTION_TYPES.CHOOSE_LEAGUE,

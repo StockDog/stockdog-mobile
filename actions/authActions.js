@@ -1,4 +1,4 @@
-import { ACTION_TYPES } from './actionTypes';
+import ACTION_TYPES from './actionTypes';
 
 const registerUser = (firstname, lastname, email, password) => ({
   type: ACTION_TYPES.REGISTER_USER,

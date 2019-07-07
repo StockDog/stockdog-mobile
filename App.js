@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import * as Font from 'expo-font';
-import Routes from './routes.js';
+import Routes from './routes';
 
 
 export default class App extends Component {
@@ -23,9 +23,9 @@ export default class App extends Component {
   }
 
   render() {
+    const { fontLoaded } = this.state;
     return (
-      this.state.fontLoaded
-        ? Routes() : null
+      fontLoaded ? Routes() : null
     );
   }
 }
