@@ -1,7 +1,9 @@
-import { StyleSheet, PixelRatio, Dimensions, Platform } from 'react-native';
+import {
+  StyleSheet, PixelRatio, Dimensions, Platform,
+} from 'react-native';
 import { colors } from '../colors';
 
-const { height, width } = Dimensions.get("window");
+const { height, width } = Dimensions.get('window');
 
 export default tabStyle = StyleSheet.create({
   // ----------------- Containers ------------- //
@@ -13,5 +15,5 @@ export default tabStyle = StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: 20,
     paddingRight: 20,
-  }
+  },
 });

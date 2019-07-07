@@ -20,7 +20,7 @@ export default styles = StyleSheet.create({
     right: width * -1.1,
     zIndex: -1,
     borderBottomLeftRadius: 1978 / 2,
-    borderBottomRightRadius: 1978 / 2
+    borderBottomRightRadius: 1978 / 2,
   },
   portfolioValue: {
     height: height * 0.1,
@@ -34,13 +34,13 @@ export default styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.bright,
     borderRadius: 8,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   transparentBackground: {
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   buttonGroupSelected: {
-    backgroundColor: colors.bright
+    backgroundColor: colors.bright,
   },
   listingItem: {
     width: '100%',
@@ -49,12 +49,12 @@ export default styles = StyleSheet.create({
   },
   horizontalEdges: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   horizontal: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   portfolioStockList: {
     flex: 0.4,
@@ -64,7 +64,7 @@ export default styles = StyleSheet.create({
   },
   portfolioStockListHeader: {
     marginTop: 10,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   portfolioListGroup: {
     width: '100%',
@@ -80,25 +80,25 @@ export default styles = StyleSheet.create({
     textAlign: 'center',
   },
   whiteText: {
-    color: colors.white
+    color: colors.white,
   },
   greenValue: {
     color: colors.green,
     fontFamily: 'assistant',
     fontSize: 18,
-    textAlign: 'left'
+    textAlign: 'left',
   },
   redValue: {
     color: colors.red,
     fontFamily: 'assistant',
     fontSize: 18,
-    textAlign: 'left'
+    textAlign: 'left',
   },
   listingTickerAndValue: {
     color: colors.white,
     fontFamily: 'assistant',
     fontSize: 18,
-    textAlign: 'left'
+    textAlign: 'left',
   },
   smallListingText: {
     color: colors.darkGrey,
@@ -110,6 +110,6 @@ export default styles = StyleSheet.create({
     color: colors.bright,
     fontFamily: 'assistant',
     fontSize: 20,
-    textAlign: 'left'
-  }
+    textAlign: 'left',
+  },
 });

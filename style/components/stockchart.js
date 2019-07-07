@@ -17,6 +17,6 @@ export default styles = StyleSheet.create({
   chart: {
     height: height * 0.3,
     width: width * 0.8,
-    backgroundColor: 'transparent'
-  }
+    backgroundColor: 'transparent',
+  },
 });

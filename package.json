@@ -21,7 +21,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint . --fix"
   },
   "husky": {
     "hooks": {

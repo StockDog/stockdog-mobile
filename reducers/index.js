@@ -6,17 +6,17 @@ import authReducer from './authReducers';
 import portfolioReducer from './portfolioReducers';
 
 const sceneReducer = (state = {}, action) => {
-    switch(action.type){
-        case ActionConst.FOCUS:
-            return { ...state, "route": action.routeName };
-        default:
-            return state;
-    }    
-}
+  switch (action.type) {
+    case ActionConst.FOCUS:
+      return { ...state, route: action.routeName };
+    default:
+      return state;
+  }
+};
 
 
 export default reducers = combineReducers({
-    'scenes': sceneReducer,
-    'auth': authReducer,
-    'portfolio': portfolioReducer
+  scenes: sceneReducer,
+  auth: authReducer,
+  portfolio: portfolioReducer,
 });

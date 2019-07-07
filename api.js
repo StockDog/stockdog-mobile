@@ -8,34 +8,34 @@ const getConfig = (auth = true) => {
   return {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `token ${token}`
+      Authorization: `token ${token}`,
     },
-    data: {}
-  }
-}
+    data: {},
+  };
+};
 
 const register = async (firstName, lastName, email, password) => {
   const data = {
-    "firstName": firstName,
-    "lastName": lastName,
-    "email": email,
-    "password": password
+    firstName,
+    lastName,
+    email,
+    password,
   };
   return await axios.post(`${baseurl}/users`, data, getConfig(auth = false));
-}
+};
 
 const login = async (email, password) => {
   const data = {
-    'email': email,
-    'password': password
+    email,
+    password,
   };
   return await axios.post(`${baseurl}/users/session`, data, getConfig(auth = false));
 };
 
 const getStockHistory = async (ticker, length) => {
-  let config = getConfig();
-  config['params'] = {
-    length
+  const config = getConfig();
+  config.params = {
+    length,
   };
   return await axios.get(`${baseurl}/charts/${ticker}`, config);
 };
@@ -49,10 +49,10 @@ const tradeStock = async (shareCount, ticker, action) => {
     shareCount,
     ticker,
     action,
-    portfolioId
+    portfolioId,
   };
   return await axios.post(`${baseurl}/transactions`, data, config);
-}
+};
 
 const createLeague = async (name, startPos, startDate, endDate) => {
   const config = getConfig();
@@ -60,16 +60,16 @@ const createLeague = async (name, startPos, startDate, endDate) => {
     name,
     startPos,
     start: startDate,
-    end: endDate
+    end: endDate,
   };
-  return await axios.post(`${baseurl}/leagues`, data, config)
-}
+  return await axios.post(`${baseurl}/leagues`, data, config);
+};
 
 const joinLeague = async (inviteCode, name) => {
   const config = getConfig();
   const data = {
     inviteCode,
-    name
+    name,
   };
   return await axios.post(`${baseurl}/portfolios`, data, config);
 };
@@ -77,7 +77,7 @@ const joinLeague = async (inviteCode, name) => {
 const getPortfolios = async () => {
   const config = getConfig();
   return await axios.get(`${baseurl}/portfolios`, config);
-}
+};
 
 export {
   register,
@@ -86,5 +86,5 @@ export {
   tradeStock,
   createLeague,
   joinLeague,
-  getPortfolios
+  getPortfolios,
 };
