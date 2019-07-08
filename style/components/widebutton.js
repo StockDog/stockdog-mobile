@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../colors';
+import colors from '../colors';
 
-export default styles = StyleSheet.create({
+export default StyleSheet.create({
   // ----------------- Containers ------------- //
   loginButton: {
     height: 45,

@@ -1,12 +1,12 @@
 import {
   StyleSheet, PixelRatio, Dimensions, Platform,
 } from 'react-native';
-import { colors } from '../colors';
+import colors from '../colors';
 
 const { height, width } = Dimensions.get('window');
 const isX = !!(Platform.OS === 'ios' && (height > 800 || width > 800));
 
-export default tabStyle = StyleSheet.create({
+export default StyleSheet.create({
   // ----------------- Containers ------------- //
   background: {
     flex: 1,

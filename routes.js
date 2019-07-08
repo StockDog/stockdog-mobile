@@ -1,5 +1,5 @@
 import React from 'react';
-import { Scene, ActionConst, Tabs, Modal, Drawer, Lightbox } from 'react-native-router-flux';
+import { Scene, Tabs, Modal, Drawer, Lightbox } from 'react-native-router-flux';
 import { Provider } from 'react-redux';
 import CustomRouter from './components/customRouter';
 import Login from './screens/login';
@@ -15,7 +15,7 @@ import TradingModal from './screens/tradingModal';
 import Search from './screens/search';
 import LeagueDrawer from './screens/leagueDrawer';
 import TabIcon from './components/tabIcon';
-import { colors } from './style/colors';
+import colors from './style/colors';
 import tabStyle from './style/components/tabBar';
 import store from './store/store';
 
@@ -56,9 +56,9 @@ const Routes = () => (
             </Scene>
           </Tabs>
 
-          <Lightbox key="stock" >
+          <Lightbox key="stock">
             <Scene key="stockPage" component={Stock} hideNavBar swipeDownToClose={false} />
-            <Scene key="tradingModal" component={TradingModal} swipeDownToClose={true} />
+            <Scene key="tradingModal" component={TradingModal} swipeDownToClose />
           </Lightbox>
         </Drawer>
       </Scene>

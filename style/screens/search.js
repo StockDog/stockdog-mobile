@@ -1,8 +1,7 @@
-import { StyleSheet, Dimensions } from 'react-native';
-import { colors } from '../colors.js';
+import { StyleSheet } from 'react-native';
+import colors from '../colors';
 
-
-export default styles = StyleSheet.create({
+export default StyleSheet.create({
   background: {
     flex: 1,
     backgroundColor: colors.dark,
@@ -17,7 +16,6 @@ export default styles = StyleSheet.create({
     position: 'absolute',
     top: 300,
     bottom: 0,
-    // right: -200,
     left: -140,
   },
   searchButton: {

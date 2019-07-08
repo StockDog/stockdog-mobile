@@ -7,15 +7,15 @@ import portfolioReducer from './portfolioReducers';
 
 const sceneReducer = (state = {}, action) => {
   switch (action.type) {
-    case ActionConst.FOCUS:
-      return { ...state, route: action.routeName };
-    default:
-      return state;
+  case ActionConst.FOCUS:
+    return { ...state, route: action.routeName };
+  default:
+    return state;
   }
 };
 
 
-export default reducers = combineReducers({
+export default combineReducers({
   scenes: sceneReducer,
   auth: authReducer,
   portfolio: portfolioReducer,

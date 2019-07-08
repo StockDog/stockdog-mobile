@@ -1,7 +1,7 @@
-import { StyleSheet, PixelRatio, Dimensions } from 'react-native';
-import { colors } from '../colors.js';
+import { StyleSheet } from 'react-native';
+import colors from '../colors';
 
-export default styles = StyleSheet.create({
+export default StyleSheet.create({
   background: {
     flex: 1,
     backgroundColor: colors.dark,

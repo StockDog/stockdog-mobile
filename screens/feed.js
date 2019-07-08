@@ -19,15 +19,17 @@ export default class Feed extends Component {
   }
   
   render() {
+    const { feedType } = this.state;
     return (
       <View style={styles.background}>
-        <NavBar/>
+        <NavBar />
         <FeedHeader 
-          feedType={this.state.feedType} 
-          switchFeedType={this.switchFeedType}/>
-        {this.state.feedType === 'activity' ? 
-          <ActivityFeed/> : 
-          <IdeaFeed/>}
+          feedType={feedType} 
+          switchFeedType={this.switchFeedType}
+        />
+        {feedType === 'activity' ? 
+          <ActivityFeed /> : 
+          <IdeaFeed />}
       </View>
     );
   }

@@ -1,4 +1,4 @@
-export default ACTION_TYPES = {
+export default {
   LOGIN_USER: 'LOGIN_USER',
   REGISTER_USER: 'REGISTER_USER',
   CHOOSE_LEAGUE: 'CHOOSE_LEAGUE',

@@ -1,17 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { View } from 'react-native';
 
-class TabIcon extends Component {
-   render() {
-      var color = 'white';
-
-      return (
-         <View style={{flex:1, flexDirection:'column', alignItems:'center', alignSelf:'center', justifyContent: 'center'}}>
-            <Icon style={{color: color}} name={this.props.iconName || "circle"} size={25}/>
-         </View>
-      );
-   }
-};
+const TabIcon = ({ iconName }) => {
+  return (
+    <View style={{flex:1, flexDirection:'column', alignItems:'center', alignSelf:'center', justifyContent: 'center'}}>
+      <Icon style={{color: 'white'}} name={iconName || "circle"} size={25} />
+    </View>
+  )
+}
 
 export default TabIcon;

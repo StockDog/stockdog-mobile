@@ -5,8 +5,10 @@
         "node": true
     },
     "extends": [
-        "airbnb"
+        "airbnb",
+        "eslint:recommended"
     ],
+    "parser": "babel-eslint",
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -22,5 +24,8 @@
         "react"
     ],
     "rules": {
+        "react/prop-types": "off",
+        "react/jsx-filename-extension": "off",
+        "indent": ["error", 2]
     }
 }

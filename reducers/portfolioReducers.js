@@ -5,19 +5,19 @@ const initialState = {
   leagueID: null,
 };
 
-export default portfolioReducer = (state = initialState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
-    case ACTION_TYPES.CHOOSE_LEAGUE:
-      return Object.assign({}, state,
-        {
-          leagueID: action.payload.leagueID,
-        });
-    case ACTION_TYPES.UPDATE_PORTFOLIOS:
-      return Object.assign({}, state,
-        {
-          portfolios: action.payload.portfolios,
-        });
-    default:
-      return state;
+  case ACTION_TYPES.CHOOSE_LEAGUE:
+    return Object.assign({}, state,
+      {
+        leagueID: action.payload.leagueID,
+      });
+  case ACTION_TYPES.UPDATE_PORTFOLIOS:
+    return Object.assign({}, state,
+      {
+        portfolios: action.payload.portfolios,
+      });
+  default:
+    return state;
   }
 };

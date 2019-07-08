@@ -1,11 +1,10 @@
 import {
-  StyleSheet, PixelRatio, Dimensions, Platform,
+  StyleSheet, Dimensions,
 } from 'react-native';
-import { colors } from '../colors';
 
-const { height, width } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 
-export default tabStyle = StyleSheet.create({
+export default StyleSheet.create({
   // ----------------- Containers ------------- //
   iconHeaders: {
     height: height * 0.1,
