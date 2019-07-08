@@ -42,7 +42,7 @@ export default class ActivityPost extends Component {
         <TouchableOpacity style={styles.replyButtonContainer}>
           <Text style={styles.replyButtonText}>
             Reply
-           </Text>
+          </Text>
         </TouchableOpacity>
       </View>
     );
