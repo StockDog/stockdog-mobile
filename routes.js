@@ -53,6 +53,7 @@ const Routes = () => (
             <Scene key="feed" title="Feed" component={Feed} hideNavBar iconName="activity" icon={TabIcon} onEnter={Feed.onEnterFeed} />
             <Scene key="searchMain" hideNavBar title="Search" iconName="search" icon={TabIcon}>
               <Scene key="search" component={Search} />
+              <Scene key="stock" component={Stock} hideNavBar swipeDownToClose={false} />
             </Scene>
           </Tabs>
 

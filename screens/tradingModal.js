@@ -50,14 +50,8 @@ export default class TradingModal extends Component {
           <View style={styles.outermostBaseContainer}>
             <Text style={styles.successMessageText}>
               `Nice trade!\n You just $
-              {action === 'Buy' ? 'bought ' : 'sold '}
-              {' '}
-$
-              {amount}
-              {' '}
-shares of $
-              {ticker}
-.`
+              {action === 'Buy' ? 'bought ' : 'sold '} $
+              {amount} shares of {ticker}.`
             </Text>
           </View>
         </Lightbox>

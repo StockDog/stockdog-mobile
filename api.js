@@ -37,7 +37,7 @@ const getStockHistory = async (ticker, length) => {
   config.params = {
     length,
   };
-  return axios.get(`${baseurl}/charts/${ticker}`, config);
+  return await axios.get(`${baseurl}/stocks/${ticker}/chart`, config);
 };
 
 const tradeStock = async (shareCount, ticker, action) => {
