@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, TouchableWithoutFeedback } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { ButtonGroup } from 'react-native-elements';
 import styles from '../style/screens/portfolio';
@@ -18,10 +17,12 @@ class Portfolio extends Component {
 
   render() {
     var stockList;
+    const { chosenLeague, portfolios } = this.props;
+    const { scrollEnabled } = this.state;
 
     // Waiting for league to be chosen
-    if (this.props.chosenLeague) {
-      stockList = this.props.portfolios[this.props.chosenLeague].items;
+    if (chosenLeague) {
+      stockList = portfolios[chosenLeague].items;
     }
     else {
       stockList = []
@@ -29,8 +30,8 @@ class Portfolio extends Component {
     
     return (
       <View style={styles.profileBackground}>
-        <ScrollView scrollEnabled={this.state.scrollEnabled}>
-          <View style={styles.profileBackgroundCircle}></View>
+        <ScrollView scrollEnabled={scrollEnabled}>
+          <View style={styles.profileBackgroundCircle} />
           <NavBar />
           <View style={{ flex: 0.9, alignItems: 'center' }}>
             <View style={styles.portfolioValue}>
@@ -38,7 +39,8 @@ class Portfolio extends Component {
             </View>
             <TouchableWithoutFeedback
               onPressIn={() => { this.setState({ scrollEnabled: false }) }}
-              onPressOut={() => { this.setState({ scrollEnabled: true }) }}>
+              onPressOut={() => { this.setState({ scrollEnabled: true }) }}
+            >
               <View>
                 <StockChart />
               </View>
@@ -53,7 +55,7 @@ class Portfolio extends Component {
               selectedButtonStyle={styles.buttonGroupSelected}
               selectedTextStyle={styles.whiteText}
             />
-            <PortfolioStockList listType='portfolio' stockList={stockList}/>
+            <PortfolioStockList listType='portfolio' stockList={stockList} />
             {/* <PortfolioStockList listType='watchlist' /> */}
           </View>
         </ScrollView>

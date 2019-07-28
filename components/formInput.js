@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TextInput } from 'react-native';
 import styles from '../style/screens/loginRegister';
-import { colors } from '../style/colors';
+import colors from '../style/colors';
 
 // Input component for form pages like Login and Register
 // Props:
@@ -17,25 +17,25 @@ export default class FormInput extends Component {
   }
 
   render() {
-    var placeholder = this.props.type;
-    var secure = placeholder === 'password';
+    const { type, onchange, value, returnKeyType, refer, onSubmitEditing } = this.props;
+    var secure = type === 'password';
     return (
       <TextInput
-          style={styles.roundedInput}
-          color={colors.white}
-          autoCorrect={false}
-          placeholder={placeholder}
-          secureTextEntry={secure}
-          placeholderTextColor={colors.placeholders}
-          onChangeText={this.props.onchange}
-          value={this.props.value}
-          blurOnSubmit={false}
-          returnKeyType={this.props.returnKeyType}
-          ref={this.props.refer}
-          onSubmitEditing={this.props.onSubmitEditing}
-          autoCapitalize={"none"}
-          underlineColorAndroid={colors.white}
-        />
+        style={styles.roundedInput}
+        color={colors.white}
+        autoCorrect={false}
+        placeholder={type}
+        secureTextEntry={secure}
+        placeholderTextColor={colors.placeholders}
+        onChangeText={onchange}
+        value={value}
+        blurOnSubmit={false}
+        returnKeyType={returnKeyType}
+        ref={refer}
+        onSubmitEditing={onSubmitEditing}
+        autoCapitalize="none"
+        underlineColorAndroid={colors.white}
+      />
     );
   }
-};
+}

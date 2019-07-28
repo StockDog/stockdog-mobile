@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { LinearGradient } from 'expo-linear-gradient';
-import { colors } from '../style/colors';
+import colors from '../style/colors';
 import styles from '../style/screens/loginRegister';
 import FormInput from '../components/formInput';
 import WideButton from '../components/widebutton';
@@ -15,92 +15,104 @@ import { login } from '../api';
 var logoImage = require('../assets/logo.png');
 
 class Login extends Component {
-   constructor(props) {
-      super(props);
-      var user = this.props.email ? this.props.email : "";
-      this.state = {
-         email: user,
-         password: ""
-      };
+  constructor(props) {
+    super(props);
 
-      this.inputs = {};
-   }
+    const { email } = this.props;
+    var user = email ? email : "";
+    this.state = {
+      email: user,
+      password: ""
+    };
 
-   focusNextField = (id) => {
-      this.inputs[id].focus();
-   };
+    this.inputs = {};
+  }
 
-   navToRegister = () => {
-      Actions.register({});
-   };
+  focusNextField = (id) => {
+    this.inputs[id].focus();
+  };
 
-   submitLogin = () => {
-      login(this.state.email, this.state.password).then(async (res) => {
-         this.props.loginUser(res.data.userId, res.data.token);
-         await this.props.updatePortfolios();
-         if (Object.keys(this.props.portfolios).length > 0) {
-            Actions.portfolioMain();
-         }
-         else {
-            Actions.leagueManagement();
-         }
-      }).catch((e) => {
-         alert(e);
-      });
-   };
+  navToRegister = () => {
+    Actions.register({});
+  };
 
-   render() {
-      var disabled = !(this.state.email && this.state.password);
-      return (
-         <KeyboardAwareScrollView
-            resetScrollToCoords={{ x: 0, y: 0 }}
-            contentContainerStyle={styles.background}
-            scrollEnabled={false}
-            keyboardShouldPersistTaps="handled"
-            enableOnAndroid={true}>
-            <LinearGradient
-               colors={['transparent', colors.lightBackground]}
-               style={styles.gradientBackground}>
-               <Image
-                  source={logoImage}
-                  style={styles.logo} />
-               <FormInput
-                  type="email"
-                  value={this.state.email}
-                  onchange={(email) => this.setState({ email })}
-                  returnKeyType={"next"}
-                  onSubmitEditing={() => { this.focusNextField('password'); }} />
-               <FormInput
-                  type="password"
-                  value={this.state.password}
-                  onchange={(password) => this.setState({ password })}
-                  returnKeyType={"done"}
-                  onSubmitEditing={this.submitLogin}
-                  refer={input => { this.inputs['password'] = input; }} />
-               <WideButton
-                  type='login'
-                  disabled={disabled}
-                  onpress={this.submitLogin} />
-               {/* <TouchableOpacity
+  submitLogin = () => {
+    const { email, password } = this.state;
+    const { loginUserAction, updateAction, portfolios } = this.props;
+    login(email, password).then(async (res) => {
+      loginUserAction(res.data.userId, res.data.token);
+      await updateAction();
+      if (Object.keys(portfolios).length > 0) {
+        Actions.portfolioMain();
+      }
+      else {
+        Actions.leagueManagement();
+      }
+    }).catch((e) => {
+      alert(e);
+    });
+  };
+
+  render() {
+    const { email, password } = this.state;
+    var disabled = !(email && password);
+    return (
+      <KeyboardAwareScrollView
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        contentContainerStyle={styles.background}
+        scrollEnabled={false}
+        keyboardShouldPersistTaps="handled"
+        enableOnAndroid
+      >
+        <LinearGradient
+          colors={['transparent', colors.lightBackground]}
+          style={styles.gradientBackground}
+        >
+          <Image
+            source={logoImage}
+            style={styles.logo}
+          />
+          <FormInput
+            type="email"
+            value={email}
+            onchange={(email) => this.setState({ email })}
+            returnKeyType="next"
+            onSubmitEditing={() => { this.focusNextField('password'); }}
+          />
+          <FormInput
+            type="password"
+            value={password}
+            onchange={(password) => this.setState({ password })}
+            returnKeyType="done"
+            onSubmitEditing={this.submitLogin}
+            refer={input => { this.inputs['password'] = input; }}
+          />
+          <WideButton
+            type='login'
+            disabled={disabled}
+            onpress={this.submitLogin}
+          />
+          {/* <TouchableOpacity
               style={styles.smallTextButton}>
               <Text style={styles.smallText}> Forgot Password? </Text>
             </TouchableOpacity> */}
-               <TouchableOpacity style={styles.smallTextButton}>
-                  <Text
-                     style={styles.smallText}
-                     onPress={this.navToRegister}>
-                     Create an account
-              </Text>
-               </TouchableOpacity>
-            </LinearGradient>
-         </KeyboardAwareScrollView>
-      );
-   }
+          <TouchableOpacity style={styles.smallTextButton}>
+            <Text
+              style={styles.smallText}
+              onPress={this.navToRegister}
+            >
+              Create an account
+            </Text>
+          </TouchableOpacity>
+        </LinearGradient>
+      </KeyboardAwareScrollView>
+    );
+  }
 }
 
 const mapStateToProps = state => ({
-   email: state.auth.email,
-   portfolios: state.portfolio.portfolios
- });
+  email: state.auth.email,
+  portfolios: state.portfolio.portfolios
+});
 
-export default connect(mapStateToProps, { loginUser, updatePortfolios })(Login);
+export default connect(mapStateToProps, { loginUserAction: loginUser, updateAction: updatePortfolios })(Login);

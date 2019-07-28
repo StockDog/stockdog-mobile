@@ -1,6 +1,6 @@
 import { Component } from 'react';
-import Routes from './routes.js';
 import * as Font from 'expo-font';
+import Routes from './routes';
 
 
 export default class App extends Component {
@@ -10,22 +10,22 @@ export default class App extends Component {
       fontLoaded: false,
     };
   }
-  
+
   async componentDidMount() {
     await Font.loadAsync({
       'assistant-bold': require('./assets/fonts/Assistant-Bold.otf'),
-      'assistant': require('./assets/fonts/Assistant-Regular.otf'),
+      assistant: require('./assets/fonts/Assistant-Regular.otf'),
       'assistant-semibold': require('./assets/fonts/Assistant-SemiBold.otf'),
       'assistant-extralight': require('./assets/fonts/Assistant-ExtraLight.otf'),
-      'assistant-light': require('./assets/fonts/Assistant-Light.otf')
+      'assistant-light': require('./assets/fonts/Assistant-Light.otf'),
     });
-    this.setState({fontLoaded: true});
+    this.setState({ fontLoaded: true });
   }
 
   render() {
-    return(
-      this.state.fontLoaded ? 
-        Routes() : null
+    const { fontLoaded } = this.state;
+    return (
+      fontLoaded ? Routes() : null
     );
   }
-};
+}

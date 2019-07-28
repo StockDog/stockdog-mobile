@@ -11,7 +11,7 @@ export default class SpinningLoader extends Component {
 
   componentDidMount() {
     this.spin();
-  };
+  }
 
   spin = () => {
     this.spinValue.setValue(0);
@@ -36,4 +36,4 @@ export default class SpinningLoader extends Component {
       </Animated.View>
     );
   }
-};
+}

@@ -3,9 +3,9 @@ import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import DatePicker from 'react-native-datepicker';
 import { Actions } from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/Feather';
 import FormInput from '../components/formInput';
 import WideButton from '../components/widebutton';
-import Icon from 'react-native-vector-icons/Feather';
 import styles from '../style/screens/newLeague';
 import NavBar from '../components/navbar';
 import { createLeague, joinLeague } from '../api';
@@ -55,21 +55,23 @@ class NewLeague extends Component {
   }
 
   onSubmitLeague = async () => {
-    if (/[a-zA-Z]/.test(this.state.buyPower)) {
+    const { update, choose} = this.props;
+    const { buyPower, startDate, endDate, leagueName, nickname } = this.state;
+    if (/[a-zA-Z]/.test(buyPower)) {
       alert("Invalid Buying Power value. Please enter numbers only.");
     }
-    else if (this.state.startDate && this.state.endDate && 
-      !this.validDates(this.state.startDate, this.state.endDate)) { 
+    else if (startDate && endDate && 
+      !this.validDates(startDate, endDate)) { 
       alert("Invalid dates. Please make the end date later than the start date.");
     }
     else {
-      const startPos = parseInt(this.state.buyPower);
+      const startPos = parseInt(buyPower);
       try {
-        const createRes = await createLeague(this.state.leagueName, startPos,
-          this.state.startDate, this.state.endDate);
-        await joinLeague(createRes.data.inviteCode, this.state.nickname);
-        await this.props.updatePortfolios();
-        await this.props.chooseLeague(createRes.data.id);
+        const createRes = await createLeague(leagueName, startPos,
+          startDate, endDate);
+        await joinLeague(createRes.data.inviteCode, nickname);
+        await update();
+        await choose(createRes.data.id);
         Actions.portfolioMain();
       }
       catch (err) {
@@ -79,8 +81,8 @@ class NewLeague extends Component {
   }
 
   render() {
-    var disabled = !(this.state.leagueName && this.state.nickname &&
-      this.state.buyPower)
+    const { leagueName, nickname, buyPower, minDate, endDate, startDate } = this.state;
+    var disabled = !(leagueName && nickname && buyPower)
 
     return (
       <View style={styles.background}>
@@ -93,22 +95,25 @@ class NewLeague extends Component {
           <FormInput
             type="League Name"
             onchange={(leagueName) => this.setState({ leagueName })}
-            value={this.state.leagueName} />
+            value={leagueName}
+          />
           <FormInput
             type="Your Nickname"
             onchange={(nickname) => this.setState({ nickname })}
-            value={this.state.nickname} />
+            value={nickname}
+          />
           <FormInput
             type="Buying Power"
             onchange={(buyPower) => this.setState({ buyPower })}
-            value={this.state.buyPower} />
+            value={buyPower}
+          />
           <DatePicker
-            date={this.state.startDate}
+            date={startDate}
             mode="date"
             style={styles.datepicker}
             placeholder="Select start date"
             format="MM-DD-YYYY"
-            minDate={this.state.minDate}
+            minDate={minDate}
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             customStyles={{
@@ -120,12 +125,12 @@ class NewLeague extends Component {
             onDateChange={(startDate) => { this.setState({ startDate }) }}
           />
           <DatePicker
-            date={this.state.endDate}
+            date={endDate}
             mode="date"
             style={styles.datepicker}
             placeholder="Select end date"
             format="MM-DD-YYYY"
-            minDate={this.state.minDate}
+            minDate={minDate}
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             customStyles={{
@@ -137,13 +142,13 @@ class NewLeague extends Component {
             onDateChange={(endDate) => { this.setState({ endDate }) }}
           /> 
         </View>
-        <View style={styles.formBuffer}/>
+        <View style={styles.formBuffer} />
         <View style={styles.submitButton}>
           <WideButton disabled={disabled} type="addLeague" onpress={this.onSubmitLeague} />
         </View>
       </View>
     );
   }
-};
+}
 
-export default connect(null, { updatePortfolios, chooseLeague })(NewLeague);
+export default connect(null, { update: updatePortfolios, choose: chooseLeague })(NewLeague);

@@ -1,39 +1,39 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, View, AsyncStorage } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Feather';
 import styles from '../style/components/navbar';
 
 export default class NavBar extends Component {
 
-   constructor(props) {
-      super(props);
-   }
+  constructor(props) {
+    super(props);
+  }
 
-   openDrawer() {
-      Actions.drawerOpen();
-   }
+  openDrawer() {
+    Actions.drawerOpen();
+  }
 
-   // openSettings() {
-   //    Actions.settings();
-   // }
+  // openSettings() {
+  //    Actions.settings();
+  // }
 
-   // isStockPage() {
-   //    if (this.props.stock) {
-   //       return <Icon name='chevron-down' size={48} color='grey' />;
-   //    }
-   // }
+  // isStockPage() {
+  //    if (this.props.stock) {
+  //       return <Icon name='chevron-down' size={48} color='grey' />;
+  //    }
+  // }
 
-   render() {
-      return (
-         <View style={styles.iconHeaders}>
-            <TouchableOpacity onPress={this.openDrawer}>
-               <Icon name='menu' size={30} color='white' />
-            </TouchableOpacity>
-            <TouchableOpacity>
-               <Icon name='settings' size={30} color='white' />
-            </TouchableOpacity>
-         </View>
-      );
-   };
-};
+  render() {
+    return (
+      <View style={styles.iconHeaders}>
+        <TouchableOpacity onPress={this.openDrawer}>
+          <Icon name='menu' size={30} color='white' />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Icon name='settings' size={30} color='white' />
+        </TouchableOpacity>
+      </View>
+    );
+  }
+}

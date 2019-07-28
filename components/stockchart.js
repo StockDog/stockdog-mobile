@@ -1,23 +1,17 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
-import { ButtonGroup } from 'react-native-elements';
-import { colors } from '../style/colors';
-import styles from '../style/components/stockchart';
+import { View } from 'react-native';
 import ChartView  from 'react-native-highcharts';
-import Api from '../api';
+import colors from '../style/colors';
+import styles from '../style/components/stockchart';
 import SpinningLoader from './spinningloader';
 
 export default class StockChart extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      userId: "",
-      selectedIndex: 0,
-    };
-
-  };
+  }
 
   createChart() {
+    const { xData, yData } = this.props;
     var Highcharts = 'Highcharts';
     var conf = {
       chart: {
@@ -32,7 +26,7 @@ export default class StockChart extends Component {
       xAxis: {
         visible: false,
         type: 'category',
-        categories: this.props.xData
+        categories: xData
       },
       yAxis: {
         title: { text: '' },
@@ -61,7 +55,7 @@ export default class StockChart extends Component {
         enabled: false
       },
       series: [{
-        data: this.props.yData
+        data: yData
       }],
       plotOptions: {
         series: {
@@ -87,12 +81,13 @@ export default class StockChart extends Component {
     };
 
     return (
-      <ChartView style={styles.chart} config={conf} options={options} originWhitelist={['']}></ChartView>
+      <ChartView style={styles.chart} config={conf} options={options} originWhitelist={['']} />
     );
   }
 
   render() {
-    if (this.props.isLoading) {
+    const { isLoading } = this.props;
+    if (isLoading) {
       return (
         <View style={styles.chartContainer}>
           <SpinningLoader />

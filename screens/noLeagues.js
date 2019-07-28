@@ -20,16 +20,16 @@ export default class NoLeagues extends Component {
   render() {
     return (
       <View style={styles.background}>
-        <NavBar/>
+        <NavBar />
         <View style={styles.buttonContent}>
           <TouchableOpacity style={styles.button} onPress={this.navToNewLeague}>
             <Text style={styles.buttonText}>CREATE A LEAGUE</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={this.navToJoinLeague}>
-          <Text style={styles.buttonText}>JOIN A LEAGUE</Text>
+            <Text style={styles.buttonText}>JOIN A LEAGUE</Text>
           </TouchableOpacity>
         </View>
       </View>
     );
   }
-};
+}

@@ -6,75 +6,88 @@ import styles from '../style/screens/leagueDrawer';
 import { chooseLeague, updatePortfolios } from '../actions/portfolioActions';
 
 class LeagueDrawer extends Component {
-   constructor(props) {
-      super(props);
-   }
+  constructor(props) {
+    super(props);
+  }
 
-   componentDidMount() {
-      if (!this.props.chosenLeague) {
-         this.props.chooseLeague(Object.keys(this.props.portfolios)[0]);
-      }
-      this.pollPortfolios();
-   }
+  componentDidMount() {
+    const { chosenLeague, choose, portfolios } = this.props;
+    if (!chosenLeague) {
+      choose(Object.keys(portfolios)[0]);
+    }
+    this.pollPortfolios();
+  }
 
-   pollPortfolios = () => {
-      this.props.updatePortfolios();
-      setTimeout(this.pollPortfolios.bind(this), 10000);
-   }
+  pollPortfolios = () => {
+    const { update } = this.props;
+    update();
+    setTimeout(this.pollPortfolios.bind(this), 10000);
+  }
 
-   renderPortfolio = (portfolio) => {
-      portfolio = portfolio.item;
-      return (
-         <TouchableOpacity style={styles.portfolioListItem} 
-            onPress={() => this.setSelected(portfolio.id)}>
-            {
-               portfolio.leagueId === parseInt(this.props.chosenLeague) ? 
-                  <View style={styles.chosenMark}/> :
-                  <View style={styles.regularMark}/>
-            }
-            <View style={styles.portfolioText}>
-               <Text style={styles.portfolioTitle}>{portfolio.name}</Text>
-               <Text style={styles.portfolioValue}>${portfolio.value}</Text>
-            </View>
-         </TouchableOpacity>
-      );
-   }
+  renderPortfolio = (portfolio) => {
+    const { chosenLeague } = this.props;
+    portfolio = portfolio.item;
+    return (
+      <TouchableOpacity
+        style={styles.portfolioListItem}
+        onPress={() => this.setSelected(portfolio.id)}
+      >
+        {
+          portfolio.leagueId === parseInt(chosenLeague) ?
+            <View style={styles.chosenMark} /> :
+            <View style={styles.regularMark} />
+        }
+        <View style={styles.portfolioText}>
+          <Text style={styles.portfolioTitle}>{portfolio.name}</Text>
+          <Text style={styles.portfolioValue}>
+            $
+            {portfolio.value}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  }
 
-   setSelected = (id) => {
-      this.props.chooseLeague(id);
-   }
+  setSelected = (id) => {
+    const { choose } = this.props;
+    choose(id);
+  }
 
-   keyExtractor = (item, index) => index.toString();
+  keyExtractor = (item, index) => index.toString();
 
-   navToAddLeague = () => {
-      Actions.noLeagues();
-   }
+  navToAddLeague = () => {
+    Actions.noLeagues();
+  }
 
-   render() {
-      var portfolios = Object.values(this.props.portfolios);
-      return (
-         <View style={styles.background}>
-            <FlatList
-               keyExtractor={this.keyExtractor}
-               data={portfolios}
-               renderItem={this.renderPortfolio}
-               style={styles.portfolioList}/>
-               
-            <View style={styles.buttonContainer}>
-               <TouchableOpacity style={styles.addLeagueButton}
-                  onPress={this.navToAddLeague}>
-                  <Text style={styles.buttonText}>Add League</Text>
-               </TouchableOpacity>
-            </View>
-         </View>
-      );
-   }
-};
+  render() {
+    const { portfolios } = this.props;
+    var portfolioValues = Object.values(portfolios);
+    return (
+      <View style={styles.background}>
+        <FlatList
+          keyExtractor={this.keyExtractor}
+          data={portfolioValues}
+          renderItem={this.renderPortfolio}
+          style={styles.portfolioList}
+        />
+
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.addLeagueButton}
+            onPress={this.navToAddLeague}
+          >
+            <Text style={styles.buttonText}>Add League</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+}
 
 
 const mapStateToProps = state => ({
-   portfolios: state.portfolio.portfolios,
-   chosenLeague: state.portfolio.leagueID
+  portfolios: state.portfolio.portfolios,
+  chosenLeague: state.portfolio.leagueID
 });
 
-export default connect(mapStateToProps, { chooseLeague, updatePortfolios })(LeagueDrawer);
+export default connect(mapStateToProps, { choose: chooseLeague, update: updatePortfolios })(LeagueDrawer);

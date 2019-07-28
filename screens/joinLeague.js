@@ -10,66 +10,71 @@ import { joinLeague } from '../api';
 import { updatePortfolios, chooseLeague } from '../actions/portfolioActions';
 
 class JoinLeague extends Component {
-   constructor(props) {
-      super(props);
-      this.state = {
-         inviteCode: "",
-         nickname: "",
-         notFound: false
-      };
-   }
+  constructor(props) {
+    super(props);
+    this.state = {
+      inviteCode: "",
+      nickname: "",
+      notFound: false
+    };
+  }
 
-   close = () => {
-      Actions.pop();
-   }
+  close = () => {
+    Actions.pop();
+  }
 
-   submitJoinLeague = async () => {
-      try {
-         const joinRes = await joinLeague(this.state.inviteCode, this.state.nickname);
-         await this.props.updatePortfolios();
-         await this.props.chooseLeague(joinRes.data.leagueId);
-         Actions.portfolioMain();
+  submitJoinLeague = async () => {
+    const { inviteCode, nickname } = this.state;
+    const { update, choose } = this.props;
+    try {
+      const joinRes = await joinLeague(inviteCode, nickname);
+      await update();
+      await choose(joinRes.data.leagueId);
+      Actions.portfolioMain();
+    }
+    catch (err) {
+      if (Object.keys(err.response.data)[0] === 'InviteCodeMismatch') {
+        this.setState({ notFound: true })
       }
-      catch (err) {
-         if (Object.keys(err.response.data)[0] === 'InviteCodeMismatch') {
-            this.setState({notFound: true})
-         }
-         else {
-            alert('Error updating portfolios.');
-         }
+      else {
+        alert('Error updating portfolios.');
       }
-   }
+    }
+  }
 
-   render() {
-      var notFound;
-      if (this.state.notFound) {
-         notFound = <Text style={styles.joinLeagueWarning}> League Not Found </Text>
-      }
-      return (
-         <View style={styles.background}>
-            <View style={styles.backgroundCircle}></View>
-            <NavBar />
-            <View style={styles.titleContainer}>
-               <Text style={styles.title}> Join a League </Text>
-            </View>
-            <View style={styles.contentContainer}>
-               <View style={styles.inputsContainer}>
-                  <FormInput
-                     type="Invite Code"
-                     onchange={(code) => { this.setState({ inviteCode: code }) }}
-                     value={this.state.inviteCode} />
-                  <FormInput
-                     type="Your nickname"
-                     onchange={(name) => { this.setState({ nickname: name }) }}
-                     value={this.state.nickname} />
-               </View>
-            </View>
-            <WideButton type="join" onpress={this.submitJoinLeague} />
-            <WideButton type="cancel" onpress={Actions.pop}/>
-            {notFound}
-         </View>
-      );
-   }
-};
+  render() {
+    const { notFound, inviteCode, nickname } = this.state;
+    var notFoundComponent;
+    if (notFound) {
+      notFoundComponent = <Text style={styles.joinLeagueWarning}> League Not Found </Text>
+    }
+    return (
+      <View style={styles.background}>
+        <View style={styles.backgroundCircle} />
+        <NavBar />
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}> Join a League </Text>
+        </View>
+        <View style={styles.contentContainer}>
+          <View style={styles.inputsContainer}>
+            <FormInput
+              type="Invite Code"
+              onchange={(code) => { this.setState({ inviteCode: code }) }}
+              value={inviteCode}
+            />
+            <FormInput
+              type="Your nickname"
+              onchange={(name) => { this.setState({ nickname: name }) }}
+              value={nickname}
+            />
+          </View>
+        </View>
+        <WideButton type="join" onpress={this.submitJoinLeague} />
+        <WideButton type="cancel" onpress={Actions.pop} />
+        {notFoundComponent}
+      </View>
+    );
+  }
+}
 
-export default connect(null, { updatePortfolios, chooseLeague })(JoinLeague);
+export default connect(null, { update: updatePortfolios, choose: chooseLeague })(JoinLeague);

@@ -1,9 +1,9 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { colors } from '../colors';
+import colors from '../colors';
 
 const { width, height } = Dimensions.get('window');
 
-export default styles = StyleSheet.create({
+export default StyleSheet.create({
   // ----------------- Containers ------------- //
   chartContainer: {
     height: height * 0.3,
@@ -17,6 +17,6 @@ export default styles = StyleSheet.create({
   chart: {
     height: height * 0.3,
     width: width * 0.8,
-    backgroundColor: 'transparent'
-  }
+    backgroundColor: 'transparent',
+  },
 });
