@@ -30,7 +30,7 @@ class LeagueDrawer extends Component {
     return (
       <TouchableOpacity
         style={styles.portfolioListItem}
-        onPress={() => this.setSelected(portfolio.id)}
+        onPress={() => this.setSelected(portfolio.leagueId)}
       >
         {
           portfolio.leagueId === parseInt(chosenLeague) ?

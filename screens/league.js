@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Text, View } from 'react-native';
 import styles from '../style/screens/league';
 import NavBar from '../components/navbar';
@@ -15,8 +16,20 @@ class League extends Component {
   }
 
   componentDidMount = async () => {
+    const { chosenLeague } = this.props;
+    this.updateMembers(chosenLeague);
+  }
+
+  componentDidUpdate = (prevProps) => {
+    const { chosenLeague } = this.props;
+    if (prevProps.chosenLeague !== chosenLeague) {
+      this.updateMembers(chosenLeague);
+    }
+  }
+
+  updateMembers = async (leagueID) => {
     try {
-      let league = await getLeague();
+      let league = await getLeague(leagueID);
       let members = league.data.portfolios.map((portfolio) => {
         return {
           'name': portfolio.name,
@@ -24,7 +37,7 @@ class League extends Component {
         }
       })
       this.setState({
-        // title: league.data.name,
+        title: league.data.name,
         members
       })
     }
@@ -41,7 +54,9 @@ class League extends Component {
         <NavBar />
         <View style={styles.horizontal}>
           <View style={styles.leagueHeader}>
-            <Text style={styles.leagueTitle}>Week League {title}</Text>
+            <Text style={styles.leagueTitle}>
+              {title ? `${title[0].toUpperCase()}${title.substring(1, title.length)}` : ''}
+            </Text>
           </View>
         </View>
         <RankingList members={members} />
@@ -50,4 +65,8 @@ class League extends Component {
   }
 }
 
-export default League;
+const mapStateToProps = state => ({
+  chosenLeague: state.portfolio.leagueID
+});
+
+export default connect(mapStateToProps)(League);
