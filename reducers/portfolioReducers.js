@@ -17,6 +17,11 @@ export default (state = initialState, action) => {
       {
         portfolios: action.payload.portfolios,
       });
+  case ACTION_TYPES.INITIALIZE_PORTFOLIOS:
+    return Object.assign({}, state,
+      {
+        portfolios: action.payload.portfolios
+      })
   default:
     return state;
   }

@@ -7,39 +7,39 @@ export default class RankingList extends Component {
     super(props);
   }
 
-   keyExtractor = (item, index) => index
+  keyExtractor = (item, index) => index.toString();
 
-   renderRankingRow = (item) => {
-     return (
-       <View style={styles.horizontalItem}>
-         <Text style={styles.listText}>
-           {item.index + 1}  
-           {' '}
-           {item.item.name}
-         </Text>
-         <Text style={styles.listText}>
-$
-           {item.item.worth}
-         </Text>
-       </View>
-     );
-   }
+  renderRankingRow = (item) => {
+    return (
+      <View style={styles.horizontalItem}>
+        <Text style={styles.listText}>
+          {item.index + 1}
+.
+          {item.item.name}
+        </Text>
+        <Text style={styles.listText}>
+          $
+          {item.item.value}
+        </Text>
+      </View>
+    );
+  }
 
-   render() {
-     const { members } = this.props;
+  render() {
+    const { members } = this.props;
 
-     return (
-       <View style={styles.ratingsList}>
-         <View style={styles.smallHeaderView}>
-           <Text style={styles.smallHeader}> Player </Text> 
-           <Text style={styles.smallHeader}> Worth</Text>
-         </View>
-         <FlatList
-           keyExtractor={this.keyExtractor}
-           data={members}
-           renderItem={this.renderRankingRow}
-         />
-       </View>
-     );
-   }
+    return (
+      <View style={styles.ratingsList}>
+        <View style={styles.smallHeaderView}>
+          <Text style={styles.smallHeader}> Player </Text>
+          <Text style={styles.smallHeader}> Worth</Text>
+        </View>
+        <FlatList
+          keyExtractor={this.keyExtractor}
+          data={members}
+          renderItem={this.renderRankingRow}
+        />
+      </View>
+    );
+  }
 }

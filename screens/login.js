@@ -9,8 +9,8 @@ import styles from '../style/screens/loginRegister';
 import FormInput from '../components/formInput';
 import WideButton from '../components/widebutton';
 import { loginUser } from '../actions/authActions';
-import { updatePortfolios } from '../actions/portfolioActions';
-import { login } from '../api';
+import { initializePortfolios } from '../actions/portfolioActions';
+import { login, getPortfolios } from '../api';
 
 var logoImage = require('../assets/logo.png');
 
@@ -38,11 +38,12 @@ class Login extends Component {
 
   submitLogin = () => {
     const { email, password } = this.state;
-    const { loginUserAction, updateAction, portfolios } = this.props;
+    const { loginUserAction, initializePortfoliosAction } = this.props;
     login(email, password).then(async (res) => {
       loginUserAction(res.data.userId, res.data.token);
-      await updateAction();
-      if (Object.keys(portfolios).length > 0) {
+      let portfolios = await getPortfolios();
+      if (Object.keys(portfolios.data).length > 0) {
+        initializePortfoliosAction(portfolios.data);
         Actions.portfolioMain();
       }
       else {
@@ -115,4 +116,9 @@ const mapStateToProps = state => ({
   portfolios: state.portfolio.portfolios
 });
 
-export default connect(mapStateToProps, { loginUserAction: loginUser, updateAction: updatePortfolios })(Login);
+const mapDispatchToProps = {
+  loginUserAction: loginUser, 
+  initializePortfoliosAction: initializePortfolios
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

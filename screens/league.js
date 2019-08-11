@@ -3,31 +3,45 @@ import { Text, View } from 'react-native';
 import styles from '../style/screens/league';
 import NavBar from '../components/navbar';
 import RankingList from '../components/rankingList';
+import { getLeague } from '../api';
 
-export default class League extends Component {
+class League extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      members: [
-        {'name': 'Billy Joe', 'worth': 30312.32},
-        {'name': 'Bob Belcher', 'worth': 26324.97},
-        {'name': 'Seagull Shaul', 'worth': 20683.69},
-        {'name': 'Chillyboi', 'worth': 18232.65},
-        {'name': 'Weeboo', 'worth': 10231.53},
-        {'name': 'Poor person', 'worth': 459.23}
-      ]
+      title: '',
+      members: []
     };
   }
 
+  componentDidMount = async () => {
+    try {
+      let league = await getLeague();
+      let members = league.data.portfolios.map((portfolio) => {
+        return {
+          'name': portfolio.name,
+          'value': portfolio.value
+        }
+      })
+      this.setState({
+        // title: league.data.name,
+        members
+      })
+    }
+    catch (err) {
+      alert(err);
+    }
+  }
+
   render() {
-    const { members } = this.state;
+    const { members, title } = this.state;
 
     return (
       <View style={styles.background}>
         <NavBar />
         <View style={styles.horizontal}>
           <View style={styles.leagueHeader}>
-            <Text style={styles.leagueTitle}>Week League</Text>
+            <Text style={styles.leagueTitle}>Week League {title}</Text>
           </View>
         </View>
         <RankingList members={members} />
@@ -35,3 +49,5 @@ export default class League extends Component {
     );
   }
 }
+
+export default League;

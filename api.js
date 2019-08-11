@@ -74,6 +74,12 @@ const joinLeague = async (inviteCode, name) => {
   return axios.post(`${baseurl}/portfolios`, data, config);
 };
 
+const getLeague = async () => {
+  const leagueID = store.getState().portfolio.leagueID;
+  const config = getConfig();
+  return axios.get(`${baseurl}/leagues/${leagueID}`, config);
+}
+
 const getPortfolios = async () => {
   const config = getConfig();
   return axios.get(`${baseurl}/portfolios`, config);
@@ -87,4 +93,5 @@ export {
   createLeague,
   joinLeague,
   getPortfolios,
+  getLeague
 };
