@@ -51,7 +51,7 @@ export default class ActivityFeed extends Component {
     }
   }
 
-   keyExtractor = (item, index) => index
+   keyExtractor = (item, index) => index.toString();
 
    renderActivityPost = (activity) => {
      return (

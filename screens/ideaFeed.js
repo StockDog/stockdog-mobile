@@ -47,7 +47,7 @@ export default class IdeaFeed extends Component {
     }
   }
 
-   keyExtractor = (item, index) => index
+   keyExtractor = (item, index) => index.toString();
    
    renderIdeaPost = (idea) => {
      return (
