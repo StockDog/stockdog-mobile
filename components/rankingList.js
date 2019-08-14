@@ -13,11 +13,10 @@ export default class RankingList extends Component {
     return (
       <View style={styles.horizontalItem}>
         <Text style={styles.listText}>
-          {item.index + 1}. {item.item.name}
+          {`${item.index + 1}. ${item.item.name}`}
         </Text>
         <Text style={styles.listText}>
-          $
-          {item.item.value}
+          {`$${item.item.value}`}
         </Text>
       </View>
     );

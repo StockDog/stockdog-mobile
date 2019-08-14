@@ -35,7 +35,10 @@ class League extends Component {
           'name': portfolio.name,
           'value': portfolio.value
         }
-      })
+      }).sort((portfolio1, portfolio2) => {
+        return portfolio1.value < portfolio2.value
+      });
+      
       this.setState({
         title: league.data.name,
         members
