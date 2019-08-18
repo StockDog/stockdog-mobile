@@ -38,7 +38,7 @@ class LeagueDrawer extends Component {
             <View style={styles.regularMark} />
         }
         <View style={styles.portfolioText}>
-          <Text style={styles.portfolioTitle}>{portfolio.name}</Text>
+          <Text style={styles.portfolioTitle}>{portfolio.league.name}</Text>
           <Text style={styles.portfolioValue}>
             $
             {portfolio.value}
