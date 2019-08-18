@@ -7,27 +7,35 @@ import StockChart from '../components/stockchart';
 import NavBar from '../components/navbar';
 import PortfolioStockList from '../components/portfolioStockList';
 
+const timeframes = ['M', 'Y'];
+
 class Portfolio extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      scrollEnabled: true
+      scrollEnabled: true,
+      selectedTimeframe: timeframes[0],
+      xData: [],
+      yData: []
     }
+  }
+
+  updateIndex = (index) => {
+    this.setState({selectedTimeframe: timeframes[index]})
+  }
+
+  getData = () => {
+    // TODO: Add portfolio history endpoint when ready
   }
 
   render() {
     var stockList;
     const { chosenLeague, portfolios } = this.props;
-    const { scrollEnabled } = this.state;
+    const { scrollEnabled, selectedTimeframe, xData, yData } = this.state;
 
     // Waiting for league to be chosen
-    if (chosenLeague) {
-      stockList = portfolios[chosenLeague].items;
-    }
-    else {
-      stockList = []
-    }
-    
+    stockList = chosenLeague ? portfolios[chosenLeague].items : [];
+
     return (
       <View style={styles.profileBackground}>
         <ScrollView scrollEnabled={scrollEnabled}>
@@ -42,13 +50,13 @@ class Portfolio extends Component {
               onPressOut={() => { this.setState({ scrollEnabled: true }) }}
             >
               <View>
-                <StockChart />
+                <StockChart xData={xData} yData={yData} />
               </View>
             </TouchableWithoutFeedback>
             <ButtonGroup
-              // onPress={this.updateIndex.bind(this)}
-              selectedIndex={0}
-              buttons={['D', 'M', 'Y']}
+              onPress={this.updateIndex}
+              selectedIndex={timeframes.indexOf(selectedTimeframe)}
+              buttons={['M', 'Y']}
               containerStyle={styles.dateRangeButtonGroup}
               textStyle={styles.whiteText}
               buttonStyle={styles.transparentBackground}
