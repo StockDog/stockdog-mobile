@@ -6,6 +6,7 @@ import styles from '../style/screens/portfolio';
 import StockChart from '../components/stockchart';
 import NavBar from '../components/navbar';
 import PortfolioStockList from '../components/portfolioStockList';
+import LoadingPortfolio from '../components/loadingPortfolio';
 
 const timeframes = ['M', 'Y'];
 
@@ -33,6 +34,10 @@ class Portfolio extends Component {
     const { chosenLeague, portfolios } = this.props;
     const { scrollEnabled, selectedTimeframe, xData, yData } = this.state;
 
+    if (!portfolios[chosenLeague]) {
+      return <LoadingPortfolio />
+    }
+
     // Waiting for league to be chosen
     stockList = chosenLeague ? portfolios[chosenLeague].items : [];
 
@@ -43,7 +48,7 @@ class Portfolio extends Component {
           <NavBar />
           <View style={{ flex: 0.9, alignItems: 'center' }}>
             <View style={styles.portfolioValue}>
-              <Text style={styles.value}>$20.05</Text>
+              <Text style={styles.value}>{`$${portfolios[chosenLeague].value}`}</Text>
             </View>
             <TouchableWithoutFeedback
               onPressIn={() => { this.setState({ scrollEnabled: false }) }}
