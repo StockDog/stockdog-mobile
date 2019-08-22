@@ -27,30 +27,39 @@ export default class Stock extends Component {
   }
 
   componentDidMount() {
-    this.updateIndex(0);
+    const { initStockHistory } = this.props;
+    this.formatAndUpdateData(initStockHistory, 0);
   }
 
   updateIndex = (idx) => {
+    const { ticker } = this.props;
+    const buttonVal = Object.keys(lengthMap)[idx];
+    getStockHistory(ticker, lengthMap[buttonVal]).then((res) => {
+      this.formatAndUpdateData(res.data, idx);
+    }).catch((err) => 
+      alert(err)
+    );
+  }
+
+  formatAndUpdateData = (data, idx) => {
     const buttonVal = Object.keys(lengthMap)[idx];
     var xData = [];
     var yData = [];
-    getStockHistory('GRPN', lengthMap[buttonVal]).then((res) => {
-      res.data.forEach((val) => {
-        var timeStrArray = val.time.split(" ");
-        var date = buttonVal == 'D' ?
-          timeStrArray[1].split(":")[0] + ":" + timeStrArray[1].split(":")[1] :
-          this.createDateString(timeStrArray)
-        xData.push(date);
-        yData.push(val.price);
-      });
-      this.setState({
-        xData,
-        yData,
-        length: buttonVal,
-        isLoading: false,
-        currentPrice: yData[yData.length - 1].toFixed(2)
-      })
-    }).catch((err) => alert(err));
+    data.forEach((val) => {
+      var timeStrArray = val.time.split(" ");
+      var date = buttonVal == 'D' ?
+        timeStrArray[1].split(":")[0] + ":" + timeStrArray[1].split(":")[1] :
+        this.createDateString(timeStrArray)
+      xData.push(date);
+      yData.push(val.price);
+    });
+    this.setState({
+      xData,
+      yData,
+      length: buttonVal,
+      isLoading: false,
+      currentPrice: yData[yData.length - 1].toFixed(2)
+    })
   }
 
   createDateString = (timeStrArray) => {
@@ -62,8 +71,9 @@ export default class Stock extends Component {
 
   openModal = () => {
     const { currentPrice } = this.state;
+    const { ticker } = this.props;
     Actions.tradingModal({
-      ticker: 'GRPN',
+      ticker: ticker,
       buyingPower: 10,
       total: 0,
       price: currentPrice

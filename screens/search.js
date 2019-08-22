@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import styles from '../style/screens/search';
 import NavBar from '../components/navbar';
 import FormInput from '../components/formInput';
+import { getStockHistory } from '../api';
 
 export default class Search extends Component {
   constructor(props) {
@@ -16,16 +17,23 @@ export default class Search extends Component {
 
   }
 
-  submitSearch = () => {
+  submitSearch = async () => {
     const { text, top } = this.state;
-    if (text) {
-      Animated.timing(top, {
-        duration: 300,
-        toValue: 0,
-      }).start(() => Actions.stock({
-        type: 'replace',
-        ticker: text.toUpperCase()
-      }));
+    try {
+      if (text) {
+        let initStockHistory = await getStockHistory(text, 'day');
+        Animated.timing(top, {
+          duration: 300,
+          toValue: 0,
+        }).start(() => Actions.stock({
+          type: 'replace',
+          ticker: text.toUpperCase(),
+          initStockHistory: initStockHistory.data
+        }));
+      }
+    }
+    catch (err) {
+      alert(`Sorry, ${text} is not a supported ticker.`);
     }
   }
 
