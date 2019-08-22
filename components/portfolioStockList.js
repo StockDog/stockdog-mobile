@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import styles from '../style/screens/portfolio';
 
-export default class PortfolioStockList extends Component {
+class PortfolioStockList extends Component {
 
   constructor(props) {
     super(props);
@@ -15,10 +15,10 @@ export default class PortfolioStockList extends Component {
     const { listType } = this.props;
     if (listType === 'watchlist') {
       this.setState({
-        'stockList': [{ ticker: 'RADW', fullName: 'Rite Aid Corporation', value: 200.53, difference: 27.21 },
-          { ticker: 'CAMTW', fullName: 'Camtek LTD', value: 4021.21, difference: -120.23 },
-          { ticker: 'WMTW', fullName: 'Walmart Inc', value: 142.23, difference: 21.82 },
-          { ticker: 'ZNGAW', fullName: 'Zinga Inc', value: 6.23, difference: -0.52 }]
+        'stockList': [{ ticker: 'RADW', companyName: 'Rite Aid Corporation', value: 200.53, gain: 27.21 },
+          { ticker: 'CAMTW', companyName: 'Camtek LTD', value: 4021.21, gain: -120.23 },
+          { ticker: 'WMTW', companyName: 'Walmart Inc', value: 142.23, gain: 21.82 },
+          { ticker: 'ZNGAW', companyName: 'Zinga Inc', value: 6.23, gain: -0.52 }]
       })
     }
   }
@@ -32,19 +32,15 @@ export default class PortfolioStockList extends Component {
   };
 
   renderStockListingItem = (item, index) => {
-    var difference = item.difference >= 0 ?
+    var difference = item.gain >= 0 ?
       (
         <Text style={styles.greenValue}>
-          (+
-          {item.difference}
-          )
+          {`(+${item.gain})`}
         </Text>
       ) :
       (
         <Text style={styles.redValue}>
-          (
-          {item.difference}
-          )
+          {`(${item.gain})`}
         </Text>
       )
 
@@ -54,21 +50,16 @@ export default class PortfolioStockList extends Component {
           <Text style={styles.listingTickerAndValue}>{item.ticker}</Text>
           <View style={styles.horizontal}>
             <Text style={styles.listingTickerAndValue}>
-              $
-              {item.avgCost.toFixed(2)}
-              {' '}
-
+              {`$${item.avgCost.toFixed(2)} `}
             </Text>
             {difference}
           </View>
         </View>
         <View style={styles.horizontalEdges}>
-          <Text style={styles.smallListingText}>{item.fullName}</Text>
+          <Text style={styles.smallListingText}>{item.companyName}</Text>
           {item.shareCount ? (
             <Text style={styles.smallListingText}>
-              {item.shareCount}
-              {' '}
-              shares
+              {`${item.shareCount} shares`}
             </Text>
           ) : null}
         </View>
@@ -93,3 +84,5 @@ export default class PortfolioStockList extends Component {
     );
   }
 }
+
+export default PortfolioStockList;
