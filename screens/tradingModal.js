@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Text, TouchableOpacity, View, TextInput } from 'react-native';
 import { ButtonGroup } from 'react-native-elements';
 import Lightbox from '../components/baseLightbox';
@@ -6,7 +7,7 @@ import colors from '../style/colors';
 import styles from '../style/screens/tradingmodal';
 import { tradeStock } from '../api';
 
-export default class TradingModal extends Component {
+class TradingModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,17 +19,20 @@ export default class TradingModal extends Component {
 
   executeTrade = () => {
     const { amount, action } = this.state;
-    const { navigation } = this.props;
+    const { navigation, portfolios, leagueID } = this.props;
     const props = navigation.state.params;
-    tradeStock(
-      parseInt(amount),
-      props.ticker,
-      action.toUpperCase()
-    ).then(() => {
+    try {
+      tradeStock(
+        parseInt(amount),
+        props.ticker,
+        action.toUpperCase(),
+        portfolios[leagueID].id
+      );
       this.setState({ complete: true });
-    }).catch((err) => {
+    }
+    catch (err) {
       alert(Object.values(err.response.data)[0]);
-    });
+    }
   }
 
   onChangeAction = (actionIndex) => {
@@ -40,9 +44,13 @@ export default class TradingModal extends Component {
   }
 
   render() {
-    const { navigation } = this.props;
-    const { buyingPower, price, ticker } = navigation.state.params;
+    const { buyingPower, price, ticker } = this.props;
     const { complete, action, amount, actionIndex } = this.state;
+    if (!buyingPower && !price && !ticker) {
+      return (
+        <Lightbox verticalPercent={0.5} horizontalPercent={0.8} />
+      )
+    }
 
     if (complete) {
       return (
@@ -113,3 +121,10 @@ export default class TradingModal extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  portfolios: state.portfolio.portfolios,
+  leagueID: state.portfolio.leagueID
+});
+
+export default connect(mapStateToProps)(TradingModal);

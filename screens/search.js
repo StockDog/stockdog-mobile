@@ -5,32 +5,40 @@ import Icon from 'react-native-vector-icons/Feather';
 import styles from '../style/screens/search';
 import NavBar from '../components/navbar';
 import FormInput from '../components/formInput';
+import { getStockHistory } from '../api';
 
-export default class Search extends Component {
+class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: "",
+      ticker: "",
       top: new Animated.Value(300)
     };
 
   }
 
-  submitSearch = () => {
-    const { text, top } = this.state;
-    if (text) {
-      Animated.timing(top, {
-        duration: 300,
-        toValue: 0,
-      }).start(() => Actions.stock({
-        type: 'replace',
-        ticker: text.toUpperCase()
-      }));
+  submitSearch = async () => {
+    const { ticker, top } = this.state;
+    try {
+      if (ticker) {
+        let initStockHistory = await getStockHistory(ticker, 'week');
+        Animated.timing(top, {
+          duration: 300,
+          toValue: 0,
+        }).start(() => Actions.stock({
+          type: 'replace',
+          ticker: ticker.toUpperCase(),
+          initStockHistory: initStockHistory.data
+        }));
+      }
+    }
+    catch (err) {
+      alert(`Sorry, ${ticker} is not a supported ticker.`);
     }
   }
 
   render() {
-    const { text, top } = this.state;
+    const { ticker, top } = this.state;
     return (
       <View style={styles.background}>
         <NavBar />
@@ -38,8 +46,8 @@ export default class Search extends Component {
           <Animated.View style={[styles.horizontal, { top: top }]}>
             <FormInput
               type="search"
-              onchange={(newText) => { this.setState({ text: newText }) }}
-              value={text}
+              onchange={(newTicker) => { this.setState({ ticker: newTicker }) }}
+              value={ticker}
               returnKeyType="done"
               onSubmitEditing={this.submitSearch}
             />
@@ -52,3 +60,5 @@ export default class Search extends Component {
     );
   }
 }
+
+export default Search;

@@ -52,15 +52,13 @@ const Routes = () => (
             <Scene key="league" title="League" component={League} hideNavBar iconName="users" icon={TabIcon} onEnter={League.onEnterLeague} />
             <Scene key="feed" title="Feed" component={Feed} hideNavBar iconName="activity" icon={TabIcon} onEnter={Feed.onEnterFeed} />
             <Scene key="searchMain" hideNavBar title="Search" iconName="search" icon={TabIcon}>
-              <Scene key="search" component={Search} />
-              <Scene key="stock" component={Stock} hideNavBar swipeDownToClose={false} />
+              <Lightbox>
+                <Scene key="search" component={Search} />
+                <Scene key="stock" component={Stock} hideNavBar swipeDownToClose={false} />
+                <Scene key="tradingModal" component={TradingModal} swipeDownToClose />
+              </Lightbox>
             </Scene>
           </Tabs>
-
-          <Lightbox key="stock">
-            <Scene key="stockPage" component={Stock} hideNavBar swipeDownToClose={false} />
-            <Scene key="tradingModal" component={TradingModal} swipeDownToClose />
-          </Lightbox>
         </Drawer>
       </Scene>
     </CustomRouter>
