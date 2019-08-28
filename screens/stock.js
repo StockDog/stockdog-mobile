@@ -8,7 +8,7 @@ import NavBar from '../components/navbar';
 import { getStockHistory } from '../api';
 
 const lengthMap = {
-  'D': 'day',
+  'W': 'week',
   'M': 'month',
   'Y': 'year'
 }
@@ -17,7 +17,7 @@ export default class Stock extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      length: 'D',
+      length: 'W',
       xData: [],
       yData: [],
       isLoading: true,
@@ -33,8 +33,8 @@ export default class Stock extends Component {
 
   updateIndex = (idx) => {
     const { ticker } = this.props;
-    const buttonVal = Object.keys(lengthMap)[idx];
-    getStockHistory(ticker, lengthMap[buttonVal]).then((res) => {
+    const selectedLength = Object.keys(lengthMap)[idx];
+    getStockHistory(ticker, lengthMap[selectedLength]).then((res) => {
       this.formatAndUpdateData(res.data, idx);
     }).catch((err) => 
       alert(err)
@@ -42,21 +42,19 @@ export default class Stock extends Component {
   }
 
   formatAndUpdateData = (data, idx) => {
-    const buttonVal = Object.keys(lengthMap)[idx];
+    const selectedLength = Object.keys(lengthMap)[idx];
     var xData = [];
     var yData = [];
     data.forEach((val) => {
       var timeStrArray = val.time.split(" ");
-      var date = buttonVal == 'D' ?
-        timeStrArray[1].split(":")[0] + ":" + timeStrArray[1].split(":")[1] :
-        this.createDateString(timeStrArray)
+      var date = this.createDateString(timeStrArray);
       xData.push(date);
       yData.push(val.price);
     });
     this.setState({
       xData,
       yData,
-      length: buttonVal,
+      length: selectedLength,
       isLoading: false,
       currentPrice: yData[yData.length - 1].toFixed(2)
     })
