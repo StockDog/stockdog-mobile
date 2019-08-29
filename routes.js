@@ -1,7 +1,7 @@
 import React from 'react';
 import { Scene, Tabs, Modal, Drawer, Lightbox } from 'react-native-router-flux';
 import { Provider } from 'react-redux';
-import CustomRouter from './components/customRouter';
+
 import Login from './screens/login';
 import Register from './screens/register';
 import Portfolio from './screens/portfolio';
@@ -14,7 +14,11 @@ import NewLeague from './screens/newLeague';
 import TradingModal from './screens/tradingModal';
 import Search from './screens/search';
 import LeagueDrawer from './screens/leagueDrawer';
+
+import CustomRouter from './components/customRouter';
 import TabIcon from './components/tabIcon';
+import LoadingPortfolio from './components/loadingPortfolio';
+
 import colors from './style/colors';
 import tabStyle from './style/components/tabBar';
 import store from './store/store';
@@ -25,6 +29,7 @@ const Routes = () => (
       <Scene key="root" hideNavBar>
         <Scene key="login" component={Login} />
         <Scene key="register" component={Register} />
+        <Scene key="loading" component={LoadingPortfolio} />
         <Drawer
           key="drawer"
           contentComponent={LeagueDrawer}

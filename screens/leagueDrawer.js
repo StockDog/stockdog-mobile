@@ -30,10 +30,10 @@ class LeagueDrawer extends Component {
     return (
       <TouchableOpacity
         style={styles.portfolioListItem}
-        onPress={() => this.setSelected(portfolio.leagueId)}
+        onPress={() => this.setSelected(portfolio.league.id)}
       >
         {
-          portfolio.leagueId === parseInt(chosenLeague) ?
+          portfolio.league.id === parseInt(chosenLeague) ?
             <View style={styles.chosenMark} /> :
             <View style={styles.regularMark} />
         }
@@ -87,7 +87,7 @@ class LeagueDrawer extends Component {
 
 const mapStateToProps = state => ({
   portfolios: state.portfolio.portfolios,
-  chosenLeague: state.portfolio.leagueID
+  chosenLeague: state.portfolio.leagueId
 });
 
 export default connect(mapStateToProps, { choose: chooseLeague, update: updatePortfolios })(LeagueDrawer);

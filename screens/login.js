@@ -10,7 +10,7 @@ import FormInput from '../components/formInput';
 import WideButton from '../components/widebutton';
 import { loginUser } from '../actions/authActions';
 import { initializePortfolios } from '../actions/portfolioActions';
-import { login, getPortfolios } from '../api';
+import { login } from '../api';
 
 var logoImage = require('../assets/logo.png');
 
@@ -38,17 +38,10 @@ class Login extends Component {
 
   submitLogin = () => {
     const { email, password } = this.state;
-    const { loginUserAction, initializePortfoliosAction } = this.props;
+    const { loginUserAction } = this.props;
     login(email, password).then(async (res) => {
       loginUserAction(res.data.userId, res.data.token);
-      let portfolios = await getPortfolios();
-      if (Object.keys(portfolios.data).length > 0) {
-        initializePortfoliosAction(portfolios.data);
-        Actions.portfolioMain();
-      }
-      else {
-        Actions.leagueManagement();
-      }
+      Actions.loading();
     }).catch((e) => {
       alert(e);
     });

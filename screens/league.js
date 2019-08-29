@@ -27,9 +27,9 @@ class League extends Component {
     }
   }
 
-  updateMembers = async (leagueID) => {
+  updateMembers = async (leagueId) => {
     try {
-      let league = await getLeague(leagueID);
+      let league = await getLeague(leagueId);
       let members = league.data.portfolios.map((portfolio) => {
         return {
           'name': portfolio.name,
@@ -69,7 +69,7 @@ class League extends Component {
 }
 
 const mapStateToProps = state => ({
-  chosenLeague: state.portfolio.leagueID
+  chosenLeague: state.portfolio.leagueId
 });
 
 export default connect(mapStateToProps)(League);
