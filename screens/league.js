@@ -11,7 +11,7 @@ class League extends Component {
     super(props);
     this.state = {
       title: '',
-      members: []
+      members: [],
     };
   }
 
@@ -41,10 +41,9 @@ class League extends Component {
       
       this.setState({
         title: league.data.name,
-        members
-      })
-    }
-    catch (err) {
+        members,
+      });
+    } catch (err) {
       alert(err);
     }
   }

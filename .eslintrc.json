@@ -26,6 +26,9 @@
     "rules": {
         "react/prop-types": "off",
         "react/jsx-filename-extension": "off",
-        "indent": ["error", 2]
+        "indent": ["error", 2],
+        "global-require": "off",
+        "no-alert": "off",
+        "react/jsx-props-no-spreading": "off"
     }
 }

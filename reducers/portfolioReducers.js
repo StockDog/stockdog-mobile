@@ -13,10 +13,10 @@ export default (state = initialState, action) => {
         leagueId: action.payload.leagueId,
       });
   case ACTION_TYPES.UPDATE_PORTFOLIOS:
-    return Object.assign({}, state,
-      {
-        portfolios: action.payload.portfolios,
-      });
+    return {
+      ...state,
+      portfolios: action.payload.portfolios,
+    };
   case ACTION_TYPES.INITIALIZE_PORTFOLIOS:
     return Object.assign({}, state,
       {

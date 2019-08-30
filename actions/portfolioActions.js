@@ -9,7 +9,7 @@ const chooseLeague = leagueId => ({
 });
 
 const initializePortfolios = (portfolioList) => {
-  var portfolios = {}
+  const portfolios = {};
   portfolioList.forEach((portfolio) => {
     portfolios[portfolio.league.id] = portfolio;
   });
@@ -24,7 +24,7 @@ const initializePortfolios = (portfolioList) => {
 }
 
 const updatePortfolios = () => async (dispatch) => {
-  var portfolios = {};
+  const portfolios = {};
   const portfolioRes = await getPortfolios();
   portfolioRes.data.forEach((portfolio) => {
     portfolios[portfolio.league.id] = portfolio;

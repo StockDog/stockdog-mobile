@@ -22,17 +22,17 @@ export default class SpinningLoader extends Component {
         toValue: 1,
         duration: 2000,
         easing: Easing.linear,
-        useNativeDriver: true
-      }
+        useNativeDriver: true,
+      },
     ).start(() => this.spin());
   };
 
   render() {
-    const rotate = this.spinValue.interpolate({inputRange: [0, 1], outputRange: ['0deg', '360deg']});
-    
+    const rotate = this.spinValue.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '360deg'] });
+
     return (
-      <Animated.View style={{transform: [{rotate}]}}>
-        <Icon name='loader' size={48} color='white' />
+      <Animated.View style={{ transform: [{ rotate }] }}>
+        <Icon name="loader" size={48} color="white" />
       </Animated.View>
     );
   }

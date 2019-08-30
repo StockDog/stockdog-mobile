@@ -13,14 +13,16 @@ import FormInput from '../components/formInput';
 import { registerUser } from '../actions/authActions';
 import { register } from '../api';
 
+const validatePassword = (password) => password.length >= 8 && password.match('.*[0-9].*');
+
 class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: "",
-      lastname: "",
-      email: "",
-      password: ""
+      firstname: '',
+      lastname: '',
+      email: '',
+      password: '',
     };
 
     this.inputs = {};
@@ -32,23 +34,23 @@ class Register extends Component {
   }
 
   submitRegister = () => {
-    const { email, firstname, lastname, password } = this.state;
+    const {
+      email, firstname, lastname, password,
+    } = this.state;
     const { registerUserAction } = this.props;
     if (!email.includes('@')) {
       alert('Please enter a valid email address.');
-    }
-    else {
+    } else {
       register(firstname,
         lastname,
         email,
-        password
-      ).then(() => {
+        password).then(() => {
         registerUserAction(email);
-        Actions.login({ email: email });
+        Actions.login({ email });
       }).catch(() => {
-        alert('Invalid registration. ' +
-          'Please enter all fields and ' +
-          'follow password instructions.');
+        alert('Invalid registration. '
+          + 'Please enter all fields and '
+          + 'follow password instructions.');
       });
     }
   }
@@ -57,14 +59,12 @@ class Register extends Component {
     this.inputs[id].focus();
   }
 
-  validatePassword(password) {
-    return password.length >= 8 && password.match('.*[0-9].*');
-  }
-
   render() {
-    const { firstname, lastname, email, password } = this.state;
-    var disabled = !(firstname && lastname
-      && email && this.validatePassword(password));
+    const {
+      firstname, lastname, email, password,
+    } = this.state;
+    const disabled = !(firstname && lastname
+      && email && validatePassword(password));
     return (
       <KeyboardAwareScrollView
         resetScrollToCoords={{ x: 0, y: 0 }}
@@ -80,41 +80,40 @@ class Register extends Component {
           <Text style={styles.title}>StockDog</Text>
           <FormInput
             type="first name"
-            onchange={(firstname) => this.setState({ firstname })}
+            onchange={(newName) => this.setState({ firstname: newName })}
             value={firstname}
             returnKeyType="next"
             onSubmitEditing={() => { this.focusNextField('last name'); }}
           />
           <FormInput
             type="last name"
-            onchange={(lastname) => this.setState({ lastname })}
+            onchange={(newName) => this.setState({ lastname: newName })}
             value={lastname}
             returnKeyType="next"
-            refer={input => { this.inputs['last name'] = input; }}
+            refer={(input) => { this.inputs['last name'] = input; }}
             onSubmitEditing={() => { this.focusNextField('email'); }}
           />
           <FormInput
             type="email"
-            onchange={(email) => this.setState({ email })}
+            onchange={(newEmail) => this.setState({ email: newEmail })}
             value={email}
             returnKeyType="next"
-            refer={input => { this.inputs['email'] = input; }}
+            refer={(input) => { this.inputs.email = input; }}
             onSubmitEditing={() => { this.focusNextField('password'); }}
           />
           <View style={styles.horizontal}>
             <FormInput
               type="password"
-              onchange={(password) => this.setState({ password })}
+              onchange={(newPass) => this.setState({ password: newPass })}
               value={password}
               returnKeyType="done"
-              refer={input => { this.inputs['password'] = input; }}
+              refer={(input) => { this.inputs.password = input; }}
               onSubmitEditing={() => {
                 if (disabled) {
-                  alert('Invalid registration. ' +
-                    'Please enter all fields and ' +
-                    'follow password instructions.');
-                }
-                else {
+                  alert('Invalid registration. '
+                    + 'Please enter all fields and '
+                    + 'follow password instructions.');
+                } else {
                   this.submitRegister();
                 }
               }}
@@ -122,18 +121,18 @@ class Register extends Component {
             <PopoverTooltip
               buttonComponent={(
                 <View style={styles.popoverButton}>
-                  <Icon name='info' size={30} color='white' />
+                  <Icon name="info" size={30} color="white" />
                 </View>
               )}
               items={[{
-                label: 'Password must be at least 8 characters long ' +
-                  'and contain at least 1 number.',
-                onPress: () => { }
+                label: 'Password must be at least 8 characters long '
+                  + 'and contain at least 1 number.',
+                onPress: () => { },
               }]}
             />
           </View>
           <WideButton
-            type='register'
+            type="register"
             disabled={disabled}
             onpress={this.submitRegister}
           />

@@ -37,7 +37,7 @@ const getStockHistory = async (ticker, length) => {
   config.params = {
     length,
   };
-  return await axios.get(`${baseurl}/stocks/${ticker}/chart`, config);
+  return axios.get(`${baseurl}/stocks/${ticker}/chart`, config);
 };
 
 const tradeStock = async (shareCount, ticker, action, portfolioId) => {
@@ -74,7 +74,7 @@ const joinLeague = async (inviteCode, name) => {
 const getLeague = async (leagueId) => {
   const config = getConfig();
   return axios.get(`${baseurl}/leagues/${leagueId}`, config);
-}
+};
 
 const getPortfolios = async () => {
   const config = getConfig();
@@ -89,5 +89,5 @@ export {
   createLeague,
   joinLeague,
   getPortfolios,
-  getLeague
+  getLeague,
 };

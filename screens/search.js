@@ -11,28 +11,26 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ticker: "",
-      top: new Animated.Value(300)
+      ticker: '',
+      top: new Animated.Value(300),
     };
-
   }
 
   submitSearch = async () => {
     const { ticker, top } = this.state;
     try {
       if (ticker) {
-        let initStockHistory = await getStockHistory(ticker, 'week');
+        const initStockHistory = await getStockHistory(ticker, 'week');
         Animated.timing(top, {
           duration: 300,
           toValue: 0,
         }).start(() => Actions.stock({
           type: 'replace',
           ticker: ticker.toUpperCase(),
-          initStockHistory: initStockHistory.data
+          initStockHistory: initStockHistory.data,
         }));
       }
-    }
-    catch (err) {
+    } catch (err) {
       alert(`Sorry, ${ticker} is not a supported ticker.`);
     }
   }
@@ -43,16 +41,16 @@ class Search extends Component {
       <View style={styles.background}>
         <NavBar />
         <View style={styles.content}>
-          <Animated.View style={[styles.horizontal, { top: top }]}>
+          <Animated.View style={[styles.horizontal, { top }]}>
             <FormInput
               type="search"
-              onchange={(newTicker) => { this.setState({ ticker: newTicker }) }}
+              onchange={(newTicker) => { this.setState({ ticker: newTicker }); }}
               value={ticker}
               returnKeyType="done"
               onSubmitEditing={this.submitSearch}
             />
             <TouchableOpacity onPress={this.submitSearch} style={styles.searchButton}>
-              <Icon name='search' size={24} color='white' />
+              <Icon name="search" size={24} color="white" />
             </TouchableOpacity>
           </Animated.View>
         </View>

@@ -3,24 +3,18 @@ import { Text, View, FlatList } from 'react-native';
 import styles from '../style/screens/league';
 
 export default class RankingList extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   keyExtractor = (item, index) => index.toString();
 
-  renderRankingRow = (item) => {
-    return (
-      <View style={styles.horizontalItem}>
-        <Text style={styles.listText}>
-          {`${item.index + 1}. ${item.item.name}`}
-        </Text>
-        <Text style={styles.listText}>
-          {`$${item.item.value}`}
-        </Text>
-      </View>
-    );
-  }
+  renderRankingRow = (item) => (
+    <View style={styles.horizontalItem}>
+      <Text style={styles.listText}>
+        {`${item.index + 1}. ${item.item.name}`}
+      </Text>
+      <Text style={styles.listText}>
+        {`$${item.item.value}`}
+      </Text>
+    </View>
+  )
 
   render() {
     const { members } = this.props;

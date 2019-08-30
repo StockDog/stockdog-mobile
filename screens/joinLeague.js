@@ -13,9 +13,9 @@ class JoinLeague extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      inviteCode: "",
-      nickname: "",
-      notFound: false
+      inviteCode: '',
+      nickname: '',
+      notFound: false,
     };
   }
 
@@ -31,12 +31,10 @@ class JoinLeague extends Component {
       await update();
       await choose(joinRes.data.leagueId);
       Actions.portfolioMain();
-    }
-    catch (err) {
+    } catch (err) {
       if (Object.keys(err.response.data)[0] === 'InviteCodeMismatch') {
-        this.setState({ notFound: true })
-      }
-      else {
+        this.setState({ notFound: true });
+      } else {
         alert('Error updating portfolios.');
       }
     }
@@ -44,9 +42,9 @@ class JoinLeague extends Component {
 
   render() {
     const { notFound, inviteCode, nickname } = this.state;
-    var notFoundComponent;
+    let notFoundComponent;
     if (notFound) {
-      notFoundComponent = <Text style={styles.joinLeagueWarning}> League Not Found </Text>
+      notFoundComponent = <Text style={styles.joinLeagueWarning}> League Not Found </Text>;
     }
     return (
       <View style={styles.background}>
@@ -59,12 +57,12 @@ class JoinLeague extends Component {
           <View style={styles.inputsContainer}>
             <FormInput
               type="Invite Code"
-              onchange={(code) => { this.setState({ inviteCode: code }) }}
+              onchange={(code) => { this.setState({ inviteCode: code }); }}
               value={inviteCode}
             />
             <FormInput
               type="Your nickname"
-              onchange={(name) => { this.setState({ nickname: name }) }}
+              onchange={(name) => { this.setState({ nickname: name }); }}
               value={nickname}
             />
           </View>
