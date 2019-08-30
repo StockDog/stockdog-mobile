@@ -2,7 +2,7 @@ import ACTION_TYPES from '../actions/actionTypes';
 
 const initialState = {
   portfolios: {}, // {leagueID: portfolio}
-  leagueID: null,
+  leagueId: null,
 };
 
 export default (state = initialState, action) => {
@@ -10,7 +10,7 @@ export default (state = initialState, action) => {
   case ACTION_TYPES.CHOOSE_LEAGUE:
     return Object.assign({}, state,
       {
-        leagueID: action.payload.leagueID,
+        leagueId: action.payload.leagueId,
       });
   case ACTION_TYPES.UPDATE_PORTFOLIOS:
     return Object.assign({}, state,
@@ -20,7 +20,8 @@ export default (state = initialState, action) => {
   case ACTION_TYPES.INITIALIZE_PORTFOLIOS:
     return Object.assign({}, state,
       {
-        portfolios: action.payload.portfolios
+        portfolios: action.payload.portfolios,
+        leagueId: action.payload.leagueId
       })
   default:
     return state;

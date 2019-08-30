@@ -19,14 +19,14 @@ class TradingModal extends Component {
 
   executeTrade = () => {
     const { amount, action } = this.state;
-    const { navigation, portfolios, leagueID } = this.props;
+    const { navigation, portfolios, leagueId } = this.props;
     const props = navigation.state.params;
     try {
       tradeStock(
         parseInt(amount),
         props.ticker,
         action.toUpperCase(),
-        portfolios[leagueID].id
+        portfolios[leagueId].id
       );
       this.setState({ complete: true });
     }
@@ -124,7 +124,7 @@ class TradingModal extends Component {
 
 const mapStateToProps = state => ({
   portfolios: state.portfolio.portfolios,
-  leagueID: state.portfolio.leagueID
+  leagueId: state.portfolio.leagueId
 });
 
 export default connect(mapStateToProps)(TradingModal);

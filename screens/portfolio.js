@@ -6,7 +6,6 @@ import styles from '../style/screens/portfolio';
 import StockChart from '../components/stockchart';
 import NavBar from '../components/navbar';
 import PortfolioStockList from '../components/portfolioStockList';
-import LoadingPortfolio from '../components/loadingPortfolio';
 
 const timeframes = ['M', 'Y'];
 
@@ -30,16 +29,9 @@ class Portfolio extends Component {
   }
 
   render() {
-    var stockList;
     const { chosenLeague, portfolios } = this.props;
     const { scrollEnabled, selectedTimeframe, xData, yData } = this.state;
-
-    if (!portfolios[chosenLeague]) {
-      return <LoadingPortfolio />
-    }
-
-    // Waiting for league to be chosen
-    stockList = chosenLeague ? portfolios[chosenLeague].items : [];
+    var stockList = portfolios[chosenLeague].items;
 
     return (
       <View style={styles.profileBackground}>
@@ -79,7 +71,7 @@ class Portfolio extends Component {
 
 const mapStateToProps = state => ({
   portfolios: state.portfolio.portfolios,
-  chosenLeague: state.portfolio.leagueID
+  chosenLeague: state.portfolio.leagueId
 });
 
 export default connect(mapStateToProps, {})(Portfolio);

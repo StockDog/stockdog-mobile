@@ -24,11 +24,12 @@ class PortfolioStockList extends Component {
   }
 
   static getDerivedStateFromProps = (props, state) => {
-    if (props.stockList !== state.propsList) {
+    if (props.stockList !== state.stockList) {
       return {
         stockList: props.stockList
       }
     }
+    return null;
   };
 
   renderStockListingItem = (item, index) => {
