@@ -1,7 +1,7 @@
 import { getPortfolios } from '../api';
 import ACTION_TYPES from './actionTypes';
 
-const chooseLeague = leagueId => ({
+const chooseLeague = (leagueId) => ({
   type: ACTION_TYPES.CHOOSE_LEAGUE,
   payload: {
     leagueId,
@@ -18,10 +18,10 @@ const initializePortfolios = (portfolioList) => {
     type: ACTION_TYPES.INITIALIZE_PORTFOLIOS,
     payload: {
       portfolios,
-      leagueId: portfolioList[0].league.id
-    }
-  }
-}
+      leagueId: portfolioList[0].league.id,
+    },
+  };
+};
 
 const updatePortfolios = () => async (dispatch) => {
   const portfolios = {};

@@ -7,24 +7,21 @@ import styles from '../style/components/loadingPortfolio';
 import { getPortfolios } from '../api';
 import { initializePortfolios } from '../actions/portfolioActions';
 
-const LoadingPortfolio = ({initializePortfoliosAction}) => {
-  
+const LoadingPortfolio = ({ initializePortfoliosAction }) => {
   useEffect(() => {
     const initPortfolios = async () => {
       try {
-        let portfolios = await getPortfolios();
+        const portfolios = await getPortfolios();
         if (Object.keys(portfolios.data).length > 0) {
           initializePortfoliosAction(portfolios.data);
           Actions.portfolioMain();
-        }
-        else {
+        } else {
           Actions.leagueManagement();
         }
-      }
-      catch (err) {
+      } catch (err) {
         alert('Error loading portfolios: ', err);
       }
-    }
+    };
 
     initPortfolios();
   });
@@ -33,7 +30,10 @@ const LoadingPortfolio = ({initializePortfoliosAction}) => {
     <View style={styles.background}>
       <SpinningLoader />
     </View>
-  )
+  );
 };
 
-export default connect(null, {initializePortfoliosAction: initializePortfolios})(LoadingPortfolio);
+export default connect(
+  null, 
+  { initializePortfoliosAction: initializePortfolios }
+)(LoadingPortfolio);

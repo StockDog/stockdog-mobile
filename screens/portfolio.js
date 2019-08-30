@@ -35,13 +35,7 @@ class Portfolio extends Component {
     const {
       scrollEnabled, selectedTimeframe, xData, yData,
     } = this.state;
-
-    if (!portfolios[chosenLeague]) {
-      return <LoadingPortfolio />;
-    }
-
-    // Waiting for league to be chosen
-    const stockList = chosenLeague ? portfolios[chosenLeague].items : [];
+    var stockList = portfolios[chosenLeague].items;
 
     return (
       <View style={styles.profileBackground}>
@@ -81,7 +75,7 @@ class Portfolio extends Component {
 
 const mapStateToProps = (state) => ({
   portfolios: state.portfolio.portfolios,
-  chosenLeague: state.portfolio.leagueId
+  chosenLeague: state.portfolio.leagueId,
 });
 
 export default connect(mapStateToProps, {})(Portfolio);

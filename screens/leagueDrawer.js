@@ -31,9 +31,9 @@ class LeagueDrawer extends Component {
         onPress={() => this.setSelected(portfolio.league.id)}
       >
         {
-          portfolio.league.id === parseInt(chosenLeague, 10) ?
-            <View style={styles.chosenMark} /> :
-            <View style={styles.regularMark} />
+          portfolio.league.id === parseInt(chosenLeague, 10)
+            ? <View style={styles.chosenMark} />
+            : <View style={styles.regularMark} />
         }
         <View style={styles.portfolioText}>
           <Text style={styles.portfolioTitle}>
@@ -86,7 +86,7 @@ class LeagueDrawer extends Component {
 
 const mapStateToProps = (state) => ({
   portfolios: state.portfolio.portfolios,
-  chosenLeague: state.portfolio.leagueId
+  chosenLeague: state.portfolio.leagueId,
 });
 
 export default connect(

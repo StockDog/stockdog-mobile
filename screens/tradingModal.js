@@ -28,7 +28,7 @@ class TradingModal extends Component {
         parseInt(amount, 10),
         props.ticker,
         action.toUpperCase(),
-        portfolios[leagueId].id
+        portfolios[leagueId].id,
       );
       this.setState({ complete: true });
     } catch (err) {
@@ -127,7 +127,7 @@ class TradingModal extends Component {
 
 const mapStateToProps = (state) => ({
   portfolios: state.portfolio.portfolios,
-  leagueId: state.portfolio.leagueId
+  leagueId: state.portfolio.leagueId,
 });
 
 export default connect(mapStateToProps)(TradingModal);
