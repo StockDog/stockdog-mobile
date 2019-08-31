@@ -15,14 +15,13 @@ class NewLeague extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      leagueName: "",
-      nickname: "",
-      buyPower: "",
-      startDate: "",
-      endDate: "",
-      minDate: "01-01-2001"
+      leagueName: '',
+      nickname: '',
+      buyPower: '',
+      startDate: '',
+      endDate: '',
+      minDate: '01-01-2001',
     };
-
   }
 
   componentDidMount() {
@@ -30,42 +29,42 @@ class NewLeague extends Component {
   }
 
   getCurrDate = () => {
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1; //January is 0!
-    var yyyy = today.getFullYear();  // Last 2 digits of the date
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; // January is 0!
+    const yyyy = today.getFullYear(); // Last 2 digits of the date
 
     if (dd < 10) {
-      dd = '0' + dd
+      dd = `0${dd}`;
     }
 
     if (mm < 10) {
-      mm = '0' + mm
+      mm = `0${mm}`;
     }
 
-    today = mm + '-' + dd + '-' + yyyy;
+    today = `${mm}-${dd}-${yyyy}`;
     return today;
   }
 
   validDates = (start, end) => {
-    var startSplit = start.split('-').map(val => parseInt(val, 10));
-    var endSplit = end.split('-').map(val => parseInt(val, 10));
-    return new Date(startSplit[2], startSplit[0], startSplit[1]) < 
-      new Date(endSplit[2], endSplit[0], endSplit[1]);
+    const startSplit = start.split('-').map((val) => parseInt(val, 10));
+    const endSplit = end.split('-').map((val) => parseInt(val, 10));
+    return new Date(startSplit[2], startSplit[0], startSplit[1])
+      < new Date(endSplit[2], endSplit[0], endSplit[1]);
   }
 
   onSubmitLeague = async () => {
-    const { update, choose} = this.props;
-    const { buyPower, startDate, endDate, leagueName, nickname } = this.state;
+    const { update, choose } = this.props;
+    const {
+      buyPower, startDate, endDate, leagueName, nickname,
+    } = this.state;
     if (/[a-zA-Z]/.test(buyPower)) {
-      alert("Invalid Buying Power value. Please enter numbers only.");
-    }
-    else if (startDate && endDate && 
-      !this.validDates(startDate, endDate)) { 
-      alert("Invalid dates. Please make the end date later than the start date.");
-    }
-    else {
-      const startPos = parseInt(buyPower);
+      alert('Invalid Buying Power value. Please enter numbers only.');
+    } else if (startDate && endDate
+      && !this.validDates(startDate, endDate)) {
+      alert('Invalid dates. Please make the end date later than the start date.');
+    } else {
+      const startPos = parseInt(buyPower, 10);
       try {
         const createRes = await createLeague(leagueName, startPos,
           startDate, endDate);
@@ -73,16 +72,17 @@ class NewLeague extends Component {
         await update();
         await choose(createRes.data.id);
         Actions.portfolioMain();
-      }
-      catch (err) {
+      } catch (err) {
         alert(Object.values(err.response.data[0]));
       }
     }
   }
 
   render() {
-    const { leagueName, nickname, buyPower, minDate, endDate, startDate } = this.state;
-    var disabled = !(leagueName && nickname && buyPower)
+    const {
+      leagueName, nickname, buyPower, minDate, endDate, startDate,
+    } = this.state;
+    const disabled = !(leagueName && nickname && buyPower);
 
     return (
       <View style={styles.background}>
@@ -94,17 +94,17 @@ class NewLeague extends Component {
         <View style={styles.form}>
           <FormInput
             type="League Name"
-            onchange={(leagueName) => this.setState({ leagueName })}
+            onchange={(leagueChange) => this.setState({ leagueName: leagueChange })}
             value={leagueName}
           />
           <FormInput
             type="Your Nickname"
-            onchange={(nickname) => this.setState({ nickname })}
+            onchange={(newNickname) => this.setState({ nickname: newNickname })}
             value={nickname}
           />
           <FormInput
             type="Buying Power"
-            onchange={(buyPower) => this.setState({ buyPower })}
+            onchange={(newBP) => this.setState({ buyPower: newBP })}
             value={buyPower}
           />
           <DatePicker
@@ -119,10 +119,10 @@ class NewLeague extends Component {
             customStyles={{
               placeholderText: styles.datePlaceholderText,
               dateInput: styles.dateInput,
-              dateText: styles.dateText
+              dateText: styles.dateText,
             }}
-            iconComponent={<Icon name='calendar' size={30} color='grey' />}
-            onDateChange={(startDate) => { this.setState({ startDate }) }}
+            iconComponent={<Icon name="calendar" size={30} color="grey" />}
+            onDateChange={(newDate) => { this.setState({ startDate: newDate }); }}
           />
           <DatePicker
             date={endDate}
@@ -136,11 +136,11 @@ class NewLeague extends Component {
             customStyles={{
               placeholderText: styles.datePlaceholderText,
               dateInput: styles.dateInput,
-              dateText: styles.dateText
+              dateText: styles.dateText,
             }}
-            iconComponent={<Icon name='calendar' size={36} color='grey' />}
-            onDateChange={(endDate) => { this.setState({ endDate }) }}
-          /> 
+            iconComponent={<Icon name="calendar" size={36} color="grey" />}
+            onDateChange={(newDate) => { this.setState({ endDate: newDate }); }}
+          />
         </View>
         <View style={styles.formBuffer} />
         <View style={styles.submitButton}>

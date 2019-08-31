@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, TouchableOpacity, View, TextInput } from 'react-native';
+import {
+  Text, TouchableOpacity, View, TextInput,
+} from 'react-native';
 import { ButtonGroup } from 'react-native-elements';
 import Lightbox from '../components/baseLightbox';
 import colors from '../style/colors';
@@ -13,7 +15,7 @@ class TradingModal extends Component {
     this.state = {
       action: '',
       amount: '',
-      complete: false
+      complete: false,
     };
   }
 
@@ -23,14 +25,13 @@ class TradingModal extends Component {
     const props = navigation.state.params;
     try {
       tradeStock(
-        parseInt(amount),
+        parseInt(amount, 10),
         props.ticker,
         action.toUpperCase(),
-        portfolios[leagueId].id
+        portfolios[leagueId].id,
       );
       this.setState({ complete: true });
-    }
-    catch (err) {
+    } catch (err) {
       alert(Object.values(err.response.data)[0]);
     }
   }
@@ -38,18 +39,20 @@ class TradingModal extends Component {
   onChangeAction = (actionIndex) => {
     const actions = ['Buy', 'Sell'];
     this.setState({
-      actionIndex: actionIndex,
-      action: actions[actionIndex]
+      actionIndex,
+      action: actions[actionIndex],
     });
   }
 
   render() {
     const { buyingPower, price, ticker } = this.props;
-    const { complete, action, amount, actionIndex } = this.state;
+    const {
+      complete, action, amount, actionIndex,
+    } = this.state;
     if (!buyingPower && !price && !ticker) {
       return (
         <Lightbox verticalPercent={0.5} horizontalPercent={0.8} />
-      )
+      );
     }
 
     if (complete) {
@@ -61,19 +64,19 @@ class TradingModal extends Component {
             </Text>
           </View>
         </Lightbox>
-      )
+      );
     }
-    var total = amount ? price * parseInt(amount) : 0;
+    let total = amount ? price * parseInt(amount, 10) : 0;
     total = total.toFixed(2);
 
-    var isDisabled = !(amount && action)
+    const isDisabled = !(amount && action)
       || amount <= 0;
-    var buttonStyle = isDisabled ?
-      styles.disabledExecuteButton :
-      styles.executeButton;
-    var buttonTextStyle = isDisabled ?
-      styles.disabledExecuteButtonText :
-      styles.executeButtonText;
+    const buttonStyle = isDisabled
+      ? styles.disabledExecuteButton
+      : styles.executeButton;
+    const buttonTextStyle = isDisabled
+      ? styles.disabledExecuteButtonText
+      : styles.executeButtonText;
 
     return (
       <Lightbox verticalPercent={0.5} horizontalPercent={0.8}>
@@ -104,7 +107,7 @@ class TradingModal extends Component {
             placeholder="Amount"
             placeholderColor={colors.grey}
             value={amount}
-            onChangeText={(amt) => { this.setState({ amount: amt }) }}
+            onChangeText={(amt) => { this.setState({ amount: amt }); }}
             returnKeyType="done"
           />
         </View>
@@ -122,9 +125,9 @@ class TradingModal extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   portfolios: state.portfolio.portfolios,
-  leagueId: state.portfolio.leagueId
+  leagueId: state.portfolio.leagueId,
 });
 
 export default connect(mapStateToProps)(TradingModal);

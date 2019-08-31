@@ -5,10 +5,6 @@ import styles from '../style/screens/noLeagues';
 import NavBar from '../components/navbar';
 
 export default class NoLeagues extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   navToNewLeague = () => {
     Actions.newLeague();
   }

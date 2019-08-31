@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import {
+  View, Text, ScrollView, TouchableWithoutFeedback,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { ButtonGroup } from 'react-native-elements';
 import styles from '../style/screens/portfolio';
@@ -16,12 +18,12 @@ class Portfolio extends Component {
       scrollEnabled: true,
       selectedTimeframe: timeframes[0],
       xData: [],
-      yData: []
-    }
+      yData: [],
+    };
   }
 
   updateIndex = (index) => {
-    this.setState({selectedTimeframe: timeframes[index]})
+    this.setState({ selectedTimeframe: timeframes[index] });
   }
 
   getData = () => {
@@ -30,7 +32,9 @@ class Portfolio extends Component {
 
   render() {
     const { chosenLeague, portfolios } = this.props;
-    const { scrollEnabled, selectedTimeframe, xData, yData } = this.state;
+    const {
+      scrollEnabled, selectedTimeframe, xData, yData,
+    } = this.state;
     var stockList = portfolios[chosenLeague].items;
 
     return (
@@ -43,8 +47,8 @@ class Portfolio extends Component {
               <Text style={styles.value}>{`$${portfolios[chosenLeague].value}`}</Text>
             </View>
             <TouchableWithoutFeedback
-              onPressIn={() => { this.setState({ scrollEnabled: false }) }}
-              onPressOut={() => { this.setState({ scrollEnabled: true }) }}
+              onPressIn={() => { this.setState({ scrollEnabled: false }); }}
+              onPressOut={() => { this.setState({ scrollEnabled: true }); }}
             >
               <View>
                 <StockChart xData={xData} yData={yData} />
@@ -60,7 +64,7 @@ class Portfolio extends Component {
               selectedButtonStyle={styles.buttonGroupSelected}
               selectedTextStyle={styles.whiteText}
             />
-            <PortfolioStockList listType='portfolio' stockList={stockList} />
+            <PortfolioStockList listType="portfolio" stockList={stockList} />
             {/* <PortfolioStockList listType='watchlist' /> */}
           </View>
         </ScrollView>
@@ -69,9 +73,9 @@ class Portfolio extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   portfolios: state.portfolio.portfolios,
-  chosenLeague: state.portfolio.leagueId
+  chosenLeague: state.portfolio.leagueId,
 });
 
 export default connect(mapStateToProps, {})(Portfolio);

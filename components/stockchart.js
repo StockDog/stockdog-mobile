@@ -1,32 +1,28 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import ChartView  from 'react-native-highcharts';
+import ChartView from 'react-native-highcharts';
 import colors from '../style/colors';
 import styles from '../style/components/stockchart';
 import SpinningLoader from './spinningloader';
 
 export default class StockChart extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   createChart() {
     const { xData, yData } = this.props;
-    var Highcharts = 'Highcharts';
-    var conf = {
+    const Highcharts = 'Highcharts';
+    const conf = {
       chart: {
         type: 'spline',
         marginRight: 10,
         animation: Highcharts.svg,
         lineColor: colors.white,
         backgroundColor: 'transparent',
-        gridLineColor: colors.white
+        gridLineColor: colors.white,
       },
       title: { text: '' },
       xAxis: {
         visible: false,
         type: 'category',
-        categories: xData
+        categories: xData,
       },
       yAxis: {
         title: { text: '' },
@@ -35,49 +31,49 @@ export default class StockChart extends Component {
         plotLines: [{
           value: 0,
           width: 1,
-          color: colors.white
+          color: colors.white,
         }],
         labels: {
           style: {
-            color: colors.white
-          }
+            color: colors.white,
+          },
         },
       },
       tooltip: {
-        formatter: function () {
-          return this.x + '<br/>$' + this.y;
-        }
+        formatter() {
+          return `${this.x}<br/>$${this.y}`;
+        },
       },
       legend: {
-        enabled: false
+        enabled: false,
       },
       exporting: {
-        enabled: false
+        enabled: false,
       },
       series: [{
-        data: yData
+        data: yData,
       }],
       plotOptions: {
         series: {
           color: colors.white,
           marker: {
-            enabled: false
-          }
-        }
+            enabled: false,
+          },
+        },
       },
       credits: {
-        enabled: false
-      }
+        enabled: false,
+      },
     };
 
     const options = {
       global: {
-        useUTC: false
+        useUTC: false,
       },
       lang: {
         decimalPoint: '.',
-        thousandsSep: ','
-      }
+        thousandsSep: ',',
+      },
     };
 
     return (

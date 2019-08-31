@@ -9,7 +9,7 @@ export default class BaseLightbox extends Component {
 
     this.state = {
       top: new Animated.Value(500),
-      pan: new Animated.ValueXY
+      pan: new Animated.ValueXY(),
     };
 
     const { pan } = this.state;
@@ -19,21 +19,20 @@ export default class BaseLightbox extends Component {
       // Change dx and dy based on screen press for dragging
       onPanResponderMove: Animated.event([null, {
         dx: pan.x,
-        dy: pan.y
+        dy: pan.y,
       }]),
       // Behavior for when touch is released
       onPanResponderRelease: (e, gesture) => {
         // Close modal only if dragged far enough down
         if (this.isInCloseZone(gesture)) {
           this.closeModal();
-        }
-        else {
+        } else {
           // Not dragged far enough, will bounce back to center
           Animated.spring(pan, {
-            toValue: { x: 0, y: 0 }
+            toValue: { x: 0, y: 0 },
           }).start();
         }
-      }
+      },
     });
   }
 
@@ -48,9 +47,7 @@ export default class BaseLightbox extends Component {
   }
 
    // Determines the distance lightbox needs to be dragged
-   isInCloseZone = (gesture) => {
-     return gesture.dy > 200;
-   }
+   isInCloseZone = (gesture) => gesture.dy > 200
 
    closeModal = () => {
      const { top } = this.state;
@@ -62,7 +59,7 @@ export default class BaseLightbox extends Component {
      }).start(Actions.pop);
    }
 
-   _renderLightBox = () => {
+   renderLightBox = () => {
      const { children } = this.props;
      const { pan } = this.state;
      return (
@@ -83,11 +80,11 @@ export default class BaseLightbox extends Component {
    render() {
      const { top } = this.state;
      return (
-       <Animated.View 
-         style={[modalStyles.outermostBaseContainer, 
-           { top: top }]}
+       <Animated.View
+         style={[modalStyles.outermostBaseContainer,
+           { top }]}
        >
-         {this._renderLightBox()}
+         {this.renderLightBox()}
        </Animated.View>
      );
    }

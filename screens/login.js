@@ -12,17 +12,17 @@ import { loginUser } from '../actions/authActions';
 import { initializePortfolios } from '../actions/portfolioActions';
 import { login } from '../api';
 
-var logoImage = require('../assets/logo.png');
+const logoImage = require('../assets/logo.png');
 
 class Login extends Component {
   constructor(props) {
     super(props);
 
     const { email } = this.props;
-    var user = email ? email : "";
+    const user = email || '';
     this.state = {
       email: user,
-      password: ""
+      password: '',
     };
 
     this.inputs = {};
@@ -49,7 +49,7 @@ class Login extends Component {
 
   render() {
     const { email, password } = this.state;
-    var disabled = !(email && password);
+    const disabled = !(email && password);
     return (
       <KeyboardAwareScrollView
         resetScrollToCoords={{ x: 0, y: 0 }}
@@ -69,20 +69,20 @@ class Login extends Component {
           <FormInput
             type="email"
             value={email}
-            onchange={(email) => this.setState({ email })}
+            onchange={(newEmail) => this.setState({ email: newEmail })}
             returnKeyType="next"
             onSubmitEditing={() => { this.focusNextField('password'); }}
           />
           <FormInput
             type="password"
             value={password}
-            onchange={(password) => this.setState({ password })}
+            onchange={(newPass) => this.setState({ password: newPass })}
             returnKeyType="done"
             onSubmitEditing={this.submitLogin}
-            refer={input => { this.inputs['password'] = input; }}
+            refer={(input) => { this.inputs.password = input; }}
           />
           <WideButton
-            type='login'
+            type="login"
             disabled={disabled}
             onpress={this.submitLogin}
           />
@@ -104,14 +104,14 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   email: state.auth.email,
-  portfolios: state.portfolio.portfolios
+  portfolios: state.portfolio.portfolios,
 });
 
 const mapDispatchToProps = {
-  loginUserAction: loginUser, 
-  initializePortfoliosAction: initializePortfolios
-}
+  loginUserAction: loginUser,
+  initializePortfoliosAction: initializePortfolios,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

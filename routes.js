@@ -1,5 +1,7 @@
 import React from 'react';
-import { Scene, Tabs, Modal, Drawer, Lightbox } from 'react-native-router-flux';
+import {
+  Scene, Tabs, Modal, Drawer, Lightbox,
+} from 'react-native-router-flux';
 import { Provider } from 'react-redux';
 
 import Login from './screens/login';
@@ -35,7 +37,7 @@ const Routes = () => (
           contentComponent={LeagueDrawer}
           type="replace"
         >
-          <Modal key="leagueManagement" hideNavBar> 
+          <Modal key="leagueManagement" hideNavBar>
             <Scene key="noLeagues" hideNavBar component={NoLeagues} />
             <Scene key="newLeague" hideNavBar component={NewLeague} />
             <Scene key="joinLeague" hideNavBar component={JoinLeague} />
@@ -69,5 +71,5 @@ const Routes = () => (
     </CustomRouter>
   </Provider>
 );
-    
+
 export default Routes;

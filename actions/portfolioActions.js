@@ -1,7 +1,7 @@
 import { getPortfolios } from '../api';
 import ACTION_TYPES from './actionTypes';
 
-const chooseLeague = leagueId => ({
+const chooseLeague = (leagueId) => ({
   type: ACTION_TYPES.CHOOSE_LEAGUE,
   payload: {
     leagueId,
@@ -9,7 +9,7 @@ const chooseLeague = leagueId => ({
 });
 
 const initializePortfolios = (portfolioList) => {
-  var portfolios = {}
+  const portfolios = {};
   portfolioList.forEach((portfolio) => {
     portfolios[portfolio.league.id] = portfolio;
   });
@@ -18,13 +18,13 @@ const initializePortfolios = (portfolioList) => {
     type: ACTION_TYPES.INITIALIZE_PORTFOLIOS,
     payload: {
       portfolios,
-      leagueId: portfolioList[0].league.id
-    }
-  }
-}
+      leagueId: portfolioList[0].league.id,
+    },
+  };
+};
 
 const updatePortfolios = () => async (dispatch) => {
-  var portfolios = {};
+  const portfolios = {};
   const portfolioRes = await getPortfolios();
   portfolioRes.data.forEach((portfolio) => {
     portfolios[portfolio.league.id] = portfolio;

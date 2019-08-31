@@ -11,7 +11,7 @@ class League extends Component {
     super(props);
     this.state = {
       title: '',
-      members: []
+      members: [],
     };
   }
 
@@ -29,22 +29,17 @@ class League extends Component {
 
   updateMembers = async (leagueId) => {
     try {
-      let league = await getLeague(leagueId);
-      let members = league.data.portfolios.map((portfolio) => {
-        return {
-          'name': portfolio.name,
-          'value': portfolio.value
-        }
-      }).sort((portfolio1, portfolio2) => {
-        return portfolio1.value < portfolio2.value
-      });
-      
+      const league = await getLeague(leagueId);
+      const members = league.data.portfolios.map((portfolio) => ({
+        name: portfolio.name,
+        value: portfolio.value,
+      })).sort((portfolio1, portfolio2) => portfolio1.value < portfolio2.value);
+
       this.setState({
         title: league.data.name,
-        members
-      })
-    }
-    catch (err) {
+        members,
+      });
+    } catch (err) {
       alert(err);
     }
   }
@@ -68,8 +63,8 @@ class League extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  chosenLeague: state.portfolio.leagueId
+const mapStateToProps = (state) => ({
+  chosenLeague: state.portfolio.leagueId,
 });
 
 export default connect(mapStateToProps)(League);

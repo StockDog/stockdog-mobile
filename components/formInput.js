@@ -12,13 +12,11 @@ import colors from '../style/colors';
 //    refer: reference for tab control if necessary
 //    onSubmitEditing: behavior for submitting input value
 export default class FormInput extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    const { type, onchange, value, returnKeyType, refer, onSubmitEditing } = this.props;
-    var secure = type === 'password';
+    const {
+      type, onchange, value, returnKeyType, refer, onSubmitEditing,
+    } = this.props;
+    const secure = type === 'password';
     return (
       <TextInput
         style={styles.roundedInput}

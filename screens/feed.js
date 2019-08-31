@@ -10,26 +10,26 @@ export default class Feed extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      feedType: 'activity'
+      feedType: 'activity',
     };
   }
 
   switchFeedType = (newFeedType) => {
-    this.setState({feedType: newFeedType});
+    this.setState({ feedType: newFeedType });
   }
-  
+
   render() {
     const { feedType } = this.state;
     return (
       <View style={styles.background}>
         <NavBar />
-        <FeedHeader 
-          feedType={feedType} 
+        <FeedHeader
+          feedType={feedType}
           switchFeedType={this.switchFeedType}
         />
-        {feedType === 'activity' ? 
-          <ActivityFeed /> : 
-          <IdeaFeed />}
+        {feedType === 'activity'
+          ? <ActivityFeed />
+          : <IdeaFeed />}
       </View>
     );
   }

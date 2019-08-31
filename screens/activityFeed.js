@@ -4,65 +4,62 @@ import styles from '../style/screens/feed';
 import ActivityPost from '../components/activityPost';
 
 export default class ActivityFeed extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       activities: [
         {
-          'userId': 1,
-          'username': 'Billy Joe',
-          'amount': 12,
-          'ticker': 'AMD',
-          'action': 'Buy',
-          'date': 'Today',
-          'comments': [
+          userId: 1,
+          username: 'Billy Joe',
+          amount: 12,
+          ticker: 'AMD',
+          action: 'Buy',
+          date: 'Today',
+          comments: [
             {
-              'userId': 2,
-              'username': 'Millie Bobbie',
-              'comment': 'I think this is a really smart buy since AMD has earnings coming up.',
-              'date': 'Today'
+              userId: 2,
+              username: 'Millie Bobbie',
+              comment: 'I think this is a really smart buy since AMD has earnings coming up.',
+              date: 'Today',
             },
             {
-              'userId': 3,
-              'username': 'Hater Boo Boo',
-              'comment': 'What a dumb buy lol!',
-              'date': 'Today'
-            }
-          ]
+              userId: 3,
+              username: 'Hater Boo Boo',
+              comment: 'What a dumb buy lol!',
+              date: 'Today',
+            },
+          ],
         },
         {
-          'userId': 4,
-          'username': 'Gill Tilly',
-          'amount': 7,
-          'ticker': 'FB',
-          'action': 'Sell',
-          'date': 'Yesterday',
-          'comments': [
+          userId: 4,
+          username: 'Gill Tilly',
+          amount: 7,
+          ticker: 'FB',
+          action: 'Sell',
+          date: 'Yesterday',
+          comments: [
             {
-              'userId': 3,
-              'username': 'Hater Boo Boo',
-              'comment': 'Dude it\'s only going up',
-              'date': 'Today'
-            }
-          ]
-        }
-      ]
-    }
+              userId: 3,
+              username: 'Hater Boo Boo',
+              comment: 'Dude it\'s only going up',
+              date: 'Today',
+            },
+          ],
+        },
+      ],
+    };
   }
 
    keyExtractor = (item, index) => index.toString();
 
-   renderActivityPost = (activity) => {
-     return (
-       <ActivityPost post={activity.item} />
-     );
-   }
+   renderActivityPost = (activity) => (
+     <ActivityPost post={activity.item} />
+   )
 
    render() {
      const { activities } = this.state;
      return (
-       <View style={{flex: 1}}>
+       <View style={{ flex: 1 }}>
          <View style={styles.feedPostsContainer}>
            <FlatList
              keyExtractor={this.keyExtractor}

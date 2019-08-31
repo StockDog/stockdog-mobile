@@ -2,9 +2,9 @@ import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import styles from '../style/components/widebutton';
 
-const WideButton = ({type, disabled, onpress}) => {
-  var buttonText = "";
-  var style = styles.loginButton;
+const WideButton = ({ type, disabled, onpress }) => {
+  let buttonText = '';
+  let style = styles.loginButton;
   switch (type) {
   case 'login':
     buttonText = 'LOGIN';
@@ -32,6 +32,9 @@ const WideButton = ({type, disabled, onpress}) => {
   case 'logout':
     buttonText = 'LOGOUT';
     break;
+  default:
+    buttonText = 'CLICK';
+    break;
   }
 
   if (disabled) {
@@ -46,7 +49,7 @@ const WideButton = ({type, disabled, onpress}) => {
     >
       <Text style={styles.wideButton}>{buttonText}</Text>
     </TouchableOpacity>
-  )
+  );
 };
 
 export default WideButton;
