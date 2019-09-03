@@ -35,7 +35,7 @@ class Portfolio extends Component {
     const {
       scrollEnabled, selectedTimeframe, xData, yData,
     } = this.state;
-    var stockList = portfolios[chosenLeague].items;
+    const stockList = portfolios[chosenLeague].items;
 
     return (
       <View style={styles.profileBackground}>
