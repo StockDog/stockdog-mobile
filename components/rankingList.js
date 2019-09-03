@@ -11,7 +11,7 @@ export default class RankingList extends Component {
         {`${item.index + 1}. ${item.item.name}`}
       </Text>
       <Text style={styles.listText}>
-        {`$${item.item.value}`}
+        {`$${item.item.value.toFixed(2, 10)}`}
       </Text>
     </View>
   )

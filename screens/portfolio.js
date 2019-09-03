@@ -44,7 +44,9 @@ class Portfolio extends Component {
           <NavBar />
           <View style={{ flex: 0.9, alignItems: 'center' }}>
             <View style={styles.portfolioValue}>
-              <Text style={styles.value}>{`$${portfolios[chosenLeague].value}`}</Text>
+              <Text style={styles.value}>
+                {`$${portfolios[chosenLeague].value.toFixed(2, 10)}`}
+              </Text>
             </View>
             <TouchableWithoutFeedback
               onPressIn={() => { this.setState({ scrollEnabled: false }); }}

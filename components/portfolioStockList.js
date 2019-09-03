@@ -43,12 +43,12 @@ class PortfolioStockList extends Component {
     const difference = item.gain >= 0
       ? (
         <Text style={styles.greenValue}>
-          {`(+${item.gain})`}
+          {`(+${item.gain.toFixed(2, 10)})`}
         </Text>
       )
       : (
         <Text style={styles.redValue}>
-          {`(${item.gain})`}
+          {`(${item.gain.toFixed(2, 10)})`}
         </Text>
       );
 
@@ -58,7 +58,7 @@ class PortfolioStockList extends Component {
           <Text style={styles.listingTickerAndValue}>{item.ticker}</Text>
           <View style={styles.horizontal}>
             <Text style={styles.listingTickerAndValue}>
-              {`$${item.avgCost.toFixed(2)} `}
+              {`$${item.avgCost.toFixed(2, 10)} `}
             </Text>
             {difference}
           </View>
