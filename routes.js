@@ -9,7 +9,7 @@ import Register from './screens/register';
 import Portfolio from './screens/portfolio';
 import Stock from './screens/stock';
 import League from './screens/league';
-import Feed from './screens/feed';
+// import Feed from './screens/feed';
 import NoLeagues from './screens/noLeagues';
 import JoinLeague from './screens/joinLeague';
 import NewLeague from './screens/newLeague';
@@ -57,7 +57,8 @@ const Routes = () => (
               <Scene key="portfolio" component={Portfolio} onEnter={Portfolio.onEnterPortfolio} />
             </Scene>
             <Scene key="league" title="League" component={League} hideNavBar iconName="users" icon={TabIcon} onEnter={League.onEnterLeague} />
-            <Scene key="feed" title="Feed" component={Feed} hideNavBar iconName="activity" icon={TabIcon} onEnter={Feed.onEnterFeed} />
+            {/* <Scene key="feed" title="Feed" component={Feed} hideNavBar 
+              iconName="activity" icon={TabIcon} onEnter={Feed.onEnterFeed} /> */}
             <Scene key="searchMain" hideNavBar title="Search" iconName="search" icon={TabIcon}>
               <Lightbox>
                 <Scene key="search" component={Search} />
