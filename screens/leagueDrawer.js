@@ -40,7 +40,7 @@ class LeagueDrawer extends Component {
             {portfolio.league.name}
           </Text>
           <Text style={styles.portfolioValue}>
-            {`$${portfolio.value}`}
+            {`$${portfolio.value.toFixed(2, 10)}`}
           </Text>
         </View>
       </TouchableOpacity>
