@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { LinearGradient } from 'expo';
+import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Feather';
 import PopoverTooltip from 'react-native-popover-tooltip';
 import styles from '../style/screens/loginRegister';
@@ -45,13 +45,13 @@ class Register extends Component {
         lastname,
         email,
         password).then(() => {
-        registerUserAction(email);
-        Actions.login({ email });
-      }).catch(() => {
-        alert('Invalid registration. '
-          + 'Please enter all fields and '
-          + 'follow password instructions.');
-      });
+          registerUserAction(email);
+          Actions.login({ email });
+        }).catch(() => {
+          alert('Invalid registration. '
+            + 'Please enter all fields and '
+            + 'follow password instructions.');
+        });
     }
   }
 
