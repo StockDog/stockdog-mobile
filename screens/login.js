@@ -12,7 +12,7 @@ import { loginUser } from '../actions/authActions';
 import { initializePortfolios } from '../actions/portfolioActions';
 import { login } from '../api';
 
-const logoImage = require('../assets/logo.png');
+import logoImage from '../assets/logo.png';
 
 class Login extends Component {
   constructor(props) {
