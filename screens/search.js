@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Animated, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import Icon from 'react-native-vector-icons/Feather';
+import { Feather } from '@expo/vector-icons';
 import styles from '../style/screens/search';
 import NavBar from '../components/navbar';
 import FormInput from '../components/formInput';
@@ -50,7 +50,7 @@ class Search extends Component {
               onSubmitEditing={this.submitSearch}
             />
             <TouchableOpacity onPress={this.submitSearch} style={styles.searchButton}>
-              <Icon name="search" size={24} color="white" />
+              <Feather name="search" size={24} color="white" />
             </TouchableOpacity>
           </Animated.View>
         </View>

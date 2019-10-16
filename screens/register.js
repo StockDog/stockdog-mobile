@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { LinearGradient } from 'expo-linear-gradient';
-import Icon from 'react-native-vector-icons/Feather';
+import { Feather } from '@expo/vector-icons';
 import PopoverTooltip from 'react-native-popover-tooltip';
 import styles from '../style/screens/loginRegister';
 import colors from '../style/colors';
@@ -45,13 +45,14 @@ class Register extends Component {
         lastname,
         email,
         password).then(() => {
-          registerUserAction(email);
-          Actions.login({ email });
-        }).catch(() => {
-          alert('Invalid registration. '
+        registerUserAction(email);
+        alert('Registration successful! Please log in.');
+        Actions.login({ email });
+      }).catch(() => {
+        alert('Invalid registration. '
             + 'Please enter all fields and '
             + 'follow password instructions.');
-        });
+      });
     }
   }
 
@@ -121,11 +122,12 @@ class Register extends Component {
             <PopoverTooltip
               buttonComponent={(
                 <View style={styles.popoverButton}>
-                  <Icon name="info" size={30} color="white" />
+                  <Feather name="info" size={30} color="white" />
                 </View>
               )}
               items={[{
-                label: 'Password must be at least 8 characters long '
+                label: 'Password must be at least 8 characters long, '
+                  + 'contain a capital letter '
                   + 'and contain at least 1 number.',
                 onPress: () => { },
               }]}
