@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import FormInput from '../components/formInput';
@@ -8,6 +8,7 @@ import styles from '../style/screens/joinLeague';
 import NavBar from '../components/navbar';
 import { joinLeague } from '../api';
 import { updatePortfolios, chooseLeague } from '../actions/portfolioActions';
+import BrowseLeagueModal from './browseLeaguesModal';
 
 class JoinLeague extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class JoinLeague extends Component {
       inviteCode: '',
       nickname: '',
       notFound: false,
+      browseLeaguesModal: false,
     };
   }
 
@@ -40,20 +42,43 @@ class JoinLeague extends Component {
     }
   }
 
+  toggleBrowseLeagueModal = () => {
+    this.setState((prevState) => ({ browseLeaguesModal: !prevState.browseLeaguesModal }));
+  }
+
+  fillInviteCode = (inviteCode) => {
+    this.setState({ inviteCode });
+  }
+
   render() {
-    const { notFound, inviteCode, nickname } = this.state;
+    const {
+      notFound, inviteCode, nickname, browseLeaguesModal,
+    } = this.state;
     let notFoundComponent;
     if (notFound) {
       notFoundComponent = <Text style={styles.joinLeagueWarning}> League Not Found </Text>;
     }
     return (
       <View style={styles.background}>
+        <BrowseLeagueModal
+          isOpen={browseLeaguesModal}
+          toggle={this.toggleBrowseLeagueModal}
+          fillInviteCode={this.fillInviteCode}
+        />
         <View style={styles.backgroundCircle} />
         <NavBar />
         <View style={styles.titleContainer}>
           <Text style={styles.title}> Join a League </Text>
         </View>
         <View style={styles.contentContainer}>
+          <TouchableOpacity style={styles.smallTextButton}>
+            <Text
+              style={styles.smallText}
+              onPress={this.toggleBrowseLeagueModal}
+            >
+              Browse Leagues
+            </Text>
+          </TouchableOpacity>
           <View style={styles.inputsContainer}>
             <FormInput
               type="Invite Code"

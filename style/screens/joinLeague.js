@@ -59,4 +59,17 @@ export default StyleSheet.create({
     fontSize: 14,
     paddingTop: 10,
   },
+  smallTextButton: {
+    height: 25,
+    backgroundColor: 'transparent',
+    marginTop: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  smallText: {
+    fontSize: 16,
+    fontFamily: 'assistant',
+    color: colors.bright,
+    textDecorationLine: 'underline',
+  },
 });

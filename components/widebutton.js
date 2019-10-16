@@ -29,6 +29,10 @@ const WideButton = ({ type, disabled, onpress }) => {
     buttonText = 'Cancel';
     style = styles.cancelButton;
     break;
+  case 'darkCancel':
+    buttonText = 'Cancel';
+    style = styles.darkCancelButton;
+    break;
   case 'logout':
     buttonText = 'LOGOUT';
     break;
