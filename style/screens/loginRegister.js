@@ -46,7 +46,6 @@ export default StyleSheet.create({
     borderBottomWidth: 2,
     borderColor: colors.placeholders,
     margin: 10,
-    opacity: 0.50,
     fontFamily: 'assistant',
     fontSize: 18,
   },
