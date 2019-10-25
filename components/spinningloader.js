@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Animated, Easing } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
+import { Feather } from '@expo/vector-icons';
 
 export default class SpinningLoader extends Component {
   constructor(props) {
@@ -32,7 +32,7 @@ export default class SpinningLoader extends Component {
 
     return (
       <Animated.View style={{ transform: [{ rotate }] }}>
-        <Icon name="loader" size={48} color="white" />
+        <Feather name="loader" size={48} color="white" />
       </Animated.View>
     );
   }

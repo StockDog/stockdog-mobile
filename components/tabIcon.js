@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/Feather';
+import { Feather } from '@expo/vector-icons';
 import { View } from 'react-native';
 
 const TabIcon = ({ iconName }) => (
@@ -7,7 +7,7 @@ const TabIcon = ({ iconName }) => (
     flex: 1, flexDirection: 'column', alignItems: 'center', alignSelf: 'center', justifyContent: 'center',
   }}
   >
-    <Icon style={{ color: 'white' }} name={iconName || 'circle'} size={25} />
+    <Feather style={{ color: 'white' }} name={iconName || 'circle'} size={25} />
   </View>
 );
 

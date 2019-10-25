@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import DatePicker from 'react-native-datepicker';
 import { Actions } from 'react-native-router-flux';
-import Icon from 'react-native-vector-icons/Feather';
+import { Feather } from '@expo/vector-icons';
 import FormInput from '../components/formInput';
 import WideButton from '../components/widebutton';
 import styles from '../style/screens/newLeague';
@@ -121,7 +121,7 @@ class NewLeague extends Component {
               dateInput: styles.dateInput,
               dateText: styles.dateText,
             }}
-            iconComponent={<Icon name="calendar" size={30} color="grey" />}
+            iconComponent={<Feather name="calendar" size={30} color="grey" />}
             onDateChange={(newDate) => { this.setState({ startDate: newDate }); }}
           />
           <DatePicker
@@ -138,7 +138,7 @@ class NewLeague extends Component {
               dateInput: styles.dateInput,
               dateText: styles.dateText,
             }}
-            iconComponent={<Icon name="calendar" size={36} color="grey" />}
+            iconComponent={<Feather name="calendar" size={30} color="grey" />}
             onDateChange={(newDate) => { this.setState({ endDate: newDate }); }}
           />
         </View>

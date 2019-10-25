@@ -76,6 +76,11 @@ const getLeague = async (leagueId) => {
   return axios.get(`${baseurl}/leagues/${leagueId}`, config);
 };
 
+const getLeagues = async () => {
+  const config = getConfig();
+  return axios.get(`${baseurl}/leagues`, config);
+};
+
 const getPortfolios = async () => {
   const config = getConfig();
   return axios.get(`${baseurl}/portfolios`, config);
@@ -90,4 +95,5 @@ export {
   joinLeague,
   getPortfolios,
   getLeague,
+  getLeagues,
 };

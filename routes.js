@@ -57,7 +57,7 @@ const Routes = () => (
               <Scene key="portfolio" component={Portfolio} onEnter={Portfolio.onEnterPortfolio} />
             </Scene>
             <Scene key="league" title="League" component={League} hideNavBar iconName="users" icon={TabIcon} onEnter={League.onEnterLeague} />
-            {/* <Scene key="feed" title="Feed" component={Feed} hideNavBar 
+            {/* <Scene key="feed" title="Feed" component={Feed} hideNavBar
               iconName="activity" icon={TabIcon} onEnter={Feed.onEnterFeed} /> */}
             <Scene key="searchMain" hideNavBar title="Search" iconName="search" icon={TabIcon}>
               <Lightbox>

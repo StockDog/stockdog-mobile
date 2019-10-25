@@ -4,6 +4,7 @@ export default {
   white: '#ffffff',
   grey: '#383838',
   lightGrey: '#aaaaaa',
+  ultraLightGrey: '#d4d2d2',
   placeholders: '#929292',
   green: '#6fda42',
   red: '#ff413b',
