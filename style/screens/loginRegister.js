@@ -25,6 +25,10 @@ export default StyleSheet.create({
     width: 305,
     height: 260,
   },
+  googleLogin: {
+    width: 250,
+    resizeMode: 'contain',
+  },
   smallTextButton: {
     height: 25,
     backgroundColor: 'transparent',
@@ -48,6 +52,11 @@ export default StyleSheet.create({
     margin: 10,
     fontFamily: 'assistant',
     fontSize: 18,
+  },
+  appleLoginBtn: {
+    marginTop: 20,
+    width: 250,
+    height: 50,
   },
   // ----------------- Text ------------- //
   title: {

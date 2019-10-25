@@ -1,5 +1,21 @@
 {
   "expo": {
-    "sdkVersion": "34.0.0"
+    "sdkVersion": "35.0.0",
+    "ios": {
+      "bundleIdentifier": "com.stockdogapp",
+      "usesAppleSignIn": true,
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "802147424875-3m21ehg25eaja2g1tgdp95ml3o1l993e.apps.googleusercontent.com"
+        }
+      }
+    },
+    "name": "stockdogmobile",
+    "slug": "stockdogmobile",
+    "version": "0.1.0",
+    "platforms": [
+      "android",
+      "ios"
+    ]
   }
 }
