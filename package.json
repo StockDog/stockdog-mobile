@@ -11,7 +11,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
     "husky": "^3.0.4",
-    "jest-expo": "^34.0.1",
+    "jest-expo": "^35.0.0",
     "react-test-renderer": "16.9.0",
     "schedule": "^0.5.0"
   },
@@ -37,11 +37,13 @@
     "@expo/vector-icons": "^10.0.6",
     "axios": "^0.19.0",
     "directory": "^0.1.0",
-    "expo": "^34.0.0",
-    "expo-font": "~6.0.1",
+    "expo": "^35.0.0",
+    "expo-apple-authentication": "~1.0.0",
+    "expo-font": "~7.0.0",
+    "expo-google-app-auth": "^7.0.0",
     "expo-linear-gradient": "~7.0.0",
     "react": "16.8.3",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
     "react-native-datepicker": "^1.7.1",
     "react-native-elements": "^1.1.0",
     "react-native-highcharts": "^1.0.2",
@@ -53,6 +55,7 @@
     "react-redux": "^7.1.1",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
-    "uuid": "^3.3.3"
+    "uuid": "^3.3.3",
+    "expo-constants": "~7.0.0"
   }
 }

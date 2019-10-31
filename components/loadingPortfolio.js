@@ -19,7 +19,7 @@ const LoadingPortfolio = ({ initializePortfoliosAction }) => {
           Actions.leagueManagement();
         }
       } catch (err) {
-        alert('Error loading portfolios: ', err);
+        alert('Error loading portfolios');
       }
     };
 

@@ -32,6 +32,15 @@ const login = async (email, password) => {
   return axios.post(`${baseurl}/users/session`, data, getConfig(false));
 };
 
+const loginGoogle = async (googleIdToken, appType, os) => {
+  const data = {
+    googleIdToken,
+    appType,
+    os,
+  };
+  return axios.post(`${baseurl}/users/session/google`, data, getConfig(false));
+};
+
 const getStockHistory = async (ticker, length) => {
   const config = getConfig();
   config.params = {
@@ -89,6 +98,7 @@ const getPortfolios = async () => {
 export {
   register,
   login,
+  loginGoogle,
   getStockHistory,
   tradeStock,
   createLeague,
