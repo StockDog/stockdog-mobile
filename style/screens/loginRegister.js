@@ -55,8 +55,8 @@ export default StyleSheet.create({
   },
   appleLoginBtn: {
     marginTop: 20,
-    width: 250,
-    height: 50,
+    width: 245,
+    height: 55,
   },
   // ----------------- Text ------------- //
   title: {

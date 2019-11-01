@@ -46,8 +46,8 @@ const loginApple = async (appleIdToken, appType, givenName, familyName) => {
     appleIdToken,
     appType,
     givenName,
-    familyName
-  }
+    familyName,
+  };
   return axios.post(`${baseurl}/users/session/apple`, data, getConfig(false));
 };
 
