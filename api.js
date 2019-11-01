@@ -41,6 +41,16 @@ const loginGoogle = async (googleIdToken, appType, os) => {
   return axios.post(`${baseurl}/users/session/google`, data, getConfig(false));
 };
 
+const loginApple = async (appleIdToken, appType, givenName, familyName) => {
+  const data = {
+    appleIdToken,
+    appType,
+    givenName,
+    familyName
+  }
+  return axios.post(`${baseurl}/users/session/apple`, data, getConfig(false));
+};
+
 const getStockHistory = async (ticker, length) => {
   const config = getConfig();
   config.params = {
@@ -99,6 +109,7 @@ export {
   register,
   login,
   loginGoogle,
+  loginApple,
   getStockHistory,
   tradeStock,
   createLeague,
