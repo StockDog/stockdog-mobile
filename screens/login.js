@@ -21,7 +21,6 @@ class Login extends Component {
     super(props);
 
     this.state = { appleAuth: false };
-    this.inputs = {};
   }
 
   async componentDidMount() {
@@ -68,7 +67,7 @@ class Login extends Component {
       // signed in
       const { loginUserAction } = this.props;
 
-      const res = await loginApple(credential.identityToken, appType, 
+      const res = await loginApple(credential.identityToken, appType,
         credential.fullName.givenName, credential.fullName.familyName);
       loginUserAction(res.data.userId, res.data.token);
       Actions.loading();
