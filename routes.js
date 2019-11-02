@@ -5,7 +5,6 @@ import {
 import { Provider } from 'react-redux';
 
 import Login from './screens/login';
-import Register from './screens/register';
 import Portfolio from './screens/portfolio';
 import Stock from './screens/stock';
 import League from './screens/league';
@@ -30,7 +29,6 @@ const Routes = () => (
     <CustomRouter>
       <Scene key="root" hideNavBar>
         <Scene key="login" component={Login} />
-        <Scene key="register" component={Register} />
         <Scene key="loading" component={LoadingPortfolio} />
         <Drawer
           key="drawer"
