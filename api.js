@@ -9,8 +9,7 @@ const getConfig = (auth = true) => {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `token ${token}`,
-    },
-    data: {},
+    }
   };
 };
 
