@@ -1,5 +1,7 @@
 import axios from 'axios';
-import store from './store/store';
+import configureStore from './store/store';
+
+const {store} = configureStore();
 
 const baseurl = 'http://localhost:5005/api/v1.0';
 

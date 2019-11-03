@@ -39,9 +39,11 @@
     "directory": "^0.1.0",
     "expo": "^35.0.0",
     "expo-apple-authentication": "~1.0.0",
+    "expo-constants": "~7.0.0",
     "expo-font": "~7.0.0",
     "expo-google-app-auth": "^7.0.0",
     "expo-linear-gradient": "~7.0.0",
+    "expo-secure-store": "~7.0.0",
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
     "react-native-datepicker": "^1.7.1",
@@ -54,8 +56,9 @@
     "react-native-scripts": "^2.0.1",
     "react-redux": "^7.1.1",
     "redux": "^4.0.4",
+    "redux-persist": "^6.0.0",
+    "redux-persist-expo-filesystem": "^2.0.0",
     "redux-thunk": "^2.3.0",
-    "uuid": "^3.3.3",
-    "expo-constants": "~7.0.0"
+    "uuid": "^3.3.3"
   }
 }
