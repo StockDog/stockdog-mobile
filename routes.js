@@ -4,6 +4,7 @@ import {
 } from 'react-native-router-flux';
 import { Provider } from 'react-redux';
 
+import { PersistGate } from 'redux-persist/integration/react';
 import Login from './screens/login';
 import Portfolio from './screens/portfolio';
 import Stock from './screens/stock';
@@ -22,12 +23,9 @@ import LoadingPortfolio from './components/loadingPortfolio';
 
 import colors from './style/colors';
 import tabStyle from './style/components/tabBar';
-import { PersistGate } from 'redux-persist/integration/react';
 import configureStore from './store/store';
 
 const { store, persistor } = configureStore();
-console.log(store.getState())
-console.log(persistor.getState())
 
 const Routes = () => (
   <Provider store={store}>
@@ -57,10 +55,10 @@ const Routes = () => (
               activeBackgroundColor={colors.activeTab}
               labelStyle={tabStyle.tabLabel}
             >
-              <Scene key="portfolioMain" hideNavBar title="Portfolio" iconName="user" icon={TabIcon}>
+              {/* <Scene key="portfolioMain" hideNavBar title="Portfolio" iconName="user" icon={TabIcon}>
                 <Scene key="portfolio" component={Portfolio} onEnter={Portfolio.onEnterPortfolio} />
               </Scene>
-              <Scene key="league" title="League" component={League} hideNavBar iconName="users" icon={TabIcon} onEnter={League.onEnterLeague} />
+              <Scene key="league" title="League" component={League} hideNavBar iconName="users" icon={TabIcon} onEnter={League.onEnterLeague} /> */}
               <Scene key="searchMain" hideNavBar title="Stock" iconName="search" icon={TabIcon}>
                 <Lightbox>
                   <Scene key="search" component={Search} />

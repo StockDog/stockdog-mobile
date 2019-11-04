@@ -1,7 +1,7 @@
 import axios from 'axios';
 import configureStore from './store/store';
 
-const {store} = configureStore();
+const { store } = configureStore();
 
 const baseurl = 'http://localhost:5005/api/v1.0';
 
@@ -11,7 +11,7 @@ const getConfig = (auth = true) => {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `token ${token}`,
-    }
+    },
   };
 };
 
