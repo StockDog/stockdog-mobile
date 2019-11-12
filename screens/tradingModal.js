@@ -21,7 +21,9 @@ class TradingModal extends Component {
 
   executeTrade = () => {
     const { amount, action } = this.state;
-    const { navigation, portfolios, leagueId } = this.props;
+    const {
+      navigation, portfolios, leagueId, updateOwnedAmt,
+    } = this.props;
     const props = navigation.state.params;
     try {
       tradeStock(
@@ -31,6 +33,8 @@ class TradingModal extends Component {
         portfolios[leagueId].id,
       );
       this.setState({ complete: true });
+      // Give negative amount if selling
+      updateOwnedAmt(action === 'Buy' ? parseInt(amount, 10) : parseInt(amount, 10) * -1);
     } catch (err) {
       alert(Object.values(err.response.data)[0]);
     }
@@ -45,7 +49,9 @@ class TradingModal extends Component {
   }
 
   render() {
-    const { buyingPower, price, ticker } = this.props;
+    const {
+      buyingPower, price, ticker,
+    } = this.props;
     const {
       complete, action, amount, actionIndex,
     } = this.state;
@@ -60,7 +66,7 @@ class TradingModal extends Component {
         <Lightbox verticalPercent={0.5} horizontalPercent={0.8}>
           <View style={styles.outermostBaseContainer}>
             <Text style={styles.successMessageText}>
-              {`Nice trade!\n You just ${action === 'Buy' ? 'bought ' : 'sold '} $${amount} shares of ${ticker}.`}
+              {`You just ${action === 'Buy' ? 'bought ' : 'sold '} $${amount} shares of ${ticker}.`}
             </Text>
           </View>
         </Lightbox>

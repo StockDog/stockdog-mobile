@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { ButtonGroup } from 'react-native-elements';
@@ -15,7 +16,7 @@ const lengthMap = {
   Y: 'year',
 };
 
-export default class Stock extends Component {
+class Stock extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,6 +26,7 @@ export default class Stock extends Component {
       isLoading: true,
       currentPrice: '',
       searchTicker: props.ticker,
+      ownedAmt: 0,
     };
   }
 
@@ -57,6 +59,7 @@ export default class Stock extends Component {
       length: selectedLength,
       isLoading: false,
       currentPrice: yData[yData.length - 1].toFixed(2),
+      ownedAmt: this.findOwnedAmt(),
     });
   }
 
@@ -68,14 +71,27 @@ export default class Stock extends Component {
   }
 
   openModal = () => {
-    const { currentPrice } = this.state;
+    const { currentPrice, ownedAmt } = this.state;
     const { ticker } = this.props;
     Actions.tradingModal({
       ticker,
       buyingPower: 10,
       total: 0,
       price: currentPrice,
+      updateOwnedAmt: (amt) => {
+        this.setState({ ownedAmt: ownedAmt + amt });
+      },
     });
+  }
+
+  findOwnedAmt = () => {
+    const { portfolios, chosenLeague, ticker } = this.props;
+
+    const { items } = portfolios[chosenLeague];
+
+    const stockItem = items.find((item) => item.ticker === ticker);
+
+    return (stockItem && stockItem.shareCount) || 0;
   }
 
   submitSearch = async () => {
@@ -102,7 +118,7 @@ export default class Stock extends Component {
   render() {
     const { ticker } = this.props;
     const {
-      currentPrice, xData, yData, isLoading, length, searchTicker,
+      currentPrice, xData, yData, isLoading, length, searchTicker, ownedAmt,
     } = this.state;
     return (
       <View style={styles.background}>
@@ -111,7 +127,9 @@ export default class Stock extends Component {
           <View style={styles.search}>
             <FormInput
               type="search"
-              onchange={(newTicker) => { this.setState({ searchTicker: newTicker }); }}
+              onchange={(newTicker) => {
+                this.setState({ searchTicker: newTicker.toUpperCase() });
+              }}
               value={searchTicker}
               returnKeyType="done"
               onSubmitEditing={this.submitSearch}
@@ -124,10 +142,6 @@ export default class Stock extends Component {
         <View style={styles.stockContent}>
           <View style={styles.tickerContainer}>
             <Text style={styles.tickerText}>{ticker}</Text>
-            <Text style={styles.currentPriceText}>
-              $
-              {currentPrice}
-            </Text>
           </View>
           <StockChart
             xData={xData}
@@ -150,16 +164,15 @@ export default class Stock extends Component {
         <View style={styles.tradingBox}>
           <View style={styles.stockInfo}>
             <View style={styles.stockInfoNumber}>
-              <Text style={styles.number}>13</Text>
+              <Text style={styles.number}>{ownedAmt}</Text>
               <Text style={styles.label}>Owned</Text>
             </View>
             <View style={styles.stockInfoNumber}>
-              <Text style={styles.number}>$20.15</Text>
+              <Text style={styles.number}>
+$
+                {currentPrice}
+              </Text>
               <Text style={styles.label}>Price</Text>
-            </View>
-            <View style={styles.stockInfoNumber}>
-              <Text style={styles.number}>20M</Text>
-              <Text style={styles.label}>Volume</Text>
             </View>
           </View>
           <View style={styles.tradingButtonContainer}>
@@ -175,3 +188,10 @@ export default class Stock extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  portfolios: state.portfolio.portfolios,
+  chosenLeague: state.portfolio.leagueId,
+});
+
+export default connect(mapStateToProps, {})(Stock);

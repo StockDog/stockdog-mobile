@@ -11,13 +11,13 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   searchContainer: {
-    flex: .1,
-    justifyContent: "center"
+    flex: 0.1,
+    justifyContent: 'center',
   },
   search: {
     marginTop: 3,
     flexDirection: 'row',
-    flex: 1
+    flex: 1,
   },
   searchButton: {
     marginTop: 20,

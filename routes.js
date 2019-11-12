@@ -32,18 +32,18 @@ const Routes = () => (
     <PersistGate loading={null} persistor={persistor}>
       <CustomRouter>
         <Scene key="root" hideNavBar>
-          {/* <Scene key="login" component={Login} />
-          <Scene key="loading" component={LoadingPortfolio} /> */}
+          <Scene key="login" component={Login} />
+          <Scene key="loading" component={LoadingPortfolio} />
           <Drawer
             key="drawer"
             contentComponent={LeagueDrawer}
             type="replace"
           >
-            {/* <Modal key="leagueManagement" hideNavBar>
+            <Modal key="leagueManagement" hideNavBar>
               <Scene key="noLeagues" hideNavBar component={NoLeagues} />
               <Scene key="newLeague" hideNavBar component={NewLeague} />
               <Scene key="joinLeague" hideNavBar component={JoinLeague} />
-            </Modal> */}
+            </Modal>
             <Tabs
               key="main"
               tabBarStyle={tabStyle.tabBar}
@@ -55,10 +55,10 @@ const Routes = () => (
               activeBackgroundColor={colors.activeTab}
               labelStyle={tabStyle.tabLabel}
             >
-              {/* <Scene key="portfolioMain" hideNavBar title="Portfolio" iconName="user" icon={TabIcon}>
+              <Scene key="portfolioMain" hideNavBar title="Portfolio" iconName="user" icon={TabIcon}>
                 <Scene key="portfolio" component={Portfolio} onEnter={Portfolio.onEnterPortfolio} />
               </Scene>
-              <Scene key="league" title="League" component={League} hideNavBar iconName="users" icon={TabIcon} onEnter={League.onEnterLeague} /> */}
+              <Scene key="league" title="League" component={League} hideNavBar iconName="users" icon={TabIcon} onEnter={League.onEnterLeague} />
               <Scene key="searchMain" hideNavBar title="Stock" iconName="search" icon={TabIcon}>
                 <Lightbox>
                   <Scene key="search" component={Search} />
