@@ -16,7 +16,7 @@ export default StyleSheet.create({
     position: 'absolute',
     top: 300,
     bottom: 0,
-    left: -140,
+    left: -147,
   },
   searchButton: {
     marginTop: 20,

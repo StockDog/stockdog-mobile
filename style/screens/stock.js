@@ -10,6 +10,18 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  searchContainer: {
+    flex: .1,
+    justifyContent: "center"
+  },
+  search: {
+    marginTop: 3,
+    flexDirection: 'row',
+    flex: 1
+  },
+  searchButton: {
+    marginTop: 20,
+  },
   stockContent: {
     flex: 0.6,
     justifyContent: 'space-around',

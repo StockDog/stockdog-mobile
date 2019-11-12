@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { ButtonGroup } from 'react-native-elements';
+import { Feather } from '@expo/vector-icons';
 import styles from '../style/screens/stock';
 import StockChart from '../components/stockchart';
 import NavBar from '../components/navbar';
 import { getStockHistory } from '../api';
+import FormInput from '../components/formInput';
 
 const lengthMap = {
   W: 'week',
@@ -22,6 +24,7 @@ export default class Stock extends Component {
       yData: [],
       isLoading: true,
       currentPrice: '',
+      searchTicker: props.ticker,
     };
   }
 
@@ -75,14 +78,49 @@ export default class Stock extends Component {
     });
   }
 
+  submitSearch = async () => {
+    const { searchTicker } = this.state;
+    const { ticker } = this.props;
+
+    try {
+      if (searchTicker && searchTicker !== ticker) {
+        const initStockHistory = await getStockHistory(searchTicker, 'week');
+
+        // This actually just updates the props for the current Stock page.
+        // That is why we call formatAndUpdateData instead of just updating the props
+        Actions.stock({
+          type: 'replace',
+          ticker: searchTicker.toUpperCase(),
+        });
+        this.formatAndUpdateData(initStockHistory.data, 0);
+      }
+    } catch (err) {
+      alert(`Sorry, ${searchTicker} is not a supported ticker.`);
+    }
+  }
+
   render() {
     const { ticker } = this.props;
     const {
-      currentPrice, xData, yData, isLoading, length,
+      currentPrice, xData, yData, isLoading, length, searchTicker,
     } = this.state;
     return (
       <View style={styles.background}>
         <NavBar />
+        <View style={styles.searchContainer}>
+          <View style={styles.search}>
+            <FormInput
+              type="search"
+              onchange={(newTicker) => { this.setState({ searchTicker: newTicker }); }}
+              value={searchTicker}
+              returnKeyType="done"
+              onSubmitEditing={this.submitSearch}
+            />
+            <TouchableOpacity onPress={this.submitSearch} style={styles.searchButton}>
+              <Feather name="search" size={24} color="white" />
+            </TouchableOpacity>
+          </View>
+        </View>
         <View style={styles.stockContent}>
           <View style={styles.tickerContainer}>
             <Text style={styles.tickerText}>{ticker}</Text>
