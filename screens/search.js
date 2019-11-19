@@ -26,7 +26,7 @@ class Search extends Component {
           toValue: 0,
         }).start(() => Actions.stock({
           type: 'replace',
-          ticker: ticker.toUpperCase(),
+          ticker,
           initStockHistory: initStockHistory.data,
         }));
       }
@@ -44,7 +44,7 @@ class Search extends Component {
           <Animated.View style={[styles.horizontal, { top }]}>
             <FormInput
               type="search"
-              onchange={(newTicker) => { this.setState({ ticker: newTicker }); }}
+              onchange={(newTicker) => { this.setState({ ticker: newTicker.toUpperCase() }); }}
               value={ticker}
               returnKeyType="done"
               onSubmitEditing={this.submitSearch}
