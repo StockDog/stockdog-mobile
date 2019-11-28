@@ -3,7 +3,7 @@ import configureStore from './store/store';
 
 const { store } = configureStore();
 
-const baseurl = 'http://localhost:5005/api/v1.0';
+const baseurl = 'https://stockdog-api.herokuapp.com/api/v1.0';
 
 const getConfig = (auth = true) => {
   const token = auth ? store.getState().auth.token : null;
@@ -50,6 +50,12 @@ const loginApple = async (appleIdToken, appType, givenName, familyName) => {
     familyName,
   };
   return axios.post(`${baseurl}/users/session/apple`, data, getConfig(false));
+};
+
+const getStockInfo = async (ticker) => {
+  const config = getConfig();
+
+  return axios.get(`${baseurl}/stocks/${ticker}`, config);
 };
 
 const getStockHistory = async (ticker, length) => {
@@ -118,4 +124,5 @@ export {
   getPortfolios,
   getLeague,
   getLeagues,
+  getStockInfo,
 };

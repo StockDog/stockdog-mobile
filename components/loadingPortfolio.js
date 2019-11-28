@@ -33,7 +33,6 @@ const LoadingPortfolio = ({ initializePortfoliosAction }) => {
   );
 };
 
-export default connect(
-  null,
-  { initializePortfoliosAction: initializePortfolios },
-)(LoadingPortfolio);
+export default connect(null, {
+  initializePortfoliosAction: initializePortfolios,
+})(LoadingPortfolio);

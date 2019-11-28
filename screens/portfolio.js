@@ -5,7 +5,7 @@ import {
 import { connect } from 'react-redux';
 import { ButtonGroup } from 'react-native-elements';
 import styles from '../style/screens/portfolio';
-import StockChart from '../components/stockchart';
+// import StockChart from '../components/stockchart';
 import NavBar from '../components/navbar';
 import PortfolioStockList from '../components/portfolioStockList';
 
@@ -17,24 +17,22 @@ class Portfolio extends Component {
     this.state = {
       scrollEnabled: true,
       selectedTimeframe: timeframes[0],
-      xData: [],
-      yData: [],
+      // xData: [],
+      // yData: [],
     };
   }
 
   updateIndex = (index) => {
     this.setState({ selectedTimeframe: timeframes[index] });
-  }
+  };
 
   getData = () => {
     // TODO: Add portfolio history endpoint when ready
-  }
+  };
 
   render() {
     const { chosenLeague, portfolios } = this.props;
-    const {
-      scrollEnabled, selectedTimeframe, xData, yData,
-    } = this.state;
+    const { scrollEnabled, selectedTimeframe } = this.state;
     const stockList = portfolios[chosenLeague].items;
 
     return (
@@ -49,12 +47,14 @@ class Portfolio extends Component {
               </Text>
             </View>
             <TouchableWithoutFeedback
-              onPressIn={() => { this.setState({ scrollEnabled: false }); }}
-              onPressOut={() => { this.setState({ scrollEnabled: true }); }}
+              onPressIn={() => {
+                this.setState({ scrollEnabled: false });
+              }}
+              onPressOut={() => {
+                this.setState({ scrollEnabled: true });
+              }}
             >
-              <View>
-                <StockChart xData={xData} yData={yData} />
-              </View>
+              <View>{/* <StockChart xData={xData} yData={yData} /> */}</View>
             </TouchableWithoutFeedback>
             <ButtonGroup
               onPress={this.updateIndex}
