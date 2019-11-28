@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { View, Animated, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Feather } from '@expo/vector-icons';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from '../style/screens/search';
 import NavBar from '../components/navbar';
 import FormInput from '../components/formInput';
-import { getStockHistory } from '../api';
+
 
 class Search extends Component {
   constructor(props) {
@@ -20,14 +21,12 @@ class Search extends Component {
     const { ticker, top } = this.state;
     try {
       if (ticker) {
-        const initStockHistory = await getStockHistory(ticker, 'week');
         Animated.timing(top, {
           duration: 300,
           toValue: 0,
         }).start(() => Actions.stock({
           type: 'replace',
           ticker,
-          initStockHistory: initStockHistory.data,
         }));
       }
     } catch (err) {
@@ -38,7 +37,13 @@ class Search extends Component {
   render() {
     const { ticker, top } = this.state;
     return (
-      <View style={styles.background}>
+      <KeyboardAwareScrollView
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        contentContainerStyle={styles.background}
+        scrollEnabled={false}
+        keyboardShouldPersistTaps="handled"
+        enableOnAndroid
+      >
         <NavBar />
         <View style={styles.content}>
           <Animated.View style={[styles.horizontal, { top }]}>
@@ -54,7 +59,7 @@ class Search extends Component {
             </TouchableOpacity>
           </Animated.View>
         </View>
-      </View>
+      </KeyboardAwareScrollView>
     );
   }
 }

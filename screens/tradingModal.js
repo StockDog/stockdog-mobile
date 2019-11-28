@@ -66,7 +66,7 @@ class TradingModal extends Component {
         <Lightbox verticalPercent={0.5} horizontalPercent={0.8}>
           <View style={styles.outermostBaseContainer}>
             <Text style={styles.successMessageText}>
-              {`You just ${action === 'Buy' ? 'bought ' : 'sold '} $${amount} shares of ${ticker}.`}
+              {`You just ${action === 'Buy' ? 'bought ' : 'sold '} ${amount} shares of ${ticker}.`}
             </Text>
           </View>
         </Lightbox>

@@ -34,11 +34,7 @@ const Routes = () => (
         <Scene key="root" hideNavBar>
           <Scene key="login" component={Login} />
           <Scene key="loading" component={LoadingPortfolio} />
-          <Drawer
-            key="drawer"
-            contentComponent={LeagueDrawer}
-            type="replace"
-          >
+          <Drawer key="drawer" contentComponent={LeagueDrawer} type="replace">
             <Modal key="leagueManagement" hideNavBar>
               <Scene key="noLeagues" hideNavBar component={NoLeagues} />
               <Scene key="newLeague" hideNavBar component={NewLeague} />
@@ -55,15 +51,48 @@ const Routes = () => (
               activeBackgroundColor={colors.activeTab}
               labelStyle={tabStyle.tabLabel}
             >
-              <Scene key="portfolioMain" hideNavBar title="Portfolio" iconName="user" icon={TabIcon}>
-                <Scene key="portfolio" component={Portfolio} onEnter={Portfolio.onEnterPortfolio} />
+              <Scene
+                key="portfolioMain"
+                hideNavBar
+                title="Portfolio"
+                iconName="user"
+                icon={TabIcon}
+              >
+                <Scene
+                  key="portfolio"
+                  component={Portfolio}
+                  onEnter={Portfolio.onEnterPortfolio}
+                />
               </Scene>
-              <Scene key="league" title="League" component={League} hideNavBar iconName="users" icon={TabIcon} onEnter={League.onEnterLeague} />
-              <Scene key="searchMain" hideNavBar title="Stock" iconName="search" icon={TabIcon}>
+              <Scene
+                key="league"
+                title="League"
+                component={League}
+                hideNavBar
+                iconName="users"
+                icon={TabIcon}
+                onEnter={League.onEnterLeague}
+              />
+              <Scene
+                key="searchMain"
+                hideNavBar
+                title="Stock"
+                iconName="search"
+                icon={TabIcon}
+              >
                 <Lightbox>
                   <Scene key="search" component={Search} />
-                  <Scene key="stock" component={Stock} hideNavBar swipeDownToClose={false} />
-                  <Scene key="tradingModal" component={TradingModal} swipeDownToClose />
+                  <Scene
+                    key="stock"
+                    component={Stock}
+                    hideNavBar
+                    swipeDownToClose={false}
+                  />
+                  <Scene
+                    key="tradingModal"
+                    component={TradingModal}
+                    swipeDownToClose
+                  />
                 </Lightbox>
               </Scene>
             </Tabs>

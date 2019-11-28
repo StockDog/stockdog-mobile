@@ -2,73 +2,43 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { ButtonGroup } from 'react-native-elements';
 import { Feather } from '@expo/vector-icons';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from '../style/screens/stock';
 import StockChart from '../components/stockchart';
 import NavBar from '../components/navbar';
-import { getStockHistory } from '../api';
+import { getStockInfo } from '../api';
 import FormInput from '../components/formInput';
-
-const lengthMap = {
-  W: 'week',
-  M: 'month',
-  Y: 'year',
-};
 
 class Stock extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      length: 'W',
-      xData: [],
-      yData: [],
-      isLoading: true,
-      currentPrice: '',
+      currentPrice: '-',
+      exchange: '',
       searchTicker: props.ticker,
       ownedAmt: 0,
     };
   }
 
-  componentDidMount() {
-    const { initStockHistory } = this.props;
-    this.formatAndUpdateData(initStockHistory, 0);
-  }
-
-  updateIndex = (idx) => {
+  componentDidMount = async () => {
     const { ticker } = this.props;
-    const selectedLength = Object.keys(lengthMap)[idx];
-    getStockHistory(ticker, lengthMap[selectedLength]).then((res) => {
-      this.formatAndUpdateData(res.data, idx);
-    }).catch((err) => alert(err));
-  }
 
-  formatAndUpdateData = (data, idx) => {
-    const selectedLength = Object.keys(lengthMap)[idx];
-    const xData = [];
-    const yData = [];
-    data.forEach((val) => {
-      const timeStrArray = val.time.split(' ');
-      const date = this.createDateString(timeStrArray);
-      xData.push(date);
-      yData.push(val.price);
-    });
+    const stockInfo = await this.getStockInfo(ticker);
+
     this.setState({
-      xData,
-      yData,
-      length: selectedLength,
-      isLoading: false,
-      currentPrice: yData[yData.length - 1].toFixed(2),
-      ownedAmt: this.findOwnedAmt(),
+      currentPrice: stockInfo.currentPrice,
+      exchange: stockInfo.exchange,
     });
-  }
+  };
 
-  createDateString = (timeStrArray) => {
-    const d = new Date(timeStrArray[0]);
-    const mo = d.toLocaleString('en-us', { month: 'short' });
-    const day = d.toLocaleString('en-us', { day: 'numeric' });
-    return `${mo} ${day}`;
-  }
+  getStockInfo = async (ticker) => {
+    const { data } = await getStockInfo(ticker);
+    return {
+      exchange: data.exchange,
+      currentPrice: data.currentPrice,
+    };
+  };
 
   openModal = () => {
     const { currentPrice, ownedAmt } = this.state;
@@ -82,7 +52,7 @@ class Stock extends Component {
         this.setState({ ownedAmt: ownedAmt + amt });
       },
     });
-  }
+  };
 
   findOwnedAmt = () => {
     const { portfolios, chosenLeague, ticker } = this.props;
@@ -92,7 +62,7 @@ class Stock extends Component {
     const stockItem = items.find((item) => item.ticker === ticker);
 
     return (stockItem && stockItem.shareCount) || 0;
-  }
+  };
 
   submitSearch = async () => {
     const { searchTicker } = this.state;
@@ -100,28 +70,40 @@ class Stock extends Component {
 
     try {
       if (searchTicker && searchTicker !== ticker) {
-        const initStockHistory = await getStockHistory(searchTicker, 'week');
-
         // This actually just updates the props for the current Stock page.
         // That is why we call formatAndUpdateData instead of just updating the props
+        const stockInfo = await this.getStockInfo(searchTicker.toUpperCase());
+
         Actions.stock({
           type: 'replace',
           ticker: searchTicker.toUpperCase(),
+          exchange: stockInfo.exchange,
         });
-        this.formatAndUpdateData(initStockHistory.data, 0);
+        this.setState({
+          ownedAmt: this.findOwnedAmt(),
+          currentPrice: stockInfo.currentPrice,
+          exchange: stockInfo.exchange,
+        });
       }
     } catch (err) {
       alert(`Sorry, ${searchTicker} is not a supported ticker.`);
     }
-  }
+  };
 
   render() {
     const { ticker } = this.props;
     const {
-      currentPrice, xData, yData, isLoading, length, searchTicker, ownedAmt,
+      currentPrice, searchTicker, ownedAmt, exchange,
     } = this.state;
+
     return (
-      <View style={styles.background}>
+      <KeyboardAwareScrollView
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        contentContainerStyle={styles.background}
+        scrollEnabled={false}
+        keyboardShouldPersistTaps="handled"
+        enableOnAndroid
+      >
         <NavBar />
         <View style={styles.searchContainer}>
           <View style={styles.search}>
@@ -134,7 +116,10 @@ class Stock extends Component {
               returnKeyType="done"
               onSubmitEditing={this.submitSearch}
             />
-            <TouchableOpacity onPress={this.submitSearch} style={styles.searchButton}>
+            <TouchableOpacity
+              onPress={this.submitSearch}
+              style={styles.searchButton}
+            >
               <Feather name="search" size={24} color="white" />
             </TouchableOpacity>
           </View>
@@ -143,23 +128,7 @@ class Stock extends Component {
           <View style={styles.tickerContainer}>
             <Text style={styles.tickerText}>{ticker}</Text>
           </View>
-          <StockChart
-            xData={xData}
-            yData={yData}
-            isLoading={isLoading}
-          />
-          <ButtonGroup
-            onPress={this.updateIndex}
-            selectedIndex={
-              Object.keys(lengthMap).indexOf(length)
-            }
-            buttons={Object.keys(lengthMap)}
-            containerStyle={styles.dateRangeButtonGroup}
-            textStyle={styles.whiteText}
-            buttonStyle={styles.transparentBackground}
-            selectedButtonStyle={styles.buttonGroupSelected}
-            selectedTextStyle={styles.whiteText}
-          />
+          <StockChart ticker={ticker} exchange={exchange} />
         </View>
         <View style={styles.tradingBox}>
           <View style={styles.stockInfo}>
@@ -184,7 +153,7 @@ $
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </KeyboardAwareScrollView>
     );
   }
 }
