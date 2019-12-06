@@ -3,6 +3,7 @@ import configureStore from './store/store';
 
 const { store } = configureStore();
 
+// const baseurl = "http://localhost:5005/api/v1.0";
 const baseurl = 'https://stockdog-api.herokuapp.com/api/v1.0';
 
 const getConfig = (auth = true) => {

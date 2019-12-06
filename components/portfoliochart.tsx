@@ -1,63 +1,72 @@
-import React from 'react';
-import { View, Dimensions } from 'react-native';
-import { LineChart } from 'react-native-chart-kit';
+import React from "react";
+import { View, Dimensions } from "react-native";
+import { LineChart } from "react-native-chart-kit";
+import styles from "../style/components/portfoliochart";
+import colors from "../style/colors";
 
 interface PortfolioChartProps {
-  History: HistoryItem[]
+  history: HistoryItem[];
 }
 
 interface HistoryItem {
-  "id": string,
-  "portfolioId": string,
-  "datetime": string,
-  "value": number
+  id: string;
+  portfolioId: string;
+  datetime: string;
+  value: number;
 }
 
 const PortfolioChart = (props: PortfolioChartProps) => {
-  return <View>
-    <LineChart
-      data={{
-        labels: ["January", "February", "March", "April", "May", "June"],
-        datasets: [
-          {
-            data: [
-              Math.random() * 100,
-              Math.random() * 100,
-              Math.random() * 100,
-              Math.random() * 100,
-              Math.random() * 100,
-              Math.random() * 100
-            ]
+  const labels: Array<string> = [];
+  const values: Array<number> = [];
+
+  props.history.forEach(dataPoint => {
+    labels.push(dataPoint["datetime"].slice(0, 5));
+    values.push(dataPoint["value"]);
+  });
+
+  return (
+    <View style={styles.portfolioChart}>
+      <LineChart
+        data={{
+          labels: labels,
+          datasets: [
+            {
+              data: values
+            }
+          ]
+        }}
+        width={Dimensions.get("window").width} // from react-native
+        height={Dimensions.get("window").height * 0.3}
+        // withDots={false}
+        withInnerLines={false}
+        withOuterLines={false}
+        withShadow={false}
+        chartConfig={{
+          backgroundGradientFrom: colors.white,
+          backgroundGradientTo: colors.white,
+          decimalPlaces: 2, // optional, defaults to 2dp
+          color: () => colors.bright,
+          labelColor: () => colors.dark,
+          style: {
+            borderRadius: 10
           }
-        ]
-      }}
-      width={Dimensions.get("window").width} // from react-native
-      height={220}
-      yAxisLabel={"$"}
-      yAxisSuffix={"k"}
-      chartConfig={{
-        backgroundColor: "#e26a00",
-        backgroundGradientFrom: "#fb8c00",
-        backgroundGradientTo: "#ffa726",
-        decimalPlaces: 2, // optional, defaults to 2dp
-        color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-        labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-        style: {
-          borderRadius: 16
-        },
-        propsForDots: {
-          r: "6",
-          strokeWidth: "2",
-          stroke: "#ffa726"
-        }
-      }}
-      bezier
-      style={{
-        marginVertical: 8,
-        borderRadius: 16
-      }}
-    />
-  </View>
+        }}
+        // bezier
+        style={{
+          borderRadius: 16,
+          paddingLeft: 10
+        }}
+        formatYLabel={value => {
+          const valNum = parseFloat(value);
+          if (valNum > 999) {
+            return `$${(valNum / 1000).toFixed(2)}k`;
+          } else {
+            return `$${valNum}`;
+          }
+        }}
+      />
+    </View>
+  );
 };
 
 export default PortfolioChart;
