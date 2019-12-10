@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import { View } from "react-native";
-import { connect } from "react-redux";
-import { Actions } from "react-native-router-flux";
-import SpinningLoader from "./spinningloader";
-import styles from "../style/components/loadingPortfolio";
-import { getPortfolios } from "../api";
-import { initializePortfolios } from "../actions/portfolioActions";
+import React, { useEffect } from 'react';
+import { View } from 'react-native';
+import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
+import SpinningLoader from './spinningloader';
+import styles from '../style/components/loadingPortfolio';
+import { getPortfolios } from '../api';
+import { initializePortfolios } from '../actions/portfolioActions';
 
 const LoadingPortfolio = ({ initializePortfoliosAction }) => {
   useEffect(() => {
@@ -19,7 +19,7 @@ const LoadingPortfolio = ({ initializePortfoliosAction }) => {
           Actions.leagueManagement();
         }
       } catch (err) {
-        alert("Error loading portfolios");
+        alert('Error loading portfolios');
       }
     };
 
@@ -33,5 +33,5 @@ const LoadingPortfolio = ({ initializePortfoliosAction }) => {
 };
 
 export default connect(null, {
-  initializePortfoliosAction: initializePortfolios
+  initializePortfoliosAction: initializePortfolios,
 })(LoadingPortfolio);
