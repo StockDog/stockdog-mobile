@@ -24,6 +24,16 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginBottom: 25,
   },
+  homeButton: {
+    width: width * 0.7,
+    height: 45,
+    backgroundColor: colors.lightGrey,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 10,
+  },
   // ----------------- Text ------------- //
   buttonText: {
     fontFamily: 'assistant',

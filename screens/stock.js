@@ -17,7 +17,7 @@ class Stock extends Component {
       currentPrice: '-',
       exchange: '',
       searchTicker: props.ticker,
-      ownedAmt: 0,
+      ownedAmt: this.findOwnedAmt(),
     };
   }
 

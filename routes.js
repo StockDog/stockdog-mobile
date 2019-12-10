@@ -31,7 +31,7 @@ const Routes = () => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <CustomRouter>
-        <Scene key="root" hideNavBar>
+        <Scene key="root" hideNavBar gesturesEnabled={false}>
           <Scene key="login" component={Login} />
           <Scene key="loading" component={LoadingPortfolio} />
           <Drawer key="drawer" contentComponent={LeagueDrawer} type="replace">

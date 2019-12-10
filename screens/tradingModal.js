@@ -19,14 +19,14 @@ class TradingModal extends Component {
     };
   }
 
-  executeTrade = () => {
+  executeTrade = async () => {
     const { amount, action } = this.state;
     const {
       navigation, portfolios, leagueId, updateOwnedAmt,
     } = this.props;
     const props = navigation.state.params;
     try {
-      tradeStock(
+      await tradeStock(
         parseInt(amount, 10),
         props.ticker,
         action.toUpperCase(),
@@ -34,11 +34,13 @@ class TradingModal extends Component {
       );
       this.setState({ complete: true });
       // Give negative amount if selling
-      updateOwnedAmt(action === 'Buy' ? parseInt(amount, 10) : parseInt(amount, 10) * -1);
+      updateOwnedAmt(
+        action === 'Buy' ? parseInt(amount, 10) : parseInt(amount, 10) * -1,
+      );
     } catch (err) {
       alert(Object.values(err.response.data)[0]);
     }
-  }
+  };
 
   onChangeAction = (actionIndex) => {
     const actions = ['Buy', 'Sell'];
@@ -46,19 +48,15 @@ class TradingModal extends Component {
       actionIndex,
       action: actions[actionIndex],
     });
-  }
+  };
 
   render() {
-    const {
-      buyingPower, price, ticker,
-    } = this.props;
+    const { buyingPower, price, ticker } = this.props;
     const {
       complete, action, amount, actionIndex,
     } = this.state;
     if (!buyingPower && !price && !ticker) {
-      return (
-        <Lightbox verticalPercent={0.5} horizontalPercent={0.8} />
-      );
+      return <Lightbox verticalPercent={0.5} horizontalPercent={0.8} />;
     }
 
     if (complete) {
@@ -66,7 +64,9 @@ class TradingModal extends Component {
         <Lightbox verticalPercent={0.5} horizontalPercent={0.8}>
           <View style={styles.outermostBaseContainer}>
             <Text style={styles.successMessageText}>
-              {`You just ${action === 'Buy' ? 'bought ' : 'sold '} ${amount} shares of ${ticker}.`}
+              {`You just ${
+                action === 'Buy' ? 'bought ' : 'sold '
+              } ${amount} shares of ${ticker}.`}
             </Text>
           </View>
         </Lightbox>
@@ -75,8 +75,7 @@ class TradingModal extends Component {
     let total = amount ? price * parseInt(amount, 10) : 0;
     total = total.toFixed(2);
 
-    const isDisabled = !(amount && action)
-      || amount <= 0;
+    const isDisabled = !(amount && action) || amount <= 0;
     const buttonStyle = isDisabled
       ? styles.disabledExecuteButton
       : styles.executeButton;
@@ -94,7 +93,7 @@ class TradingModal extends Component {
         </View>
         <View style={styles.inputs}>
           <Text style={styles.buyingPowerText}>
-            Current Price: $
+Current Price: $
             {price}
           </Text>
           <ButtonGroup
@@ -113,13 +112,15 @@ class TradingModal extends Component {
             placeholder="Amount"
             placeholderColor={colors.grey}
             value={amount}
-            onChangeText={(amt) => { this.setState({ amount: amt }); }}
+            onChangeText={(amt) => {
+              this.setState({ amount: amt });
+            }}
             returnKeyType="done"
           />
         </View>
         <View style={styles.total}>
           <Text style={styles.totalText}>
-            Total: $
+Total: $
             {total}
           </Text>
         </View>

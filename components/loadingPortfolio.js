@@ -25,7 +25,6 @@ const LoadingPortfolio = ({ initializePortfoliosAction }) => {
 
     initPortfolios();
   });
-
   return (
     <View style={styles.background}>
       <SpinningLoader />

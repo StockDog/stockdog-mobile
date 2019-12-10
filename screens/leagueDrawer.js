@@ -20,7 +20,7 @@ class LeagueDrawer extends Component {
     const { update } = this.props;
     update();
     setTimeout(this.pollPortfolios.bind(this), 10000);
-  }
+  };
 
   renderPortfolio = (portfolioItem) => {
     const { chosenLeague } = this.props;
@@ -30,33 +30,31 @@ class LeagueDrawer extends Component {
         style={styles.portfolioListItem}
         onPress={() => this.setSelected(portfolio.league.id)}
       >
-        {
-          portfolio.league.id === parseInt(chosenLeague, 10)
-            ? <View style={styles.chosenMark} />
-            : <View style={styles.regularMark} />
-        }
+        {portfolio.league.id === parseInt(chosenLeague, 10) ? (
+          <View style={styles.chosenMark} />
+        ) : (
+          <View style={styles.regularMark} />
+        )}
         <View style={styles.portfolioText}>
-          <Text style={styles.portfolioTitle}>
-            {portfolio.league.name}
-          </Text>
+          <Text style={styles.portfolioTitle}>{portfolio.league.name}</Text>
           <Text style={styles.portfolioValue}>
             {`$${portfolio.value.toFixed(2, 10)}`}
           </Text>
         </View>
       </TouchableOpacity>
     );
-  }
+  };
 
   setSelected = (id) => {
     const { choose } = this.props;
     choose(id);
-  }
+  };
 
   keyExtractor = (item, index) => index.toString();
 
   navToAddLeague = () => {
-    Actions.noLeagues();
-  }
+    Actions.noLeagues({ type: 'replace', homeable: true });
+  };
 
   render() {
     const { portfolios } = this.props;
@@ -83,13 +81,12 @@ class LeagueDrawer extends Component {
   }
 }
 
-
 const mapStateToProps = (state) => ({
   portfolios: state.portfolio.portfolios,
   chosenLeague: state.portfolio.leagueId,
 });
 
-export default connect(
-  mapStateToProps,
-  { choose: chooseLeague, update: updatePortfolios },
-)(LeagueDrawer);
+export default connect(mapStateToProps, {
+  choose: chooseLeague,
+  update: updatePortfolios,
+})(LeagueDrawer);
