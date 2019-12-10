@@ -13,7 +13,7 @@ class LeagueDrawer extends Component {
     if (!chosenLeague) {
       choose(Object.keys(portfolios)[0]);
     }
-    // this.pollPortfolios();
+    this.pollPortfolios();
   }
 
   pollPortfolios = () => {
