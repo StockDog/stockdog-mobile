@@ -6,7 +6,7 @@
       "usesAppleSignIn": true,
       "config": {
         "googleSignIn": {
-          "reservedClientId": "802147424875-3m21ehg25eaja2g1tgdp95ml3o1l993e.apps.googleusercontent.com"
+          "reservedClientId": "com.googleusercontent.apps.802147424875-3m21ehg25eaja2g1tgdp95ml3o1l993e"
         }
       }
     },
