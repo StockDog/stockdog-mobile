@@ -6,6 +6,7 @@ import colors from "../style/colors";
 
 interface PortfolioChartProps {
   history: HistoryItem[];
+  currentValue: number;
 }
 
 interface HistoryItem {
@@ -25,8 +26,7 @@ const PortfolioChart = (props: PortfolioChartProps) => {
   });
 
   if (!labels.length) {
-    labels.push("hello");
-    values.push(4);
+    values.push(props.currentValue);
   }
 
   const config = {
@@ -70,8 +70,7 @@ const PortfolioChart = (props: PortfolioChartProps) => {
           width: Dimensions.get("window").width * 0.9
         }}
         config={config}
-        data={[5012.21, 4982.65, 4842.65, 5132.53, 5932.56, 4992.34]}
-        // data={values}
+        data={values}
       />
     </View>
   );
