@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import FormInput from '../components/formInput';
@@ -23,7 +24,7 @@ class JoinLeague extends Component {
 
   close = () => {
     Actions.pop();
-  }
+  };
 
   submitJoinLeague = async () => {
     const { inviteCode, nickname } = this.state;
@@ -40,15 +41,17 @@ class JoinLeague extends Component {
         alert('Error updating portfolios.');
       }
     }
-  }
+  };
 
   toggleBrowseLeagueModal = () => {
-    this.setState((prevState) => ({ browseLeaguesModal: !prevState.browseLeaguesModal }));
-  }
+    this.setState((prevState) => ({
+      browseLeaguesModal: !prevState.browseLeaguesModal,
+    }));
+  };
 
   fillInviteCode = (inviteCode) => {
     this.setState({ inviteCode });
-  }
+  };
 
   render() {
     const {
@@ -56,10 +59,18 @@ class JoinLeague extends Component {
     } = this.state;
     let notFoundComponent;
     if (notFound) {
-      notFoundComponent = <Text style={styles.joinLeagueWarning}> League Not Found </Text>;
+      notFoundComponent = (
+        <Text style={styles.joinLeagueWarning}> League Not Found </Text>
+      );
     }
     return (
-      <View style={styles.background}>
+      <KeyboardAwareScrollView
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        contentContainerStyle={styles.background}
+        scrollEnabled={false}
+        keyboardShouldPersistTaps="handled"
+        enableOnAndroid
+      >
         <BrowseLeagueModal
           isOpen={browseLeaguesModal}
           toggle={this.toggleBrowseLeagueModal}
@@ -82,12 +93,16 @@ class JoinLeague extends Component {
           <View style={styles.inputsContainer}>
             <FormInput
               type="Invite Code"
-              onchange={(code) => { this.setState({ inviteCode: code }); }}
+              onchange={(code) => {
+                this.setState({ inviteCode: code });
+              }}
               value={inviteCode}
             />
             <FormInput
               type="Your nickname"
-              onchange={(name) => { this.setState({ nickname: name }); }}
+              onchange={(name) => {
+                this.setState({ nickname: name });
+              }}
               value={nickname}
             />
           </View>
@@ -95,9 +110,12 @@ class JoinLeague extends Component {
         <WideButton type="join" onpress={this.submitJoinLeague} />
         <WideButton type="cancel" onpress={Actions.pop} />
         {notFoundComponent}
-      </View>
+      </KeyboardAwareScrollView>
     );
   }
 }
 
-export default connect(null, { update: updatePortfolios, choose: chooseLeague })(JoinLeague);
+export default connect(null, {
+  update: updatePortfolios,
+  choose: chooseLeague,
+})(JoinLeague);

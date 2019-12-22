@@ -9,6 +9,7 @@ import PortfolioStockList from '../components/portfolioStockList';
 const Portfolio = (props) => {
   const { chosenLeague, portfolios } = props;
   const stockList = portfolios[chosenLeague].items;
+  const currentValue = portfolios[chosenLeague].value.toFixed(2, 10);
   return (
     <View style={styles.profileBackground}>
       <ScrollView scrollEnabled>
@@ -16,11 +17,12 @@ const Portfolio = (props) => {
         <NavBar />
         <View style={{ flex: 0.9, alignItems: 'center' }}>
           <View style={styles.portfolioValue}>
-            <Text style={styles.value}>
-              {`$${portfolios[chosenLeague].value.toFixed(2, 10)}`}
-            </Text>
+            <Text style={styles.value}>{`$${currentValue}`}</Text>
           </View>
-          <PortfolioChart history={portfolios[chosenLeague].history} />
+          <PortfolioChart
+            history={portfolios[chosenLeague].history}
+            currentValue={currentValue}
+          />
           <PortfolioStockList listType="portfolio" stockList={stockList} />
           {/* <PortfolioStockList listType='watchlist' /> */}
         </View>

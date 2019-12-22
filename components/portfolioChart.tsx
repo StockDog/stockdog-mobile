@@ -1,11 +1,12 @@
 import React from "react";
 import { View, Dimensions } from "react-native";
-import { LineChart } from "react-native-chart-kit";
+import LineChart from "react-native-responsive-linechart";
 import styles from "../style/components/portfoliochart";
 import colors from "../style/colors";
 
 interface PortfolioChartProps {
   history: HistoryItem[];
+  currentValue: number;
 }
 
 interface HistoryItem {
@@ -24,46 +25,52 @@ const PortfolioChart = (props: PortfolioChartProps) => {
     values.push(dataPoint["value"]);
   });
 
+  if (!labels.length) {
+    values.push(props.currentValue);
+  }
+
+  const config = {
+    line: {
+      visible: true,
+      strokeWidth: 2,
+      strokeColor: colors.bright
+    },
+    area: {
+      visible: false
+    },
+    tooltip: {
+      visible: true,
+      labelFontSize: 10,
+      labelFormatter: (value: string) => `$${value}`
+    },
+    yAxis: {
+      labelColor: colors.dark,
+      labelFormatter: (value: string) => {
+        const valNum = parseFloat(value);
+        if (valNum > 999) {
+          return `$${(valNum / 1000).toFixed(2)}k`;
+        } else {
+          return `$${valNum}`;
+        }
+      }
+    },
+    grid: {
+      visible: false
+    },
+    insetY: 10,
+    insetX: 10,
+    backgroundColor: "transparent"
+  };
+
   return (
     <View style={styles.portfolioChart}>
       <LineChart
-        data={{
-          labels: labels,
-          datasets: [
-            {
-              data: values
-            }
-          ]
-        }}
-        width={Dimensions.get("window").width} // from react-native
-        height={Dimensions.get("window").height * 0.3}
-        // withDots={false}
-        withInnerLines={false}
-        withOuterLines={false}
-        withShadow={false}
-        chartConfig={{
-          backgroundGradientFrom: colors.white,
-          backgroundGradientTo: colors.white,
-          decimalPlaces: 2, // optional, defaults to 2dp
-          color: () => colors.bright,
-          labelColor: () => colors.dark,
-          style: {
-            borderRadius: 10
-          }
-        }}
-        // bezier
         style={{
-          borderRadius: 16,
-          paddingLeft: 10
+          height: Dimensions.get("window").height * 0.3,
+          width: Dimensions.get("window").width * 0.9
         }}
-        formatYLabel={value => {
-          const valNum = parseFloat(value);
-          if (valNum > 999) {
-            return `$${(valNum / 1000).toFixed(2)}k`;
-          } else {
-            return `$${valNum}`;
-          }
-        }}
+        config={config}
+        data={values}
       />
     </View>
   );
