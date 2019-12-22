@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import DatePicker from 'react-native-datepicker';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Actions } from 'react-native-router-flux';
 import { Feather } from '@expo/vector-icons';
 import FormInput from '../components/formInput';
@@ -44,14 +45,16 @@ class NewLeague extends Component {
 
     today = `${mm}-${dd}-${yyyy}`;
     return today;
-  }
+  };
 
   validDates = (start, end) => {
     const startSplit = start.split('-').map((val) => parseInt(val, 10));
     const endSplit = end.split('-').map((val) => parseInt(val, 10));
-    return new Date(startSplit[2], startSplit[0], startSplit[1])
-      < new Date(endSplit[2], endSplit[0], endSplit[1]);
-  }
+    return (
+      new Date(startSplit[2], startSplit[0], startSplit[1])
+      < new Date(endSplit[2], endSplit[0], endSplit[1])
+    );
+  };
 
   onSubmitLeague = async () => {
     const { update, choose } = this.props;
@@ -60,14 +63,19 @@ class NewLeague extends Component {
     } = this.state;
     if (/[a-zA-Z]/.test(buyPower)) {
       alert('Invalid Buying Power value. Please enter numbers only.');
-    } else if (startDate && endDate
-      && !this.validDates(startDate, endDate)) {
-      alert('Invalid dates. Please make the end date later than the start date.');
+    } else if (startDate && endDate && !this.validDates(startDate, endDate)) {
+      alert(
+        'Invalid dates. Please make the end date later than the start date.',
+      );
     } else {
       const startPos = parseInt(buyPower, 10);
       try {
-        const createRes = await createLeague(leagueName, startPos,
-          startDate, endDate);
+        const createRes = await createLeague(
+          leagueName,
+          startPos,
+          startDate,
+          endDate,
+        );
         await joinLeague(createRes.data.inviteCode, nickname);
         await update();
         await choose(createRes.data.id);
@@ -76,16 +84,27 @@ class NewLeague extends Component {
         alert(Object.values(err.response.data[0]));
       }
     }
-  }
+  };
 
   render() {
     const {
-      leagueName, nickname, buyPower, minDate, endDate, startDate,
+      leagueName,
+      nickname,
+      buyPower,
+      minDate,
+      endDate,
+      startDate,
     } = this.state;
     const disabled = !(leagueName && nickname && buyPower);
 
     return (
-      <View style={styles.background}>
+      <KeyboardAwareScrollView
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        contentContainerStyle={styles.background}
+        scrollEnabled={false}
+        keyboardShouldPersistTaps="handled"
+        enableOnAndroid
+      >
         <View style={styles.backgroundCircle} />
         <NavBar />
         <View style={styles.titleContainer}>
@@ -122,7 +141,9 @@ class NewLeague extends Component {
               dateText: styles.dateText,
             }}
             iconComponent={<Feather name="calendar" size={30} color="grey" />}
-            onDateChange={(newDate) => { this.setState({ startDate: newDate }); }}
+            onDateChange={(newDate) => {
+              this.setState({ startDate: newDate });
+            }}
           />
           <DatePicker
             date={endDate}
@@ -139,16 +160,25 @@ class NewLeague extends Component {
               dateText: styles.dateText,
             }}
             iconComponent={<Feather name="calendar" size={30} color="grey" />}
-            onDateChange={(newDate) => { this.setState({ endDate: newDate }); }}
+            onDateChange={(newDate) => {
+              this.setState({ endDate: newDate });
+            }}
           />
         </View>
         <View style={styles.formBuffer} />
         <View style={styles.submitButton}>
-          <WideButton disabled={disabled} type="addLeague" onpress={this.onSubmitLeague} />
+          <WideButton
+            disabled={disabled}
+            type="addLeague"
+            onpress={this.onSubmitLeague}
+          />
         </View>
-      </View>
+      </KeyboardAwareScrollView>
     );
   }
 }
 
-export default connect(null, { update: updatePortfolios, choose: chooseLeague })(NewLeague);
+export default connect(null, {
+  update: updatePortfolios,
+  choose: chooseLeague,
+})(NewLeague);
