@@ -16,8 +16,14 @@ const Portfolio = (props) => {
         <View style={styles.profileBackgroundCircle} />
         <NavBar />
         <View style={{ flex: 0.9, alignItems: 'center' }}>
-          <View style={styles.portfolioValue}>
+          <View style={styles.portfolioInfo}>
             <Text style={styles.value}>{`$${currentValue}`}</Text>
+            <Text style={styles.leagueTitle}>
+              {`${portfolios[chosenLeague].league.name}`}
+            </Text>
+            <Text style={styles.dates}>
+              {`${portfolios[chosenLeague].league.start} | ${portfolios[chosenLeague].league.end}`}
+            </Text>
           </View>
           <PortfolioChart
             history={portfolios[chosenLeague].history}

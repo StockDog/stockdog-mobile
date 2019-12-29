@@ -16,14 +16,14 @@ export default StyleSheet.create({
     width: width * 4,
     height: height * 1.82,
     position: 'absolute',
-    top: height * -1.34,
+    top: height * -1.25,
     right: width * -1.1,
     zIndex: -1,
     borderBottomLeftRadius: 1978 / 2,
     borderBottomRightRadius: 1978 / 2,
   },
-  portfolioValue: {
-    height: height * 0.1,
+  portfolioInfo: {
+    height: height * 0.2,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -77,6 +77,18 @@ export default StyleSheet.create({
     color: colors.white,
     fontFamily: 'assistant',
     fontSize: 36,
+    textAlign: 'center',
+  },
+  leagueTitle: {
+    color: colors.white,
+    fontFamily: 'assistant',
+    fontSize: 24,
+    textAlign: 'center',
+  },
+  dates: {
+    color: colors.white,
+    fontFamily: 'assistant',
+    fontSize: 14,
     textAlign: 'center',
   },
   whiteText: {
