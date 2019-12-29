@@ -75,6 +75,14 @@ export default StyleSheet.create({
     backgroundColor: colors.bright,
     borderRadius: 8,
   },
+  tradingButtonInvalid: {
+    width: '60%',
+    height: '40%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.grey,
+    borderRadius: 8,
+  },
   // ----------------- Text ------------- //
   tickerText: {
     fontFamily: 'assistant',

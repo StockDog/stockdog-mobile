@@ -91,10 +91,46 @@ class Stock extends Component {
   };
 
   render() {
-    const { ticker } = this.props;
+    const { ticker, portfolios, chosenLeague } = this.props;
     const {
       currentPrice, searchTicker, ownedAmt, exchange,
     } = this.state;
+
+    let tradeBtn = (
+      <TouchableOpacity style={styles.tradingButton} onPress={this.openModal}>
+        <Text style={styles.tradingButtonText}>Trade</Text>
+      </TouchableOpacity>
+    );
+
+    const todayWithTime = new Date();
+    const month = todayWithTime.getMonth() + 1;
+    const day = todayWithTime.getDay();
+    const year = todayWithTime.getFullYear();
+    const today = new Date(year, month, day);
+
+    const startDateArr = portfolios[chosenLeague].league.start.split('-');
+    const startDate = new Date(
+      startDateArr[2],
+      startDateArr[0] - 1,
+      startDateArr[1],
+    );
+
+    const endDateArr = portfolios[chosenLeague].league.end.split('-');
+    const endDate = new Date(endDateArr[2], endDateArr[0] - 1, endDateArr[1]);
+
+    if (today < startDate) {
+      tradeBtn = (
+        <TouchableOpacity style={styles.tradingButtonInvalid}>
+          <Text style={styles.tradingButtonText}>League has not begun</Text>
+        </TouchableOpacity>
+      );
+    } else if (endDate < today) {
+      tradeBtn = (
+        <TouchableOpacity style={styles.tradingButtonInvalid}>
+          <Text style={styles.tradingButtonText}>League is done</Text>
+        </TouchableOpacity>
+      );
+    }
 
     return (
       <KeyboardAwareScrollView
@@ -144,14 +180,7 @@ $
               <Text style={styles.label}>Price</Text>
             </View>
           </View>
-          <View style={styles.tradingButtonContainer}>
-            <TouchableOpacity
-              style={styles.tradingButton}
-              onPress={this.openModal}
-            >
-              <Text style={styles.tradingButtonText}>Trade</Text>
-            </TouchableOpacity>
-          </View>
+          <View style={styles.tradingButtonContainer}>{tradeBtn}</View>
         </View>
       </KeyboardAwareScrollView>
     );

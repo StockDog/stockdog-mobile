@@ -25,8 +25,16 @@ const PortfolioChart = (props: PortfolioChartProps) => {
     values.push(dataPoint["value"]);
   });
 
-  if (!labels.length) {
-    values.push(props.currentValue);
+  // The linechart is currently crashing if there is less than 2 points
+  // For now we will just add extra initial values
+  if (values.length < 2) {
+    const initialDate = labels[0];
+    const initialVal = values[0];
+
+    while (values.length < 2) {
+      labels.unshift(initialDate);
+      values.unshift(initialVal);
+    }
   }
 
   const config = {
@@ -58,7 +66,7 @@ const PortfolioChart = (props: PortfolioChartProps) => {
       visible: false
     },
     insetY: 10,
-    insetX: 10,
+    insetX: 20,
     backgroundColor: "transparent"
   };
 

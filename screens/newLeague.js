@@ -172,6 +172,7 @@ class NewLeague extends Component {
             type="addLeague"
             onpress={this.onSubmitLeague}
           />
+          <WideButton type="cancel" onpress={Actions.pop} />
         </View>
       </KeyboardAwareScrollView>
     );
