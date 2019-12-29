@@ -37,9 +37,6 @@ const PortfolioChart = (props: PortfolioChartProps) => {
     }
   }
 
-  console.log(labels);
-  console.log(values);
-
   const config = {
     line: {
       visible: true,
