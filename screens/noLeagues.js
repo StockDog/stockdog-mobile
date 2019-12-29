@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import styles from '../style/screens/noLeagues';
 import NavBar from '../components/navbar';
+import WideButton from '../components/widebutton';
 
 export default class NoLeagues extends Component {
   navToNewLeague = () => {
@@ -24,21 +25,16 @@ export default class NoLeagues extends Component {
         <NavBar />
         <View style={styles.buttonContent}>
           <TouchableOpacity style={styles.button} onPress={this.navToNewLeague}>
-            <Text style={styles.buttonText}>CREATE A LEAGUE</Text>
+            <Text style={styles.buttonText}>Create A League</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
             onPress={this.navToJoinLeague}
           >
-            <Text style={styles.buttonText}>JOIN A LEAGUE</Text>
+            <Text style={styles.buttonText}>Join A League</Text>
           </TouchableOpacity>
           {homeable ? (
-            <TouchableOpacity
-              style={styles.homeButton}
-              onPress={this.navToHome}
-            >
-              <Text style={styles.buttonText}>BACK</Text>
-            </TouchableOpacity>
+            <WideButton type="cancel" onpress={this.navToHome} />
           ) : null}
         </View>
       </View>
