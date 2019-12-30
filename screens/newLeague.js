@@ -140,7 +140,7 @@ class NewLeague extends Component {
               dateInput: styles.dateInput,
               dateText: styles.dateText,
               datePickerCon: {
-                backgroundColor: 'black',
+                backgroundColor: 'white',
               },
             }}
             iconComponent={<Feather name="calendar" size={30} color="grey" />}
