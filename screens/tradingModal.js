@@ -22,7 +22,7 @@ class TradingModal extends Component {
   executeTrade = async () => {
     const { amount, action } = this.state;
     const {
-      navigation, portfolios, leagueId, updateOwnedAmt,
+      navigation, portfolios, chosenLeague, updateOwnedAmt,
     } = this.props;
     const props = navigation.state.params;
     try {
@@ -30,7 +30,7 @@ class TradingModal extends Component {
         parseInt(amount, 10),
         props.ticker,
         action.toUpperCase(),
-        portfolios[leagueId].id,
+        portfolios[chosenLeague].id,
       );
       this.setState({ complete: true });
       // Give negative amount if selling
@@ -51,10 +51,16 @@ class TradingModal extends Component {
   };
 
   render() {
-    const { buyingPower, price, ticker } = this.props;
+    const {
+      price, ticker, portfolios, chosenLeague,
+    } = this.props;
+
     const {
       complete, action, amount, actionIndex,
     } = this.state;
+
+    const buyingPower = portfolios[chosenLeague].buyPower;
+
     if (!buyingPower && !price && !ticker) {
       return <Lightbox verticalPercent={0.5} horizontalPercent={0.8} />;
     }
@@ -83,6 +89,12 @@ class TradingModal extends Component {
       ? styles.disabledExecuteButtonText
       : styles.executeButtonText;
 
+    const tickerInPortfolio = portfolios[chosenLeague].items.filter(
+      (portfolioItem) => portfolioItem.ticker === ticker,
+    );
+
+    const numShares = tickerInPortfolio ? tickerInPortfolio[0].shareCount : 0;
+
     return (
       <Lightbox verticalPercent={0.5} horizontalPercent={0.8}>
         <View style={styles.buyingPower}>
@@ -90,12 +102,14 @@ class TradingModal extends Component {
             Buying Power: $
             {buyingPower.toFixed(2)}
           </Text>
+          <Text style={styles.buyingPowerText}>
+            {`Current Price: $${price}`}
+          </Text>
+          <Text style={styles.buyingPowerText}>
+            {`Currently Owned: ${numShares} shares`}
+          </Text>
         </View>
         <View style={styles.inputs}>
-          <Text style={styles.buyingPowerText}>
-Current Price: $
-            {price}
-          </Text>
           <ButtonGroup
             onPress={this.onChangeAction}
             selectedIndex={actionIndex}
@@ -134,7 +148,7 @@ Total: $
 
 const mapStateToProps = (state) => ({
   portfolios: state.portfolio.portfolios,
-  leagueId: state.portfolio.leagueId,
+  chosenLeague: state.portfolio.leagueId,
 });
 
 export default connect(mapStateToProps)(TradingModal);

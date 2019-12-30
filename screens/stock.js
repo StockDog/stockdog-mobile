@@ -42,11 +42,9 @@ class Stock extends Component {
 
   openModal = () => {
     const { currentPrice, ownedAmt } = this.state;
-    const { ticker, portfolios, chosenLeague } = this.props;
+    const { ticker } = this.props;
     Actions.tradingModal({
       ticker,
-      buyingPower: portfolios[chosenLeague].buyPower,
-      total: 0,
       price: currentPrice,
       updateOwnedAmt: (amt) => {
         this.setState({ ownedAmt: ownedAmt + amt });

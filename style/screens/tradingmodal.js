@@ -102,6 +102,7 @@ export default StyleSheet.create({
     fontFamily: 'assistant',
     fontSize: 20,
     color: colors.black,
+    paddingBottom: 5,
   },
   totalText: {
     fontFamily: 'assistant',
