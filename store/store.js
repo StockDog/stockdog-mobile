@@ -12,10 +12,7 @@ const config = {
 
 const reducer = persistReducer(config, reducers);
 
-export default () => {
-  // ...
-  const store = createStore(reducer, applyMiddleware(thunk));
-  const persistor = persistStore(store);
+const store = createStore(reducer, applyMiddleware(thunk));
+const persistor = persistStore(store);
 
-  return { persistor, store };
-};
+export default () => ({ persistor, store });

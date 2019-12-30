@@ -22,7 +22,6 @@ const LoadingPortfolio = ({ initializePortfoliosAction }) => {
         alert('Error loading portfolios');
       }
     };
-
     initPortfolios();
   });
   return (
