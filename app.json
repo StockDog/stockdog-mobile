@@ -1,6 +1,7 @@
 {
   "expo": {
-    "sdkVersion": "35.0.0",
+    "sdkVersion": "36.0.0",
+    "userInterfaceStyle": "dark",
     "ios": {
       "bundleIdentifier": "com.stockdogapp",
       "usesAppleSignIn": true,
@@ -13,9 +14,6 @@
     "name": "stockdogmobile",
     "slug": "stockdogmobile",
     "version": "0.1.2",
-    "platforms": [
-      "android",
-      "ios"
-    ]
+    "platforms": ["android", "ios"]
   }
 }
