@@ -139,11 +139,15 @@ class NewLeague extends Component {
               placeholderText: styles.datePlaceholderText,
               dateInput: styles.dateInput,
               dateText: styles.dateText,
+              datePickerCon: {
+                backgroundColor: 'white',
+              },
             }}
             iconComponent={<Feather name="calendar" size={30} color="grey" />}
             onDateChange={(newDate) => {
               this.setState({ startDate: newDate });
             }}
+            textColor="#ffffff"
           />
           <DatePicker
             date={endDate}
@@ -158,6 +162,9 @@ class NewLeague extends Component {
               placeholderText: styles.datePlaceholderText,
               dateInput: styles.dateInput,
               dateText: styles.dateText,
+              datePickerCon: {
+                backgroundColor: 'white',
+              },
             }}
             iconComponent={<Feather name="calendar" size={30} color="grey" />}
             onDateChange={(newDate) => {

@@ -25,6 +25,13 @@ class TradingModal extends Component {
       navigation, portfolios, chosenLeague, updateOwnedAmt,
     } = this.props;
     const props = navigation.state.params;
+
+    const isDisabled = !(amount && action) || amount <= 0;
+    if (isDisabled) {
+      alert('Please make sure all required options and fields are complete.');
+      return;
+    }
+
     try {
       await tradeStock(
         parseInt(amount, 10),
