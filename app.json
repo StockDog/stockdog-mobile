@@ -1,6 +1,7 @@
 {
   "expo": {
     "sdkVersion": "36.0.0",
+    "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "ios": {
       "bundleIdentifier": "com.stockdogapp",
