@@ -28,11 +28,14 @@ export default class SpinningLoader extends Component {
   };
 
   render() {
+    const { color } = this.props;
     const rotate = this.spinValue.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '360deg'] });
+
+    const spinColor = color || 'white';
 
     return (
       <Animated.View style={{ transform: [{ rotate }] }}>
-        <Feather name="loader" size={48} color="white" />
+        <Feather name="loader" size={48} color={spinColor} />
       </Animated.View>
     );
   }

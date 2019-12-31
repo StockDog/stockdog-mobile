@@ -8,6 +8,7 @@ import Lightbox from '../components/baseLightbox';
 import colors from '../style/colors';
 import styles from '../style/screens/tradingmodal';
 import { tradeStock } from '../api';
+import SpinningLoader from '../components/spinningloader';
 
 class TradingModal extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class TradingModal extends Component {
     this.state = {
       action: '',
       amount: '',
+      loading: false,
       complete: false,
     };
   }
@@ -25,6 +27,8 @@ class TradingModal extends Component {
       navigation, portfolios, chosenLeague, updateOwnedAmt,
     } = this.props;
     const props = navigation.state.params;
+
+    this.setState({ loading: true });
 
     const isDisabled = !(amount && action) || amount <= 0;
     if (isDisabled) {
@@ -39,7 +43,7 @@ class TradingModal extends Component {
         action.toUpperCase(),
         portfolios[chosenLeague].id,
       );
-      this.setState({ complete: true });
+      this.setState({ complete: true, loading: false });
       // Give negative amount if selling
       updateOwnedAmt(
         action === 'Buy' ? parseInt(amount, 10) : parseInt(amount, 10) * -1,
@@ -63,7 +67,7 @@ class TradingModal extends Component {
     } = this.props;
 
     const {
-      complete, action, amount, actionIndex,
+      complete, loading, action, amount, actionIndex,
     } = this.state;
 
     const buyingPower = portfolios[chosenLeague].buyPower;
@@ -100,7 +104,7 @@ class TradingModal extends Component {
       (portfolioItem) => portfolioItem.ticker === ticker,
     );
 
-    const numShares = tickerInPortfolio ? tickerInPortfolio[0].shareCount : 0;
+    const numShares = tickerInPortfolio[0] ? tickerInPortfolio[0].shareCount : 0;
 
     return (
       <Lightbox verticalPercent={0.5} horizontalPercent={0.8}>
@@ -141,13 +145,21 @@ class TradingModal extends Component {
         </View>
         <View style={styles.total}>
           <Text style={styles.totalText}>
-Total: $
+            Total: $
             {total}
           </Text>
         </View>
-        <TouchableOpacity style={buttonStyle} onPress={this.executeTrade}>
-          <Text style={buttonTextStyle}>Execute</Text>
-        </TouchableOpacity>
+        <View style={styles.execute}>
+          {
+            loading
+              ? <SpinningLoader color="grey" />
+              : (
+                <TouchableOpacity style={buttonStyle} onPress={this.executeTrade}>
+                  <Text style={buttonTextStyle}>Execute</Text>
+                </TouchableOpacity>
+              )
+          }
+        </View>
       </Lightbox>
     );
   }
