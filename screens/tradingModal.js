@@ -28,13 +28,13 @@ class TradingModal extends Component {
     } = this.props;
     const props = navigation.state.params;
 
-    this.setState({ loading: true });
-
     const isDisabled = !(amount && action) || amount <= 0;
     if (isDisabled) {
       alert('Please make sure all required options and fields are complete.');
       return;
     }
+
+    this.setState({ loading: true });
 
     try {
       await tradeStock(
@@ -49,6 +49,7 @@ class TradingModal extends Component {
         action === 'Buy' ? parseInt(amount, 10) : parseInt(amount, 10) * -1,
       );
     } catch (err) {
+      this.setState({ loading: false });
       alert(Object.values(err.response.data)[0]);
     }
   };
@@ -104,7 +105,9 @@ class TradingModal extends Component {
       (portfolioItem) => portfolioItem.ticker === ticker,
     );
 
-    const numShares = tickerInPortfolio[0] ? tickerInPortfolio[0].shareCount : 0;
+    const numShares = tickerInPortfolio[0]
+      ? tickerInPortfolio[0].shareCount
+      : 0;
 
     return (
       <Lightbox verticalPercent={0.5} horizontalPercent={0.8}>
@@ -145,20 +148,18 @@ class TradingModal extends Component {
         </View>
         <View style={styles.total}>
           <Text style={styles.totalText}>
-            Total: $
+Total: $
             {total}
           </Text>
         </View>
         <View style={styles.execute}>
-          {
-            loading
-              ? <SpinningLoader color="grey" />
-              : (
-                <TouchableOpacity style={buttonStyle} onPress={this.executeTrade}>
-                  <Text style={buttonTextStyle}>Execute</Text>
-                </TouchableOpacity>
-              )
-          }
+          {loading ? (
+            <SpinningLoader color="grey" />
+          ) : (
+            <TouchableOpacity style={buttonStyle} onPress={this.executeTrade}>
+              <Text style={buttonTextStyle}>Execute</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </Lightbox>
     );
