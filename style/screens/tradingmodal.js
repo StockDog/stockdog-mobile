@@ -59,8 +59,11 @@ export default StyleSheet.create({
   buttonGroupSelected: {
     backgroundColor: colors.bright,
   },
+  buyingPower: {
+    flex: 0.2,
+  },
   inputs: {
-    flex: 0.5,
+    flex: 0.3,
     justifyContent: 'space-around',
     alignItems: 'center',
   },
@@ -73,28 +76,33 @@ export default StyleSheet.create({
     paddingLeft: 20,
   },
   total: {
-    flex: 0.2,
+    flex: 0.1,
     justifyContent: 'center',
   },
   executeButton: {
-    width: '60%',
-    flex: 0.1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.bright,
     borderRadius: 8,
-    marginTop: 10,
+    height: '40%',
+    width: '100%',
   },
   disabledExecuteButton: {
-    width: '60%',
-    flex: 0.1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',
     borderColor: colors.lightGrey,
     borderWidth: 1,
     borderRadius: 8,
+    height: '40%',
+    width: '100%',
+  },
+  execute: {
+    flex: 0.2,
+    width: '60%',
     marginTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   // ----------------- Text ------------- //
   buyingPowerText: {
