@@ -101,7 +101,7 @@ class Stock extends Component {
     );
 
     const todayWithTime = new Date();
-    const month = todayWithTime.getMonth() + 1;
+    const month = todayWithTime.getMonth();
     const day = todayWithTime.getDay();
     const year = todayWithTime.getFullYear();
     const today = new Date(year, month, day);
