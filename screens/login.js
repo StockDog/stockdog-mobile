@@ -37,7 +37,7 @@ class Login extends Component {
       // androidClientId: `<YOUR_ANDROID_CLIENT_ID_FOR_EXPO>`,
       iosStandaloneAppClientId:
         '802147424875-3m21ehg25eaja2g1tgdp95ml3o1l993e.apps.googleusercontent.com',
-      // androidStandaloneAppClientId: `<YOUR_ANDROID_CLIENT_ID>`,
+      androidStandaloneAppClientId: '802147424875-c7ih11spdjklhi4fkgdcgg2couitgn0h.apps.googleusercontent.com',
     });
 
     if (type !== 'success') {
