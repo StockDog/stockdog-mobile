@@ -186,8 +186,8 @@ $
 }
 
 const mapStateToProps = (state) => ({
-  portfolios: state.portfolio.portfolios,
-  chosenLeague: state.portfolio.leagueId,
+  portfolios: state.portfolioAndLeague.portfolios,
+  chosenLeague: state.portfolioAndLeague.leagueId,
 });
 
 export default connect(mapStateToProps, {})(Stock);

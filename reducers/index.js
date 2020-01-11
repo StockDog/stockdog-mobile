@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 
 // import the other reducers
 import authReducer from './authReducers';
-import portfolioReducer from './portfolioReducers';
+import portfolioAndLeagueReducer from './portfolioAndLeagueReducer';
 
 const sceneReducer = (state = {}, action) => {
   switch (action.type) {
@@ -14,9 +14,8 @@ const sceneReducer = (state = {}, action) => {
   }
 };
 
-
 export default combineReducers({
   scenes: sceneReducer,
   auth: authReducer,
-  portfolio: portfolioReducer,
+  portfolioAndLeague: portfolioAndLeagueReducer,
 });

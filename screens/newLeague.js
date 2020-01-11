@@ -10,7 +10,10 @@ import WideButton from '../components/widebutton';
 import styles from '../style/screens/newLeague';
 import NavBar from '../components/navbar';
 import { createLeague, joinLeague } from '../api';
-import { updatePortfolios, chooseLeague } from '../actions/portfolioActions';
+import {
+  updatePortfolios,
+  chooseLeague,
+} from '../actions/portfolioAndLeagueActions';
 
 class NewLeague extends Component {
   constructor(props) {

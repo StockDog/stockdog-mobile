@@ -17,7 +17,9 @@ const BrowseLeagueModal = ({
       const userInLeagueIds = Object.keys(portfolios);
 
       // Remove leagues that the user is already in
-      const filteredLeagues = res.data.filter((league) => !userInLeagueIds.includes(`${league.id}`));
+      const filteredLeagues = res.data.filter(
+        (league) => !userInLeagueIds.includes(`${league.id}`),
+      );
 
       setLeagues(filteredLeagues);
     };
@@ -27,11 +29,7 @@ const BrowseLeagueModal = ({
 
   return (
     <View>
-      <Modal
-        visible={isOpen}
-        animationType="slide"
-        transparent
-      >
+      <Modal visible={isOpen} animationType="slide" transparent>
         <View style={styles.modalContainer}>
           <View style={styles.modal}>
             <FlatList
@@ -62,7 +60,13 @@ const BrowseLeagueModal = ({
 };
 
 const LeagueListItem = ({
-  name, startPos, start, end, inviteCode, closeModal, fillInviteCode,
+  name,
+  startPos,
+  start,
+  end,
+  inviteCode,
+  closeModal,
+  fillInviteCode,
 }) => (
   <TouchableOpacity
     style={styles.listLeagueItem}
@@ -77,24 +81,20 @@ $
       {startPos}
     </Text>
     <Text style={styles.listDetails}>
-Start Date:
+      Start Date:
       {start}
     </Text>
     <Text style={styles.listDetails}>
-End Date:
+      End Date:
       {end}
     </Text>
   </TouchableOpacity>
 );
 
-const LeagueListSeparator = () => (
-  <View
-    style={styles.listLeagueSeparator}
-  />
-);
+const LeagueListSeparator = () => <View style={styles.listLeagueSeparator} />;
 
 const mapStateToProps = (state) => ({
-  portfolios: state.portfolio.portfolios,
+  portfolios: state.portfolioAndLeague.portfolios,
 });
 
 export default connect(mapStateToProps, null)(BrowseLeagueModal);

@@ -4,7 +4,6 @@ import { Text, View } from 'react-native';
 import styles from '../style/screens/league';
 import NavBar from '../components/navbar';
 import RankingList from '../components/rankingList';
-import { getLeague } from '../api';
 
 class League extends Component {
   constructor(props) {
@@ -16,33 +15,34 @@ class League extends Component {
   }
 
   componentDidMount = async () => {
-    const { chosenLeague } = this.props;
-    this.updateMembers(chosenLeague);
-  }
+    this.updateMembers();
+  };
 
   componentDidUpdate = (prevProps) => {
-    const { chosenLeague } = this.props;
-    if (prevProps.chosenLeague !== chosenLeague) {
-      this.updateMembers(chosenLeague);
+    const { chosenLeagueId, league } = this.props;
+    if (
+      prevProps.chosenLeagueId !== chosenLeagueId
+      || prevProps.league !== league
+    ) {
+      this.updateMembers();
     }
-  }
+  };
 
-  updateMembers = async (leagueId) => {
-    try {
-      const league = await getLeague(leagueId);
-      const members = league.data.portfolios.map((portfolio) => ({
+  updateMembers = async () => {
+    const { league } = this.props;
+
+    const members = league.portfolios
+      .map((portfolio) => ({
         name: portfolio.name,
         value: portfolio.value,
-      })).sort((portfolio1, portfolio2) => portfolio1.value < portfolio2.value);
+      }))
+      .sort((portfolio1, portfolio2) => portfolio1.value < portfolio2.value);
 
-      this.setState({
-        title: league.data.name,
-        members,
-      });
-    } catch (err) {
-      alert(err);
-    }
-  }
+    this.setState({
+      title: league.name,
+      members,
+    });
+  };
 
   render() {
     const { members, title } = this.state;
@@ -53,7 +53,9 @@ class League extends Component {
         <View style={styles.horizontal}>
           <View style={styles.leagueHeader}>
             <Text style={styles.leagueTitle}>
-              {title ? `${title[0].toUpperCase()}${title.substring(1, title.length)}` : ''}
+              {title
+                ? `${title[0].toUpperCase()}${title.substring(1, title.length)}`
+                : ''}
             </Text>
           </View>
         </View>
@@ -64,7 +66,8 @@ class League extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  chosenLeague: state.portfolio.leagueId,
+  chosenLeagueId: state.portfolioAndLeague.leagueId,
+  league: state.portfolioAndLeague.league,
 });
 
 export default connect(mapStateToProps)(League);

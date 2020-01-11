@@ -16,8 +16,8 @@
       "package": "com.stockdogapp",
       "config": {
         "googleSignIn": {
-          "apiKey": "",
-          "certificateHash": ""
+          "apiKey": "AIzaSyDzEmoNMJ_F6m9xfB_UBHQmpNqhXceUl94",
+          "certificateHash": "F5:A6:45:C7:CD:9E:9E:5A:7B:0B:7D:44:DB:2E:D1:3E:C2:91:0C:AF"
         }
       }
     },

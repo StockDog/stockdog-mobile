@@ -8,7 +8,10 @@ import WideButton from '../components/widebutton';
 import styles from '../style/screens/joinLeague';
 import NavBar from '../components/navbar';
 import { joinLeague } from '../api';
-import { updatePortfolios, chooseLeague } from '../actions/portfolioActions';
+import {
+  updatePortfolios,
+  chooseLeague,
+} from '../actions/portfolioAndLeagueActions';
 import BrowseLeagueModal from './browseLeaguesModal';
 
 class JoinLeague extends Component {
