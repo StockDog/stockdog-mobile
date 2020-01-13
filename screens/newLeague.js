@@ -106,7 +106,6 @@ class NewLeague extends Component {
         contentContainerStyle={styles.background}
         scrollEnabled={false}
         keyboardShouldPersistTaps="handled"
-        enableOnAndroid
       >
         <View style={styles.backgroundCircle} />
         <NavBar />

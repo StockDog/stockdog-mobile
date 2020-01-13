@@ -7,7 +7,6 @@ import styles from '../style/screens/search';
 import NavBar from '../components/navbar';
 import FormInput from '../components/formInput';
 
-
 class Search extends Component {
   constructor(props) {
     super(props);
@@ -32,7 +31,7 @@ class Search extends Component {
     } catch (err) {
       alert(`Sorry, ${ticker} is not a supported ticker.`);
     }
-  }
+  };
 
   render() {
     const { ticker, top } = this.state;
@@ -42,19 +41,23 @@ class Search extends Component {
         contentContainerStyle={styles.background}
         scrollEnabled={false}
         keyboardShouldPersistTaps="handled"
-        enableOnAndroid
       >
         <NavBar />
         <View style={styles.content}>
           <Animated.View style={[styles.horizontal, { top }]}>
             <FormInput
               type="search"
-              onchange={(newTicker) => { this.setState({ ticker: newTicker.toUpperCase() }); }}
+              onchange={(newTicker) => {
+                this.setState({ ticker: newTicker.toUpperCase() });
+              }}
               value={ticker}
               returnKeyType="done"
               onSubmitEditing={this.submitSearch}
             />
-            <TouchableOpacity onPress={this.submitSearch} style={styles.searchButton}>
+            <TouchableOpacity
+              onPress={this.submitSearch}
+              style={styles.searchButton}
+            >
               <Feather name="search" size={24} color="white" />
             </TouchableOpacity>
           </Animated.View>

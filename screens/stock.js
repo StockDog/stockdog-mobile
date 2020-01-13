@@ -136,7 +136,6 @@ class Stock extends Component {
         contentContainerStyle={styles.background}
         scrollEnabled={false}
         keyboardShouldPersistTaps="handled"
-        enableOnAndroid
       >
         <NavBar />
         <View style={styles.searchContainer}>
