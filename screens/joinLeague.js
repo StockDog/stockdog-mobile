@@ -69,7 +69,6 @@ class JoinLeague extends Component {
         contentContainerStyle={styles.background}
         scrollEnabled={false}
         keyboardShouldPersistTaps="handled"
-        enableOnAndroid
       >
         <BrowseLeagueModal
           isOpen={browseLeaguesModal}
