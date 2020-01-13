@@ -23,7 +23,7 @@
     },
     "name": "stockdogmobile",
     "slug": "stockdogmobile",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "platforms": ["android", "ios"],
     "icon": "./assets/logo1024x1024.png"
   }
