@@ -5,7 +5,11 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import styles from '../style/screens/leagueDrawer';
-import { chooseLeague, updatePortfolios } from '../actions/portfolioActions';
+import {
+  chooseLeague,
+  updatePortfolios,
+  updateLeague,
+} from '../actions/portfolioAndLeagueActions';
 
 class LeagueDrawer extends Component {
   componentDidMount() {
@@ -13,13 +17,18 @@ class LeagueDrawer extends Component {
     if (!chosenLeague) {
       choose(Object.keys(portfolios)[0]);
     }
-    this.pollPortfolios();
+    this.pollPortfoliosAndChosenLeague();
   }
 
-  pollPortfolios = () => {
-    const { update } = this.props;
-    update();
-    setTimeout(this.pollPortfolios.bind(this), 10000);
+  pollPortfoliosAndChosenLeague = () => {
+    const {
+      updatePortfoliosAction,
+      updateLeagueAction,
+      chosenLeague,
+    } = this.props;
+    updatePortfoliosAction();
+    updateLeagueAction(chosenLeague);
+    setTimeout(this.pollPortfoliosAndChosenLeague.bind(this), 10000);
   };
 
   renderPortfolio = (portfolioItem) => {
@@ -46,8 +55,9 @@ class LeagueDrawer extends Component {
   };
 
   setSelected = (id) => {
-    const { choose } = this.props;
+    const { choose, updateLeagueAction } = this.props;
     choose(id);
+    updateLeagueAction(id);
   };
 
   keyExtractor = (item, index) => index.toString();
@@ -82,11 +92,12 @@ class LeagueDrawer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  portfolios: state.portfolio.portfolios,
-  chosenLeague: state.portfolio.leagueId,
+  portfolios: state.portfolioAndLeague.portfolios,
+  chosenLeague: state.portfolioAndLeague.leagueId,
 });
 
 export default connect(mapStateToProps, {
   choose: chooseLeague,
-  update: updatePortfolios,
+  updatePortfoliosAction: updatePortfolios,
+  updateLeagueAction: updateLeague,
 })(LeagueDrawer);

@@ -10,7 +10,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import colors from '../style/colors';
 import styles from '../style/screens/loginRegister';
 import { loginUser } from '../actions/authActions';
-import { initializePortfolios } from '../actions/portfolioActions';
 import { loginGoogle, loginApple } from '../api';
 
 import logoImage from '../assets/logo.png';
@@ -37,7 +36,8 @@ class Login extends Component {
       // androidClientId: `<YOUR_ANDROID_CLIENT_ID_FOR_EXPO>`,
       iosStandaloneAppClientId:
         '802147424875-3m21ehg25eaja2g1tgdp95ml3o1l993e.apps.googleusercontent.com',
-      androidStandaloneAppClientId: '802147424875-c7ih11spdjklhi4fkgdcgg2couitgn0h.apps.googleusercontent.com',
+      androidStandaloneAppClientId:
+        '802147424875-c7ih11spdjklhi4fkgdcgg2couitgn0h.apps.googleusercontent.com',
     });
 
     if (type !== 'success') {
@@ -126,12 +126,11 @@ class Login extends Component {
 
 const mapStateToProps = (state) => ({
   email: state.auth.email,
-  portfolios: state.portfolio.portfolios,
+  portfolios: state.portfolioAndLeague.portfolios,
 });
 
 const mapDispatchToProps = {
   loginUserAction: loginUser,
-  initializePortfoliosAction: initializePortfolios,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

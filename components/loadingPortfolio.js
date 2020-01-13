@@ -4,16 +4,17 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import SpinningLoader from './spinningloader';
 import styles from '../style/components/loadingPortfolio';
-import { getPortfolios } from '../api';
-import { initializePortfolios } from '../actions/portfolioActions';
+import { getPortfolios, getLeague } from '../api';
+import { initializePortfoliosAndLeague } from '../actions/portfolioAndLeagueActions';
 
-const LoadingPortfolio = ({ initializePortfoliosAction }) => {
+const LoadingPortfolio = ({ initializePortfoliosAndLeagueAction }) => {
   useEffect(() => {
     const initPortfolios = async () => {
       try {
         const portfolios = await getPortfolios();
+        const league = await getLeague(portfolios.data[0].league.id);
         if (Object.keys(portfolios.data).length > 0) {
-          initializePortfoliosAction(portfolios.data);
+          initializePortfoliosAndLeagueAction(portfolios.data, league.data);
           Actions.portfolioMain();
         } else {
           Actions.leagueManagement();
@@ -32,5 +33,5 @@ const LoadingPortfolio = ({ initializePortfoliosAction }) => {
 };
 
 export default connect(null, {
-  initializePortfoliosAction: initializePortfolios,
+  initializePortfoliosAndLeagueAction: initializePortfoliosAndLeague,
 })(LoadingPortfolio);
