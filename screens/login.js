@@ -34,10 +34,12 @@ class Login extends Component {
     const { type, idToken } = await Google.logInAsync({
       iosClientId:
         '802147424875-0m4910jl4g5lt7m0u5dmdnsjkmrav517.apps.googleusercontent.com',
-      // androidClientId: `<YOUR_ANDROID_CLIENT_ID_FOR_EXPO>`,
+      androidClientId:
+        '802147424875-91nng08kvu2csjrtkndrg9vlvh2cbq6n.apps.googleusercontent.com',
       iosStandaloneAppClientId:
         '802147424875-3m21ehg25eaja2g1tgdp95ml3o1l993e.apps.googleusercontent.com',
-      androidStandaloneAppClientId: '802147424875-c7ih11spdjklhi4fkgdcgg2couitgn0h.apps.googleusercontent.com',
+      androidStandaloneAppClientId:
+        '802147424875-c7ih11spdjklhi4fkgdcgg2couitgn0h.apps.googleusercontent.com',
     });
 
     if (type !== 'success') {

@@ -44,6 +44,7 @@ export default StyleSheet.create({
     marginLeft: -15,
   },
   roundedInput: {
+    color: '#fff',
     height: 45,
     width: 250,
     backgroundColor: 'transparent',

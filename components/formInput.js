@@ -14,13 +14,17 @@ import colors from '../style/colors';
 export default class FormInput extends Component {
   render() {
     const {
-      type, onchange, value, returnKeyType, refer, onSubmitEditing,
+      type,
+      onchange,
+      value,
+      returnKeyType,
+      refer,
+      onSubmitEditing,
     } = this.props;
     const secure = type === 'password';
     return (
       <TextInput
         style={styles.roundedInput}
-        color={colors.white}
         autoCorrect={false}
         placeholder={type}
         secureTextEntry={secure}
@@ -32,7 +36,6 @@ export default class FormInput extends Component {
         ref={refer}
         onSubmitEditing={onSubmitEditing}
         autoCapitalize="none"
-        underlineColorAndroid={colors.white}
       />
     );
   }
