@@ -13,6 +13,7 @@
       }
     },
     "android": {
+      "versionCode": 3,
       "package": "com.stockdogapp",
       "config": {
         "googleSignIn": {
@@ -23,7 +24,7 @@
     },
     "name": "stockdogmobile",
     "slug": "stockdogmobile",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "platforms": ["android", "ios"],
     "icon": "./assets/logo1024x1024.png"
   }

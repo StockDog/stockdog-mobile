@@ -12,8 +12,8 @@ const LoadingPortfolio = ({ initializePortfoliosAndLeagueAction }) => {
     const initPortfolios = async () => {
       try {
         const portfolios = await getPortfolios();
-        const league = await getLeague(portfolios.data[0].league.id);
         if (Object.keys(portfolios.data).length > 0) {
+          const league = await getLeague(portfolios.data[0].league.id);
           initializePortfoliosAndLeagueAction(portfolios.data, league.data);
           Actions.portfolioMain();
         } else {
