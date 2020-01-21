@@ -6,6 +6,7 @@
     "ios": {
       "bundleIdentifier": "com.stockdogapp",
       "usesAppleSignIn": true,
+      "userInterfaceStyle": "automatic",
       "config": {
         "googleSignIn": {
           "reservedClientId": "com.googleusercontent.apps.802147424875-3m21ehg25eaja2g1tgdp95ml3o1l993e"
