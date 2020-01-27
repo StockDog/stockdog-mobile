@@ -5,6 +5,8 @@ import DatePicker from 'react-native-datepicker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Actions } from 'react-native-router-flux';
 import { Feather } from '@expo/vector-icons';
+import { Appearance } from 'react-native-appearance';
+
 import FormInput from '../components/formInput';
 import WideButton from '../components/widebutton';
 import styles from '../style/screens/newLeague';
@@ -14,6 +16,14 @@ import {
   updatePortfolios,
   chooseLeague,
 } from '../actions/portfolioAndLeagueActions';
+
+const colorScheme = Appearance.getColorScheme();
+let bgColor;
+if (colorScheme === 'dark') {
+  bgColor = '#000';
+} else {
+  bgColor = '#fff';
+}
 
 class NewLeague extends Component {
   constructor(props) {
@@ -142,7 +152,7 @@ class NewLeague extends Component {
               dateInput: styles.dateInput,
               dateText: styles.dateText,
               datePickerCon: {
-                backgroundColor: 'white',
+                backgroundColor: bgColor,
               },
             }}
             iconComponent={<Feather name="calendar" size={30} color="grey" />}
