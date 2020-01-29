@@ -14,14 +14,20 @@ import styles from '../style/screens/search';
 import NavBar from '../components/navbar';
 import FormInput from '../components/formInput';
 
-const stockNames = [
-  'Avaya Holdings Corp.',
-  'Abraxas Petroleum Corporation',
-  'Axalta Coating Systems Ltd.',
-  'Baidu, Inc.',
-  'Franklin Resources, Inc.',
-  'Best Buy Co., Inc.',
-  'BioCryst Pharmaceuticals, Inc.',
+const stocks = [
+  { name: 'Avaya Holdings Corp.', ticker: 'AVH' },
+  { name: 'Abraxas Petroleum Corporation' },
+  { name: 'Axalta Coating Systems Ltd.' },
+  { name: 'Baidu, Inc.', ticker: 'BIDU' },
+  { name: 'Franklin Resources, Inc.' },
+  { name: 'Best Buy Co., Inc.' },
+  { name: 'BioCryst Pharmaceuticals, Inc.' },
+  { name: 'Citigroup Inc' },
+  { name: 'Conagra Brands Inc' },
+  { name: 'Cango Inc ADR' },
+  { name: 'Companhia Brasileira DE Distribuicao' },
+  { name: 'Community Bank System' },
+  { name: 'Compania Cervecerias Unidas S.A.' },
 ];
 
 class Search extends Component {
@@ -33,8 +39,8 @@ class Search extends Component {
     };
   }
 
-  submitSearch = async () => {
-    const { ticker, top } = this.state;
+  submitSearch = async (ticker) => {
+    const { top } = this.state;
     try {
       if (ticker) {
         Animated.timing(top, {
@@ -50,9 +56,19 @@ class Search extends Component {
     }
   };
 
+  truncateStockName = (stockName) => {
+    const lengthLimit = 25;
+
+    if (stockName.length < lengthLimit) {
+      return stockName;
+    }
+
+    return `${stockName.slice(0, lengthLimit)}...`;
+  };
+
   render() {
     const { ticker, top } = this.state;
-    const filteredStocks = stockNames.filter(createFilter(ticker));
+    const filteredStocks = stocks.filter(createFilter(ticker, ['name']));
     return (
       <KeyboardAwareScrollView
         resetScrollToCoords={{ x: 0, y: 0 }}
@@ -70,7 +86,9 @@ class Search extends Component {
               }}
               value={ticker}
               returnKeyType="done"
-              onSubmitEditing={this.submitSearch}
+              onSubmitEditing={() => {
+                this.submitSearch(ticker);
+              }}
             />
             <TouchableOpacity
               onPress={this.submitSearch}
@@ -79,9 +97,18 @@ class Search extends Component {
               <Feather name="search" size={24} color="white" />
             </TouchableOpacity>
           </Animated.View>
-          <ScrollView>
-            {filteredStocks.map((stockName) => (
-              <Text>{stockName}</Text>
+          <ScrollView style={styles.stockList}>
+            {filteredStocks.map((stock) => (
+              <TouchableOpacity
+                key={stock.name}
+                onPress={() => {
+                  this.submitSearch(stock.ticker);
+                }}
+              >
+                <Text style={styles.stockListText}>
+                  {this.truncateStockName(stock.name)}
+                </Text>
+              </TouchableOpacity>
             ))}
           </ScrollView>
         </View>

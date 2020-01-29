@@ -21,4 +21,15 @@ export default StyleSheet.create({
   searchButton: {
     marginTop: 20,
   },
+  stockList: {
+    flexDirection: 'row',
+    position: 'absolute',
+    top: 365,
+    left: -130,
+    bottom: 0,
+  },
+  stockListText: {
+    color: colors.white,
+    fontSize: 20,
+  },
 });
