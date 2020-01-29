@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View,
-  Animated,
-  TouchableOpacity,
-  ScrollView,
-  Text,
+  View, Animated, TouchableOpacity, FlatList, Text,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Feather } from '@expo/vector-icons';
@@ -97,20 +93,24 @@ class Search extends Component {
               <Feather name="search" size={24} color="white" />
             </TouchableOpacity>
           </Animated.View>
-          <ScrollView style={styles.stockList}>
-            {filteredStocks.map((stock) => (
-              <TouchableOpacity
-                key={stock.name}
-                onPress={() => {
-                  this.submitSearch(stock.ticker);
-                }}
-              >
-                <Text style={styles.stockListText}>
-                  {this.truncateStockName(stock.name)}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
+          <View style={styles.stockList}>
+            <FlatList
+              data={filteredStocks}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  key={item.name}
+                  onPress={() => {
+                    this.submitSearch(item.ticker);
+                  }}
+                >
+                  <Text style={styles.stockListText}>
+                    {this.truncateStockName(item.name)}
+                  </Text>
+                </TouchableOpacity>
+              )}
+              keyExtractor={(stock) => stock.name}
+            />
+          </View>
         </View>
       </KeyboardAwareScrollView>
     );

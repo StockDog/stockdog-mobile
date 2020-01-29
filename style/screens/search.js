@@ -27,6 +27,7 @@ export default StyleSheet.create({
     top: 365,
     left: -130,
     bottom: 0,
+    height: 200,
   },
   stockListText: {
     color: colors.white,
