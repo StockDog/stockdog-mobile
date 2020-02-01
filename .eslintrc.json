@@ -6,7 +6,8 @@
     },
     "extends": [
         "airbnb",
-        "eslint:recommended"
+        "eslint:recommended",
+        "prettier"
     ],
     "parser": "babel-eslint",
     "globals": {
