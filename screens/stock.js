@@ -2,14 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Actions } from "react-native-router-flux";
-import { Feather } from "@expo/vector-icons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import styles from "../style/screens/stock";
 import StockChart from "../components/stockchart";
 import NavBar from "../components/navbar";
 import { getStockInfo } from "../api";
-import FormInput from "../components/formInput";
+import StockSearch from "../components/stockSearch";
 
 class Stock extends Component {
   constructor(props) {
@@ -17,7 +16,6 @@ class Stock extends Component {
     this.state = {
       currentPrice: "-",
       exchange: "",
-      searchTicker: props.ticker,
       ownedAmt: this.findOwnedAmt()
     };
   }
@@ -63,8 +61,7 @@ class Stock extends Component {
     return (stockItem && stockItem.shareCount) || 0;
   };
 
-  submitSearch = async () => {
-    const { searchTicker } = this.state;
+  submitSearch = async searchTicker => {
     const { ticker } = this.props;
 
     try {
@@ -91,7 +88,7 @@ class Stock extends Component {
 
   render() {
     const { ticker, portfolios, chosenLeague } = this.props;
-    const { currentPrice, searchTicker, ownedAmt, exchange } = this.state;
+    const { currentPrice, ownedAmt, exchange } = this.state;
 
     let tradeBtn = (
       <TouchableOpacity style={styles.tradingButton} onPress={this.openModal}>
@@ -138,23 +135,7 @@ class Stock extends Component {
       >
         <NavBar />
         <View style={styles.searchContainer}>
-          <View style={styles.search}>
-            <FormInput
-              type="search"
-              onchange={newTicker => {
-                this.setState({ searchTicker: newTicker.toUpperCase() });
-              }}
-              value={searchTicker}
-              returnKeyType="done"
-              onSubmitEditing={this.submitSearch}
-            />
-            <TouchableOpacity
-              onPress={this.submitSearch}
-              style={styles.searchButton}
-            >
-              <Feather name="search" size={24} color="white" />
-            </TouchableOpacity>
-          </View>
+          <StockSearch submit={this.submitSearch} />
         </View>
         <View style={styles.stockContent}>
           <View style={styles.tickerContainer}>

@@ -45,9 +45,16 @@ const truncateStockName = (stockName: string) => {
 
 const StockSearch = (props: StockSearchProps) => {
   const [input, setInput] = useState("");
-  const [showFilterList, setFilterList] = useState(false);
+  const [showFilterList, setShowFilterList] = useState(false);
 
   const filteredStocks = stocks.filter(createFilter(input, ["name", "ticker"]));
+
+  // Does a check to hide filterList when no text, show when there is text
+  const setInputWithCheck = (input: string) => {
+    setInput(input);
+    if (input.length > 0) setShowFilterList(true);
+    else setShowFilterList(false);
+  };
 
   return (
     <View style={styles.searchContent}>
@@ -55,17 +62,18 @@ const StockSearch = (props: StockSearchProps) => {
         <FormInput
           type="search"
           onchange={(newInput: string) => {
-            setFilterList(true);
-            setInput(newInput.toUpperCase());
+            setInputWithCheck(newInput.toUpperCase());
           }}
           value={input}
           returnKeyType="done"
           onSubmitEditing={() => {
+            setShowFilterList(false);
             props.submit(input);
           }}
         />
         <TouchableOpacity
           onPress={() => {
+            setShowFilterList(false);
             props.submit(input);
           }}
           style={styles.searchButton}
@@ -81,6 +89,8 @@ const StockSearch = (props: StockSearchProps) => {
               <TouchableOpacity
                 key={item.name}
                 onPress={() => {
+                  setShowFilterList(false);
+                  setInput(item.ticker);
                   props.submit(item.ticker);
                 }}
                 style={styles.stockListStock}

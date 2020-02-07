@@ -29,8 +29,6 @@ export default StyleSheet.create({
   stockListStock: {
     marginBottom: 10,
     padding: 10
-    // borderBottomColor: colors.ultraLightGrey,
-    // borderBottomWidth: 1
   },
   stockListText: {
     color: colors.bright,
