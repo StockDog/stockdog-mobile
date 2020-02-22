@@ -1,30 +1,28 @@
-import React from 'react';
-import {
-  Scene, Tabs, Modal, Drawer, Lightbox,
-} from 'react-native-router-flux';
-import { Provider } from 'react-redux';
+import React from "react";
+import { Scene, Tabs, Modal, Drawer, Lightbox } from "react-native-router-flux";
+import { Provider } from "react-redux";
 import { AppearanceProvider } from 'react-native-appearance';
 
-import { PersistGate } from 'redux-persist/integration/react';
-import Login from './screens/login';
-import Portfolio from './screens/portfolio';
-import Stock from './screens/stock';
-import League from './screens/league';
+import { PersistGate } from "redux-persist/integration/react";
+import Login from "./screens/login";
+import Portfolio from "./screens/portfolio";
+import Stock from "./screens/stock";
+import League from "./screens/league";
 // import Feed from './screens/feed';
-import NoLeagues from './screens/noLeagues';
-import JoinLeague from './screens/joinLeague';
-import NewLeague from './screens/newLeague';
-import TradingModal from './screens/tradingModal';
-import Search from './screens/search';
-import LeagueDrawer from './screens/leagueDrawer';
+import NoLeagues from "./screens/noLeagues";
+import JoinLeague from "./screens/joinLeague";
+import NewLeague from "./screens/newLeague";
+import TradingModal from "./screens/tradingModal";
+import Search from "./screens/search";
+import LeagueDrawer from "./screens/leagueDrawer";
 
-import CustomRouter from './components/customRouter';
-import TabIcon from './components/tabIcon';
-import LoadingPortfolio from './components/loadingPortfolio';
+import CustomRouter from "./components/customRouter";
+import TabIcon from "./components/tabIcon";
+import LoadingPortfolio from "./components/loadingPortfolio";
 
-import colors from './style/colors';
-import tabStyle from './style/components/tabBar';
-import configureStore from './store/store';
+import colors from "./style/colors";
+import tabStyle from "./style/components/tabBar";
+import configureStore from "./store/store";
 
 const { store, persistor } = configureStore();
 

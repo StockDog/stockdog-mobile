@@ -1,23 +1,22 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Text, TouchableOpacity, View } from 'react-native';
-import { Actions } from 'react-native-router-flux';
-import { Feather } from '@expo/vector-icons';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import styles from '../style/screens/stock';
-import StockChart from '../components/stockchart';
-import NavBar from '../components/navbar';
-import { getStockInfo } from '../api';
-import FormInput from '../components/formInput';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Text, TouchableOpacity, View } from "react-native";
+import { Actions } from "react-native-router-flux";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
+import styles from "../style/screens/stock";
+import StockChart from "../components/stockchart";
+import NavBar from "../components/navbar";
+import { getStockInfo } from "../api";
+import StockSearch from "../components/stockSearch";
 
 class Stock extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPrice: '-',
-      exchange: '',
-      searchTicker: props.ticker,
-      ownedAmt: this.findOwnedAmt(),
+      currentPrice: "-",
+      exchange: "",
+      ownedAmt: this.findOwnedAmt()
     };
   }
 
@@ -28,15 +27,15 @@ class Stock extends Component {
 
     this.setState({
       currentPrice: stockInfo.currentPrice,
-      exchange: stockInfo.exchange,
+      exchange: stockInfo.exchange
     });
   };
 
-  getStockInfo = async (ticker) => {
+  getStockInfo = async ticker => {
     const { data } = await getStockInfo(ticker);
     return {
       exchange: data.exchange,
-      currentPrice: data.currentPrice,
+      currentPrice: data.currentPrice
     };
   };
 
@@ -46,9 +45,9 @@ class Stock extends Component {
     Actions.tradingModal({
       ticker,
       price: currentPrice,
-      updateOwnedAmt: (amt) => {
+      updateOwnedAmt: amt => {
         this.setState({ ownedAmt: ownedAmt + amt });
-      },
+      }
     });
   };
 
@@ -57,13 +56,12 @@ class Stock extends Component {
 
     const { items } = portfolios[chosenLeague];
 
-    const stockItem = items.find((item) => item.ticker === ticker);
+    const stockItem = items.find(item => item.ticker === ticker);
 
     return (stockItem && stockItem.shareCount) || 0;
   };
 
-  submitSearch = async () => {
-    const { searchTicker } = this.state;
+  submitSearch = async searchTicker => {
     const { ticker } = this.props;
 
     try {
@@ -73,14 +71,14 @@ class Stock extends Component {
         const stockInfo = await this.getStockInfo(searchTicker.toUpperCase());
 
         Actions.stock({
-          type: 'replace',
+          type: "replace",
           ticker: searchTicker.toUpperCase(),
-          exchange: stockInfo.exchange,
+          exchange: stockInfo.exchange
         });
         this.setState({
           ownedAmt: this.findOwnedAmt(),
           currentPrice: stockInfo.currentPrice,
-          exchange: stockInfo.exchange,
+          exchange: stockInfo.exchange
         });
       }
     } catch (err) {
@@ -90,9 +88,7 @@ class Stock extends Component {
 
   render() {
     const { ticker, portfolios, chosenLeague } = this.props;
-    const {
-      currentPrice, searchTicker, ownedAmt, exchange,
-    } = this.state;
+    const { currentPrice, ownedAmt, exchange } = this.state;
 
     let tradeBtn = (
       <TouchableOpacity style={styles.tradingButton} onPress={this.openModal}>
@@ -106,14 +102,14 @@ class Stock extends Component {
     const year = todayWithTime.getFullYear();
     const today = new Date(year, month, day);
 
-    const startDateArr = portfolios[chosenLeague].league.start.split('-');
+    const startDateArr = portfolios[chosenLeague].league.start.split("-");
     const startDate = new Date(
       startDateArr[2],
       startDateArr[0] - 1,
-      startDateArr[1],
+      startDateArr[1]
     );
 
-    const endDateArr = portfolios[chosenLeague].league.end.split('-');
+    const endDateArr = portfolios[chosenLeague].league.end.split("-");
     const endDate = new Date(endDateArr[2], endDateArr[0] - 1, endDateArr[1]);
 
     if (today < startDate) {
@@ -139,23 +135,7 @@ class Stock extends Component {
       >
         <NavBar />
         <View style={styles.searchContainer}>
-          <View style={styles.search}>
-            <FormInput
-              type="search"
-              onchange={(newTicker) => {
-                this.setState({ searchTicker: newTicker.toUpperCase() });
-              }}
-              value={searchTicker}
-              returnKeyType="done"
-              onSubmitEditing={this.submitSearch}
-            />
-            <TouchableOpacity
-              onPress={this.submitSearch}
-              style={styles.searchButton}
-            >
-              <Feather name="search" size={24} color="white" />
-            </TouchableOpacity>
-          </View>
+          <StockSearch submit={this.submitSearch} />
         </View>
         <View style={styles.stockContent}>
           <View style={styles.tickerContainer}>
@@ -184,9 +164,9 @@ $
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   portfolios: state.portfolioAndLeague.portfolios,
-  chosenLeague: state.portfolioAndLeague.leagueId,
+  chosenLeague: state.portfolioAndLeague.leagueId
 });
 
 export default connect(mapStateToProps, {})(Stock);
