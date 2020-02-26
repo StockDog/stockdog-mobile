@@ -29,6 +29,12 @@ export default StyleSheet.create({
     justifyContent: 'center',
     paddingLeft: 40,
   },
+  addMember: {
+    flex: 0.2,
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   ratingsList: {
     flex: 1,
   },

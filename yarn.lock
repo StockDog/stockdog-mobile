@@ -3643,6 +3643,11 @@ expo-secure-store@~8.0.0:
   resolved "https://registry.yarnpkg.com/expo-secure-store/-/expo-secure-store-8.0.0.tgz#09b0a3faf83569fe0160464ec33455576606c6a1"
   integrity sha512-IzzCZ6S1PfIFhpZf5imjGU8uslGyFZz80neuuJCOv8N1hugwYl6ncqrokuOK8d1ftrxVSEfGfwsN+8+m0iTZGA==
 
+expo-sms@~8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/expo-sms/-/expo-sms-8.0.0.tgz#25131df03b0258663d1b36967fc31ad24f660eb6"
+  integrity sha512-yoRlETB+AKg71tyriQXZdTXEFs326xFg3KMSl+3ZhHs8MWtuXd2/A9WlbY2/9I2aCmxGr4EfPzgYsP3nOmtRTg==
+
 expo-sqlite@~8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/expo-sqlite/-/expo-sqlite-8.0.0.tgz#293b45c78d612ab25400c8c579bd7d73f06ccb6f"

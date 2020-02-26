@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { View, Animated, PanResponder } from 'react-native';
+import { View, Animated, PanResponder, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import modalStyles from '../style/screens/tradingmodal';
+
+const { width, height } = Dimensions.get('window');
 
 export default class BaseLightbox extends Component {
   constructor(props) {
@@ -46,46 +48,56 @@ export default class BaseLightbox extends Component {
     }).start();
   }
 
-   // Determines the distance lightbox needs to be dragged
-   isInCloseZone = (gesture) => gesture.dy > 200
+  // Determines the distance lightbox needs to be dragged
+  isInCloseZone = (gesture) => gesture.dy > 100
 
-   closeModal = () => {
-     const { top } = this.state;
+  closeModal = () => {
+    const { top } = this.state;
 
-     // Sliding modal out to the bottom of the screen
-     Animated.timing(top, {
-       duration: 100,
-       toValue: 500,
-     }).start(Actions.pop);
-   }
+    // Sliding modal out to the bottom of the screen
+    Animated.timing(top, {
+      duration: 100,
+      toValue: 500,
+    }).start(Actions.pop);
+  }
 
-   renderLightBox = () => {
-     const { children } = this.props;
-     const { pan } = this.state;
-     return (
-       <Animated.View
-         {...this.panResponder.panHandlers}
-         style={[pan.getLayout(), modalStyles.baseModal]}
-       >
-         <View style={modalStyles.outerModal}>
-           <View style={modalStyles.modalHeaders}>
-             <View style={modalStyles.swipeline} />
-           </View>
-           {children}
-         </View>
-       </Animated.View>
-     );
-   }
+  renderLightBox = () => {
+    const { children, verticalPercent, horizontalPercent, verticalPadding } = this.props;
+    const { pan } = this.state;
 
-   render() {
-     const { top } = this.state;
-     return (
-       <Animated.View
-         style={[modalStyles.outermostBaseContainer,
-           { top }]}
-       >
-         {this.renderLightBox()}
-       </Animated.View>
-     );
-   }
+    const modalWidth = horizontalPercent * width;
+    const modalHeight = verticalPercent * height;
+
+
+    return (
+      <Animated.View
+        {...this.panResponder.panHandlers}
+        style={[pan.getLayout(), modalStyles.baseModal]}
+      >
+        <View style={[modalStyles.outerModal,
+          {
+            width: modalWidth,
+            height: modalHeight,
+            marginTop: verticalPadding
+          }]}
+        >
+          <View style={modalStyles.modalHeaders}>
+            <View style={modalStyles.swipeline} />
+          </View>
+          {children}
+        </View>
+      </Animated.View>
+    );
+  }
+
+  render() {
+    const { top } = this.state;
+    return (
+      <Animated.View style={[modalStyles.outermostBaseContainer,
+        { top }]}
+      >
+        {this.renderLightBox()}
+      </Animated.View>
+    );
+  }
 }

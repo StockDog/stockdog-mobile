@@ -30,8 +30,6 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   outerModal: {
-    width: width * 0.8,
-    height: height * 0.6,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',

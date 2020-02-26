@@ -37,7 +37,7 @@ const WideButton = ({ type, disabled, onpress }) => {
     buttonText = 'LOGOUT';
     break;
   default:
-    buttonText = 'CLICK';
+    buttonText = type;
     break;
   }
 
