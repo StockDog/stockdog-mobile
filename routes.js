@@ -8,6 +8,7 @@ import Login from "./screens/login";
 import Portfolio from "./screens/portfolio";
 import Stock from "./screens/stock";
 import League from "./screens/league";
+import AddMemberModal from "./screens/addMemberModal";
 // import Feed from './screens/feed';
 import NoLeagues from "./screens/noLeagues";
 import JoinLeague from "./screens/joinLeague";
@@ -65,14 +66,23 @@ const Routes = () => (
                   />
                 </Scene>
                 <Scene
-                  key="league"
-                  title="League"
-                  component={League}
+                  key="leagueMain"
                   hideNavBar
+                  title="League"
                   iconName="users"
                   icon={TabIcon}
                   onEnter={League.onEnterLeague}
-                />
+                >
+                  <Lightbox>
+                    <Scene key="league" component={League} />
+                    <Scene 
+                      key="addMemberModal"
+                      component={AddMemberModal}
+                      swipeDownToClose
+                    />
+                  </Lightbox>
+                </Scene>
+                
                 <Scene
                   key="searchMain"
                   hideNavBar

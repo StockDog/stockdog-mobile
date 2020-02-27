@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { Actions } from "react-native-router-flux";
 import styles from '../style/screens/league';
 import NavBar from '../components/navbar';
 import RankingList from '../components/rankingList';
@@ -44,6 +46,10 @@ class League extends Component {
     });
   };
 
+  openAddMemberModal = () => {
+    Actions.addMemberModal();
+  }
+
   render() {
     const { members, title } = this.state;
 
@@ -57,6 +63,11 @@ class League extends Component {
                 ? `${title[0].toUpperCase()}${title.substring(1, title.length)}`
                 : ''}
             </Text>
+          </View>
+          <View style={styles.addMember}>
+            <TouchableOpacity onPress={this.openAddMemberModal}>
+              <Feather style={{ color: 'white' }} name='user-plus' size={25} />
+            </TouchableOpacity>
           </View>
         </View>
         <RankingList members={members} />

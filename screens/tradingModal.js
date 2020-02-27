@@ -74,12 +74,12 @@ class TradingModal extends Component {
     const buyingPower = portfolios[chosenLeague].buyPower;
 
     if (!buyingPower && !price && !ticker) {
-      return <Lightbox verticalPercent={0.5} horizontalPercent={0.8} />;
+      return <Lightbox verticalPercent={0.6} horizontalPercent={0.8} />;
     }
 
     if (complete) {
       return (
-        <Lightbox verticalPercent={0.5} horizontalPercent={0.8}>
+        <Lightbox verticalPercent={0.6} horizontalPercent={0.8}>
           <View style={styles.outermostBaseContainer}>
             <Text style={styles.successMessageText}>
               {`You just ${
@@ -110,7 +110,7 @@ class TradingModal extends Component {
       : 0;
 
     return (
-      <Lightbox verticalPercent={0.5} horizontalPercent={0.8}>
+      <Lightbox verticalPercent={0.6} horizontalPercent={0.8}>
         <View style={styles.buyingPower}>
           <Text style={styles.buyingPowerText}>
             Buying Power: $
