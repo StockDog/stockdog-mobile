@@ -148,7 +148,7 @@ class TradingModal extends Component {
         </View>
         <View style={styles.total}>
           <Text style={styles.totalText}>
-Total: $
+            Total: $
             {total}
           </Text>
         </View>

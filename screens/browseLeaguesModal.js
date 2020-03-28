@@ -77,7 +77,7 @@ const LeagueListItem = ({
   >
     <Text style={styles.listTitle}>{name}</Text>
     <Text style={styles.listDetails}>
-$
+      $
       {startPos}
     </Text>
     <Text style={styles.listDetails}>

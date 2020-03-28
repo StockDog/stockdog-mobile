@@ -151,7 +151,7 @@ class Stock extends Component {
             </View>
             <View style={styles.stockInfoNumber}>
               <Text style={styles.number}>
-$
+                $
                 {currentPrice}
               </Text>
               <Text style={styles.label}>Price</Text>
