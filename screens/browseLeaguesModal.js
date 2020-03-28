@@ -68,28 +68,28 @@ const LeagueListItem = ({
   closeModal,
   fillInviteCode,
 }) => (
-  <TouchableOpacity
-    style={styles.listLeagueItem}
-    onPress={() => {
-      fillInviteCode(inviteCode);
-      closeModal();
-    }}
-  >
-    <Text style={styles.listTitle}>{name}</Text>
-    <Text style={styles.listDetails}>
-$
+    <TouchableOpacity
+      style={styles.listLeagueItem}
+      onPress={() => {
+        fillInviteCode(inviteCode);
+        closeModal();
+      }}
+    >
+      <Text style={styles.listTitle}>{name}</Text>
+      <Text style={styles.listDetails}>
+        $
       {startPos}
-    </Text>
-    <Text style={styles.listDetails}>
-      Start Date:
+      </Text>
+      <Text style={styles.listDetails}>
+        Start Date:
       {start}
-    </Text>
-    <Text style={styles.listDetails}>
-      End Date:
+      </Text>
+      <Text style={styles.listDetails}>
+        End Date:
       {end}
-    </Text>
-  </TouchableOpacity>
-);
+      </Text>
+    </TouchableOpacity>
+  );
 
 const LeagueListSeparator = () => <View style={styles.listLeagueSeparator} />;
 

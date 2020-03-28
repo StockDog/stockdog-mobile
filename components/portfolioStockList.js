@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
-import styles from '../style/screens/portfolio';
 import { Actions } from "react-native-router-flux";
+import styles from '../style/screens/portfolio';
 
 class PortfolioStockList extends Component {
   constructor(props) {

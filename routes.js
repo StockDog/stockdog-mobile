@@ -33,7 +33,7 @@ const Routes = () => (
       <PersistGate loading={null} persistor={persistor}>
         <CustomRouter>
           <Scene key="root" hideNavBar gesturesEnabled={false}>
-            {/* <Scene key="login" component={Login} /> */}
+            <Scene key="login" component={Login} />
             <Scene key="loading" component={LoadingPortfolio} />
             <Drawer key="drawer" contentComponent={LeagueDrawer} type="replace">
               <Modal key="leagueManagement" hideNavBar>
@@ -75,14 +75,14 @@ const Routes = () => (
                 >
                   <Lightbox>
                     <Scene key="league" component={League} />
-                    <Scene 
+                    <Scene
                       key="addMemberModal"
                       component={AddMemberModal}
                       swipeDownToClose
                     />
                   </Lightbox>
                 </Scene>
-                
+
                 <Scene
                   key="searchMain"
                   hideNavBar
@@ -91,13 +91,14 @@ const Routes = () => (
                   icon={TabIcon}
                   duration={0}
                 >
-                  <Scene key="search" component={Search}/>
+                  <Scene key="search" component={Search} />
                   <Lightbox duration={0}>
                     <Scene
                       key="stock"
                       component={Stock}
                       hideNavBar
-                      swipeDownToClose={false} duration={0}
+                      swipeDownToClose={false} 
+                      duration={0}
                     />
                     <Scene
                       key="tradingModal"

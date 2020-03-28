@@ -7,7 +7,7 @@ import styles from "../style/screens/stock";
 import StockChart from "../components/stockchart";
 import NavBar from "../components/navbar";
 import { getStockInfo } from "../api";
-import StockSearch from "../components/stockSearch";
+import StockSearch from "../components/stockSearch.tsx";
 
 class Stock extends Component {
   constructor(props) {
