@@ -35,7 +35,7 @@ export default class IdeaPost extends Component {
         <TouchableOpacity style={styles.replyButtonContainer}>
           <Text style={styles.replyButtonText}>
             Reply
-            </Text>
+          </Text>
         </TouchableOpacity>
       </View>
     );

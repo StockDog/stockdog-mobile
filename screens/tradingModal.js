@@ -84,7 +84,7 @@ class TradingModal extends Component {
             <Text style={styles.successMessageText}>
               {`You just ${
                 action === 'Buy' ? 'bought ' : 'sold '
-                } ${amount} shares of ${ticker}.`}
+              } ${amount} shares of ${ticker}.`}
             </Text>
           </View>
         </Lightbox>
@@ -156,10 +156,10 @@ class TradingModal extends Component {
           {loading ? (
             <SpinningLoader color="grey" />
           ) : (
-              <TouchableOpacity style={buttonStyle} onPress={this.executeTrade}>
-                <Text style={buttonTextStyle}>Execute</Text>
-              </TouchableOpacity>
-            )}
+            <TouchableOpacity style={buttonStyle} onPress={this.executeTrade}>
+              <Text style={buttonTextStyle}>Execute</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </Lightbox>
     );
