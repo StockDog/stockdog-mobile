@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import styles from '../style/screens/portfolio';
+import { Actions } from "react-native-router-flux";
 
 class PortfolioStockList extends Component {
   constructor(props) {
@@ -39,6 +40,13 @@ class PortfolioStockList extends Component {
     return null;
   };
 
+  navToTicker = (ticker) => {
+    Actions.stock({
+      type: "replace",
+      ticker
+    });
+  }
+
   renderStockListingItem = (item, index) => {
     const difference = item.gain >= 0
       ? (
@@ -55,7 +63,9 @@ class PortfolioStockList extends Component {
     return (
       <View style={styles.listingItem} key={index}>
         <View style={styles.horizontalEdges}>
-          <Text style={styles.listingTickerAndValue}>{item.ticker}</Text>
+          <TouchableOpacity onPress={() => this.navToTicker(item.ticker)}>
+            <Text style={styles.listingTickerAndValue}>{item.ticker}</Text>
+          </TouchableOpacity>
           <View style={styles.horizontal}>
             <Text style={styles.listingTickerAndValue}>
               {`$${item.avgCost.toFixed(2, 10)} `}
