@@ -2,10 +2,11 @@ import React from "react";
 import { Scene, Tabs, Modal, Drawer, Lightbox } from "react-native-router-flux";
 import { Provider } from "react-redux";
 import { AppearanceProvider } from 'react-native-appearance';
-
 import { PersistGate } from "redux-persist/integration/react";
+
 import Login from "./screens/login";
 import Portfolio from "./screens/portfolio";
+import LeagueSummaryModal from "./screens/leagueSummaryModal";
 import Stock from "./screens/stock";
 import League from "./screens/league";
 import AddMemberModal from "./screens/addMemberModal";
@@ -33,7 +34,7 @@ const Routes = () => (
       <PersistGate loading={null} persistor={persistor}>
         <CustomRouter>
           <Scene key="root" hideNavBar gesturesEnabled={false}>
-            <Scene key="login" component={Login} />
+            {/* <Scene key="login" component={Login} /> */}
             <Scene key="loading" component={LoadingPortfolio} />
             <Drawer key="drawer" contentComponent={LeagueDrawer} type="replace">
               <Modal key="leagueManagement" hideNavBar>
@@ -59,11 +60,17 @@ const Routes = () => (
                   iconName="user"
                   icon={TabIcon}
                 >
-                  <Scene
-                    key="portfolio"
-                    component={Portfolio}
-                    onEnter={Portfolio.onEnterPortfolio}
-                  />
+                  <Lightbox>
+                    <Scene
+                      key="portfolio"
+                      component={Portfolio}
+                      onEnter={Portfolio.onEnterPortfolio}
+                    />
+                    <Scene
+                      key="leagueSummaryModal"
+                      component={LeagueSummaryModal}
+                    />
+                  </Lightbox>
                 </Scene>
                 <Scene
                   key="leagueMain"
