@@ -99,7 +99,7 @@ const Routes = () => (
                   duration={0}
                 >
                   <Scene key="search" component={Search} />
-                  <Lightbox duration={0}>
+                  {/* <Lightbox duration={0}> */}
                     <Scene
                       key="stock"
                       component={Stock}
@@ -107,13 +107,13 @@ const Routes = () => (
                       swipeDownToClose={false} 
                       duration={0}
                     />
-                    <Scene
+                    {/* <Scene
                       key="tradingModal"
                       component={TradingModal}
                       swipeDownToClose
                       duration={0}
-                    />
-                  </Lightbox>
+                    /> */}
+                  {/* </Lightbox> */}
                 </Scene>
               </Tabs>
             </Drawer>
