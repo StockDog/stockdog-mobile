@@ -21,6 +21,7 @@ export default StyleSheet.create({
   },
   modalHeaders: {
     flex: 0.1,
+    width: '90%',
     alignItems: 'flex-end',
     justifyContent: 'center',
   },
@@ -33,23 +34,18 @@ export default StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: colors.modalBackground,
+    backgroundColor: colors.grey,
+    borderRadius: 10,
     shadowColor: colors.black,
     shadowOpacity: 75,
     shadowOffset: {
-      height: 7,
+      height: 3,
     },
-  },
-  swipeline: {
-    width: 50,
-    height: 6,
-    backgroundColor: colors.swipeline,
-    borderRadius: 25,
   },
   tradingButtonGroup: {
     height: height * 0.05,
     width: '60%',
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: colors.bright,
     borderRadius: 8,
     backgroundColor: 'transparent',
@@ -68,7 +64,7 @@ export default StyleSheet.create({
   amountInput: {
     width: width * 0.3,
     height: 48,
-    backgroundColor: colors.white,
+    backgroundColor: colors.ultraLightGrey,
     borderColor: colors.grey,
     borderRadius: 8,
     paddingLeft: 20,
@@ -107,13 +103,16 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'assistant',
     fontSize: 20,
-    color: colors.black,
+    color: colors.white,
     paddingBottom: 5,
   },
   totalText: {
     fontFamily: 'assistant',
     fontSize: 36,
-    color: colors.black,
+    color: colors.white,
+  },
+  buttonText: {
+    color: colors.white
   },
   executeButtonText: {
     fontFamily: 'assistant',
@@ -123,12 +122,12 @@ export default StyleSheet.create({
   disabledExecuteButtonText: {
     fontFamily: 'assistant',
     fontSize: 20,
-    color: colors.black,
+    color: colors.white,
   },
   successMessageText: {
     textAlign: 'center',
     fontFamily: 'assistant',
     fontSize: 36,
-    color: colors.black,
+    color: colors.white,
   },
 });

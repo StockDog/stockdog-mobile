@@ -110,7 +110,7 @@ class TradingModal extends Component {
       : 0;
 
     return (
-      <Lightbox verticalPercent={0.6} horizontalPercent={0.8}>
+      <Lightbox verticalPercent={0.6} horizontalPercent={0.9}>
         <View style={styles.buyingPower}>
           <Text style={styles.buyingPowerText}>
             Buying Power: $
@@ -130,9 +130,9 @@ class TradingModal extends Component {
             buttons={['Buy', 'Sell']}
             containerStyle={styles.tradingButtonGroup}
             textStyle={styles.buttonText}
-            buttonStyle={styles.transparentBackground}
+            // buttonStyle={styles.transparentBackground}
             selectedButtonStyle={styles.buttonGroupSelected}
-            selectedTextStyle={{ color: 'white' }}
+            selectedTextStyle={{ color: colors.white }}
           />
           <TextInput
             style={styles.amountInput}
