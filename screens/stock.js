@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Actions } from "react-native-router-flux";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import styles from "../style/screens/stock";
 import StockChart from "../components/stockchart";
 import NavBar from "../components/navbar";
 import { getStockInfo } from "../api";
-import StockSearch from "../components/stockSearch";
+import StockSearch from "../components/stockSearch.tsx";
 
 class Stock extends Component {
   constructor(props) {
@@ -114,24 +113,21 @@ class Stock extends Component {
 
     if (today < startDate) {
       tradeBtn = (
-        <TouchableOpacity style={styles.tradingButtonInvalid}>
+        <TouchableOpacity style={styles.tradingButtonInvalid} disabled>
           <Text style={styles.tradingButtonText}>League has not begun</Text>
         </TouchableOpacity>
       );
     } else if (endDate < today) {
       tradeBtn = (
-        <TouchableOpacity style={styles.tradingButtonInvalid}>
+        <TouchableOpacity style={styles.tradingButtonInvalid} disabled>
           <Text style={styles.tradingButtonText}>League is done</Text>
         </TouchableOpacity>
       );
     }
 
     return (
-      <KeyboardAwareScrollView
-        resetScrollToCoords={{ x: 0, y: 0 }}
-        contentContainerStyle={styles.background}
-        scrollEnabled={false}
-        keyboardShouldPersistTaps="handled"
+      <View 
+        style={styles.background}
       >
         <NavBar />
         <View style={styles.searchContainer}>
@@ -159,7 +155,7 @@ class Stock extends Component {
           </View>
           <View style={styles.tradingButtonContainer}>{tradeBtn}</View>
         </View>
-      </KeyboardAwareScrollView>
+      </View>
     );
   }
 }

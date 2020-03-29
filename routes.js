@@ -75,33 +75,36 @@ const Routes = () => (
                 >
                   <Lightbox>
                     <Scene key="league" component={League} />
-                    <Scene 
+                    <Scene
                       key="addMemberModal"
                       component={AddMemberModal}
                       swipeDownToClose
                     />
                   </Lightbox>
                 </Scene>
-                
+
                 <Scene
                   key="searchMain"
                   hideNavBar
                   title="Stock"
                   iconName="search"
                   icon={TabIcon}
+                  duration={0}
                 >
-                  <Lightbox>
-                    <Scene key="search" component={Search} />
+                  <Scene key="search" component={Search} />
+                  <Lightbox duration={0}>
                     <Scene
                       key="stock"
                       component={Stock}
                       hideNavBar
-                      swipeDownToClose={false}
+                      swipeDownToClose={false} 
+                      duration={0}
                     />
                     <Scene
                       key="tradingModal"
                       component={TradingModal}
                       swipeDownToClose
+                      duration={0}
                     />
                   </Lightbox>
                 </Scene>

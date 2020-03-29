@@ -4,7 +4,7 @@ import { Actions } from "react-native-router-flux";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "../style/screens/search";
 import NavBar from "../components/navbar";
-import StockSearch from "../components/stockSearch";
+import StockSearch from "../components/stockSearch.tsx";
 
 class Search extends Component {
   constructor(props) {
