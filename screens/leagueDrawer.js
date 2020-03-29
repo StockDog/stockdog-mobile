@@ -82,7 +82,6 @@ class LeagueDrawer extends Component {
   render() {
     const { portfolios } = this.props;
     const portfolioValues = Object.values(portfolios);
-    portfolioValues[0].league.status = 'active';
     return (
       <View style={styles.background}>
         <FlatList
