@@ -13,20 +13,15 @@ import SpinningLoader from '../components/spinningloader';
 const TradingModal = ({
   navigation, portfolios, chosenLeague, updateOwnedAmt, price, ticker, 
 }) => {
-  const [action, amount, complete, actionIndex] = useState([]);
   const [action, setAction] = useState("");
   const [amount, setAmount] = useState("");
   const [complete, setComplete] = useState(false);
   const [actionIndex, setActionIndex] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const buyingPower = portfolios[chosenLeague].buyPower;
 
   const executeTrade = async () => {
-    const { amount, action } = this.state;
-    const {
-      navigation, portfolios, chosenLeague, updateOwnedAmt,
-    } = this.props;
     const props = navigation.state.params;
-    const buyingPower = portfolios[chosenLeague].buyPower;
 
     const isDisabled = !(amount && action) || amount <= 0;
     if (isDisabled) {
@@ -41,23 +36,22 @@ const TradingModal = ({
         action.toUpperCase(),
         portfolios[chosenLeague].id,
       );
-      this.setState({ complete: true, loading: false });
+      setComplete(true);
+      setLoading(false);
       // Give negative amount if selling
       updateOwnedAmt(
         action === 'Buy' ? parseInt(amount, 10) : parseInt(amount, 10) * -1,
       );
     } catch (err) {
-      this.setState({ loading: false });
+      setLoading(false);
       alert(Object.values(err.response.data)[0]);
     }
   };
 
   const onChangeAction = (actionIndex) => {
     const actions = ['Buy', 'Sell'];
-    this.setState({
-      actionIndex,
-      action: actions[actionIndex],
-    });
+    setActionIndex(actionIndex);
+    setAction(actions[actionIndex]);
   };
 
   if (!buyingPower && !price && !ticker) {
@@ -112,7 +106,7 @@ const TradingModal = ({
       </View>
       <View style={styles.inputs}>
         <ButtonGroup
-          onPress={this.onChangeAction}
+          onPress={onChangeAction}
           selectedIndex={actionIndex}
           buttons={['Buy', 'Sell']}
           containerStyle={styles.tradingButtonGroup}
@@ -128,7 +122,7 @@ const TradingModal = ({
           placeholderColor={colors.grey}
           value={amount}
           onChangeText={(amt) => {
-            this.setState({ amount: amt });
+            setAmount(amt);
           }}
           returnKeyType="done"
         />
