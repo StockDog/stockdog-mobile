@@ -54,6 +54,16 @@ export default StyleSheet.create({
     fontFamily: 'assistant',
     fontSize: 18,
   },
+  portfolioTitleInactive: {
+    color: colors.lightGrey,
+    fontFamily: 'assistant',
+    fontSize: 28,
+  },
+  portfolioValueInactive: {
+    color: colors.lightGrey,
+    fontFamily: 'assistant',
+    fontSize: 18,
+  },
   buttonText: {
     color: colors.white,
     fontFamily: 'assistant-light',

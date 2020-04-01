@@ -39,16 +39,29 @@ class LeagueDrawer extends Component {
         style={styles.portfolioListItem}
         onPress={() => this.setSelected(portfolio.league.id)}
       >
-        {portfolio.league.id === parseInt(chosenLeague, 10) ? (
-          <View style={styles.chosenMark} />
-        ) : (
-          <View style={styles.regularMark} />
-        )}
+        <View style={
+          portfolio.league.id === parseInt(chosenLeague, 10) ?
+            styles.chosenMark :
+            styles.regularMark
+        }
+        />
         <View style={styles.portfolioText}>
-          <Text style={styles.portfolioTitle}>{portfolio.league.name}</Text>
-          <Text style={styles.portfolioValue}>
-            {`$${portfolio.value.toFixed(2, 10)}`}
-          </Text>
+          {
+            portfolio.league.status === "active" ?
+              (
+                <View>
+                  <Text style={styles.portfolioTitle}>{portfolio.league.name}</Text>
+                  <Text style={styles.portfolioValue}>
+                    {`$${portfolio.value.toFixed(2, 10)}`}
+                  </Text>
+                </View>
+              ) :
+              (
+                <View>
+                  <Text style={styles.portfolioTitleInactive}>{portfolio.league.name}</Text>
+                </View>
+              )
+          }
         </View>
       </TouchableOpacity>
     );
