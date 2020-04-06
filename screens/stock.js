@@ -9,7 +9,6 @@ import NavBar from "../components/navbar";
 import { getStockInfo } from "../api";
 import StockSearch from "../components/stockSearch.tsx";
 import TradingModal from './tradingModal';
-import BrowseLeagueModal from './browseLeaguesModal';
 
 class Stock extends Component {
   constructor(props) {
@@ -17,7 +16,6 @@ class Stock extends Component {
     this.state = {
       currentPrice: "-",
       exchange: "",
-      // ownedAmt: this.findOwnedAmt(),
       tradingModalVisible: false
     };
   }
@@ -89,7 +87,7 @@ class Stock extends Component {
       </TouchableOpacity>
     );
 
-    let ownedAmt = this.findOwnedAmt();
+    const ownedAmt = this.findOwnedAmt();
 
     const todayWithTime = new Date();
     const month = todayWithTime.getMonth();
@@ -122,47 +120,44 @@ class Stock extends Component {
     }
 
     return (
-        <View
-          style={styles.background}
-        >
-          <TradingModal 
-            visible={tradingModalVisible}
-            ticker={ticker}
-            price={currentPrice}
-            updateOwnedAmt={amt => {
-              this.setState({ ownedAmt: ownedAmt + amt });
-            }}
-            closeModal={
-              () => this.setState({ tradingModalVisible: false })
-            }
-          />
-          <NavBar />
-          <View style={styles.searchContainer}>
-            <StockSearch submit={this.submitSearch} />
-          </View>
-          <View style={styles.stockContent}>
-            <View style={styles.tickerContainer}>
-              <Text style={styles.tickerText}>{ticker}</Text>
-            </View>
-            <StockChart ticker={ticker} exchange={exchange} />
-          </View>
-          <View style={styles.tradingBox}>
-            <View style={styles.stockInfo}>
-              <View style={styles.stockInfoNumber}>
-                <Text style={styles.number}>{ownedAmt}</Text>
-                <Text style={styles.label}>Owned</Text>
-              </View>
-              <View style={styles.stockInfoNumber}>
-                <Text style={styles.number}>
-                  $
-                {currentPrice}
-                </Text>
-                <Text style={styles.label}>Price</Text>
-              </View>
-            </View>
-            <View style={styles.tradingButtonContainer}>{tradeBtn}</View>
-          </View>
+      <View
+        style={styles.background}
+      >
+        <TradingModal 
+          visible={tradingModalVisible}
+          ticker={ticker}
+          price={currentPrice}
+          closeModal={
+            () => this.setState({ tradingModalVisible: false })
+          }
+        />
+        <NavBar />
+        <View style={styles.searchContainer}>
+          <StockSearch submit={this.submitSearch} />
         </View>
+        <View style={styles.stockContent}>
+          <View style={styles.tickerContainer}>
+            <Text style={styles.tickerText}>{ticker}</Text>
+          </View>
+          <StockChart ticker={ticker} exchange={exchange} />
+        </View>
+        <View style={styles.tradingBox}>
+          <View style={styles.stockInfo}>
+            <View style={styles.stockInfoNumber}>
+              <Text style={styles.number}>{ownedAmt}</Text>
+              <Text style={styles.label}>Owned</Text>
+            </View>
+            <View style={styles.stockInfoNumber}>
+              <Text style={styles.number}>
+                $
+                {currentPrice}
+              </Text>
+              <Text style={styles.label}>Price</Text>
+            </View>
+          </View>
+          <View style={styles.tradingButtonContainer}>{tradeBtn}</View>
+        </View>
+      </View>
       // </View>
     );
   }

@@ -85,6 +85,12 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  successMessage: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    padding: 10
+  },
   // ----------------- Text ------------- //
   buyingPowerText: {
     textAlign: 'center',

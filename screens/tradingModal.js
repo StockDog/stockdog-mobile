@@ -1,7 +1,7 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
-  Modal, Text, TouchableOpacity, View, TextInput, 
+  Modal, Text, TouchableOpacity, View, TextInput,
 } from 'react-native';
 import { ButtonGroup } from 'react-native-elements';
 import { Feather } from '@expo/vector-icons';
@@ -11,7 +11,7 @@ import { tradeStock } from '../api';
 import SpinningLoader from '../components/spinningloader';
 
 const TradingModal = ({
-  portfolios, chosenLeague, updateOwnedAmt, price, ticker, visible, closeModal
+  portfolios, chosenLeague, price, ticker, visible, closeModal
 }) => {
   const [action, setAction] = useState("");
   const [amount, setAmount] = useState("");
@@ -44,20 +44,16 @@ const TradingModal = ({
       );
       setComplete(true);
       setLoading(false);
-      // Give negative amount if selling
-      updateOwnedAmt(
-        action === 'Buy' ? parseInt(amount, 10) : parseInt(amount, 10) * -1,
-      );
     } catch (err) {
       setLoading(false);
       alert(Object.values(err.response.data)[0]);
     }
   };
 
-  const onChangeAction = (actionIndex) => {
+  const onChangeAction = (newActionIndex) => {
     const actions = ['Buy', 'Sell'];
-    setActionIndex(actionIndex);
-    setAction(actions[actionIndex]);
+    setActionIndex(newActionIndex);
+    setAction(actions[newActionIndex]);
   };
 
   if (!buyingPower && !price && !ticker) {
@@ -88,22 +84,24 @@ const TradingModal = ({
 
   if (complete) {
     modalContents = (
-      <Fragment>
-        <Text style={styles.successMessageText}>
-          {`You just ${
-            action === 'Buy' ? 'bought ' : 'sold '
-            } ${amount} shares of ${ticker}.`}
-        </Text>
-      </Fragment>
+      <>
+        <View style={styles.successMessage}>
+          <Text style={styles.successMessageText}>
+            {`You just ${
+              action === 'Buy' ? 'bought ' : 'sold '
+            } ${amount} shares of ${ticker}!`}
+          </Text>
+        </View>
+      </>
     );
   }
   else {
     modalContents = (
-      <Fragment>
+      <>
         <View style={styles.buyingPower}>
           <Text style={styles.buyingPowerText}>
             Buying Power: $
-          {buyingPower.toFixed(2)}
+            {buyingPower.toFixed(2)}
           </Text>
           <Text style={styles.buyingPowerText}>
             {`Current Price: $${price}`}
@@ -140,19 +138,19 @@ const TradingModal = ({
         <View style={styles.total}>
           <Text style={styles.totalText}>
             Total: $
-          {total}
+            {total}
           </Text>
         </View>
         <View style={styles.execute}>
           {loading ? (
             <SpinningLoader color="grey" />
           ) : (
-              <TouchableOpacity style={buttonStyle} onPress={executeTrade}>
-                <Text style={buttonTextStyle}>Execute</Text>
-              </TouchableOpacity>
-            )}
+            <TouchableOpacity style={buttonStyle} onPress={executeTrade}>
+              <Text style={buttonTextStyle}>Execute</Text>
+            </TouchableOpacity>
+          )}
         </View>
-      </Fragment>
+      </>
     )
   }
 

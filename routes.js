@@ -6,7 +6,6 @@ import { PersistGate } from "redux-persist/integration/react";
 
 import Login from "./screens/login";
 import Portfolio from "./screens/portfolio";
-import LeagueSummaryModal from "./screens/leagueSummaryModal";
 import Stock from "./screens/stock";
 import League from "./screens/league";
 import AddMemberModal from "./screens/addMemberModal";
@@ -14,7 +13,6 @@ import AddMemberModal from "./screens/addMemberModal";
 import NoLeagues from "./screens/noLeagues";
 import JoinLeague from "./screens/joinLeague";
 import NewLeague from "./screens/newLeague";
-import TradingModal from "./screens/tradingModal";
 import Search from "./screens/search";
 import LeagueDrawer from "./screens/leagueDrawer";
 
@@ -34,7 +32,7 @@ const Routes = () => (
       <PersistGate loading={null} persistor={persistor}>
         <CustomRouter>
           <Scene key="root" hideNavBar gesturesEnabled={false}>
-            {/* <Scene key="login" component={Login} /> */}
+            <Scene key="login" component={Login} />
             <Scene key="loading" component={LoadingPortfolio} />
             <Drawer key="drawer" contentComponent={LeagueDrawer} type="replace">
               <Modal key="leagueManagement" hideNavBar>
@@ -60,17 +58,11 @@ const Routes = () => (
                   iconName="user"
                   icon={TabIcon}
                 >
-                  <Lightbox>
-                    <Scene
-                      key="portfolio"
-                      component={Portfolio}
-                      onEnter={Portfolio.onEnterPortfolio}
-                    />
-                    <Scene
-                      key="leagueSummaryModal"
-                      component={LeagueSummaryModal}
-                    />
-                  </Lightbox>
+                  <Scene
+                    key="portfolio"
+                    component={Portfolio}
+                    onEnter={Portfolio.onEnterPortfolio}
+                  />
                 </Scene>
                 <Scene
                   key="leagueMain"
@@ -99,21 +91,13 @@ const Routes = () => (
                   duration={0}
                 >
                   <Scene key="search" component={Search} />
-                  {/* <Lightbox duration={0}> */}
-                    <Scene
-                      key="stock"
-                      component={Stock}
-                      hideNavBar
-                      swipeDownToClose={false} 
-                      duration={0}
-                    />
-                    {/* <Scene
-                      key="tradingModal"
-                      component={TradingModal}
-                      swipeDownToClose
-                      duration={0}
-                    /> */}
-                  {/* </Lightbox> */}
+                  <Scene
+                    key="stock"
+                    component={Stock}
+                    hideNavBar
+                    swipeDownToClose={false} 
+                    duration={0}
+                  />
                 </Scene>
               </Tabs>
             </Drawer>

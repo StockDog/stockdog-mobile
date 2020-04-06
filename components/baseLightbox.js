@@ -85,7 +85,7 @@ export default class BaseLightbox extends Component {
         >
           <View style={modalStyles.modalHeaders}>
             <TouchableOpacity onPress={this.closeModal}>
-              <Feather name="x" size={30} color="white"/>
+              <Feather name="x" size={30} color="white" />
             </TouchableOpacity>
           </View>
           {children}

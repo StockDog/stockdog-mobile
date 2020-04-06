@@ -34,7 +34,7 @@ const Portfolio = (props) => {
           {/* <PortfolioStockList listType='watchlist' /> */}
         </View>
       </ScrollView>
-      <LeagueSummaryModal/>
+      {/* <LeagueSummaryModal /> */}
     </View>
   );
 };
