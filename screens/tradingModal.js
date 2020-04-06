@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
   Modal, Text, TouchableOpacity, View, TextInput, 
@@ -20,13 +20,12 @@ const TradingModal = ({
   const [loading, setLoading] = useState(false);
   const buyingPower = portfolios[chosenLeague].buyPower;
 
-  const exitModal = () => {
-    console.log('exiting modal');
+  useEffect(() => {
     setComplete(false);
     setActionIndex(null);
     setAmount('');
-    closeModal();
-  }
+    setLoading(false);
+  }, [visible]);
 
   const executeTrade = async () => {
 
@@ -163,7 +162,7 @@ const TradingModal = ({
         <View style={styles.outermostBaseContainer}>
           <View style={styles.baseModal}>
             <View style={styles.modalHeaders}>
-              <TouchableOpacity onPress={exitModal}>
+              <TouchableOpacity onPress={closeModal}>
                 <Feather name="x" size={30} color="white" />
               </TouchableOpacity>
             </View>

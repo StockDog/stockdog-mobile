@@ -17,7 +17,7 @@ class Stock extends Component {
     this.state = {
       currentPrice: "-",
       exchange: "",
-      ownedAmt: this.findOwnedAmt(),
+      // ownedAmt: this.findOwnedAmt(),
       tradingModalVisible: false
     };
   }
@@ -70,7 +70,6 @@ class Stock extends Component {
           exchange: stockInfo.exchange
         });
         this.setState({
-          ownedAmt: this.findOwnedAmt(),
           currentPrice: stockInfo.currentPrice,
           exchange: stockInfo.exchange
         });
@@ -82,13 +81,15 @@ class Stock extends Component {
 
   render() {
     const { ticker, portfolios, chosenLeague } = this.props;
-    const { currentPrice, ownedAmt, exchange, tradingModalVisible } = this.state;
+    const { currentPrice, exchange, tradingModalVisible } = this.state;
 
     let tradeBtn = (
       <TouchableOpacity style={styles.tradingButton} onPress={this.openModal}>
         <Text style={styles.tradingButtonText}>Trade</Text>
       </TouchableOpacity>
     );
+
+    let ownedAmt = this.findOwnedAmt();
 
     const todayWithTime = new Date();
     const month = todayWithTime.getMonth();
