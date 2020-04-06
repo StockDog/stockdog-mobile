@@ -8,6 +8,7 @@ import StockChart from "../components/stockchart";
 import NavBar from "../components/navbar";
 import { getStockInfo } from "../api";
 import StockSearch from "../components/stockSearch.tsx";
+import TradingModal from './tradingModal';
 
 class Stock extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class Stock extends Component {
     this.state = {
       currentPrice: "-",
       exchange: "",
-      ownedAmt: this.findOwnedAmt()
+      tradingModalVisible: false
     };
   }
 
@@ -39,15 +40,7 @@ class Stock extends Component {
   };
 
   openModal = () => {
-    const { currentPrice, ownedAmt } = this.state;
-    const { ticker } = this.props;
-    Actions.tradingModal({
-      ticker,
-      price: currentPrice,
-      updateOwnedAmt: amt => {
-        this.setState({ ownedAmt: ownedAmt + amt });
-      }
-    });
+    this.setState({ tradingModalVisible: true });
   };
 
   findOwnedAmt = () => {
@@ -75,7 +68,6 @@ class Stock extends Component {
           exchange: stockInfo.exchange
         });
         this.setState({
-          ownedAmt: this.findOwnedAmt(),
           currentPrice: stockInfo.currentPrice,
           exchange: stockInfo.exchange
         });
@@ -87,13 +79,15 @@ class Stock extends Component {
 
   render() {
     const { ticker, portfolios, chosenLeague } = this.props;
-    const { currentPrice, ownedAmt, exchange } = this.state;
+    const { currentPrice, exchange, tradingModalVisible } = this.state;
 
     let tradeBtn = (
       <TouchableOpacity style={styles.tradingButton} onPress={this.openModal}>
         <Text style={styles.tradingButtonText}>Trade</Text>
       </TouchableOpacity>
     );
+
+    const ownedAmt = this.findOwnedAmt();
 
     const todayWithTime = new Date();
     const month = todayWithTime.getMonth();
@@ -126,9 +120,17 @@ class Stock extends Component {
     }
 
     return (
-      <View 
+      <View
         style={styles.background}
       >
+        <TradingModal 
+          visible={tradingModalVisible}
+          ticker={ticker}
+          price={currentPrice}
+          closeModal={
+            () => this.setState({ tradingModalVisible: false })
+          }
+        />
         <NavBar />
         <View style={styles.searchContainer}>
           <StockSearch submit={this.submitSearch} />
@@ -156,6 +158,7 @@ class Stock extends Component {
           <View style={styles.tradingButtonContainer}>{tradeBtn}</View>
         </View>
       </View>
+      // </View>
     );
   }
 }

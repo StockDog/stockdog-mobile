@@ -6,50 +6,33 @@ const { width, height } = Dimensions.get('window');
 export default StyleSheet.create({
   // ----------------- Containers ------------- //
   outermostBaseContainer: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
+    display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
+    flex: 1,
     alignItems: 'center',
   },
   baseModal: {
-    flex: 0.6,
-    right: 0,
-    left: 0,
-  },
-  modalHeaders: {
-    flex: 0.1,
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-  },
-  innerModal: {
-    flex: 0.5,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-  outerModal: {
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: colors.modalBackground,
+    flex: 0.7,
+    backgroundColor: colors.grey,
+    width: '90%',
     shadowColor: colors.black,
     shadowOpacity: 75,
     shadowOffset: {
       height: 7,
     },
+    borderRadius: 10,
   },
-  swipeline: {
-    width: 50,
-    height: 6,
-    backgroundColor: colors.swipeline,
-    borderRadius: 25,
+  modalHeaders: {
+    flex: 0.1,
+    width: '90%',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
   },
   tradingButtonGroup: {
     height: height * 0.05,
     width: '60%',
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: colors.bright,
     borderRadius: 8,
     backgroundColor: 'transparent',
@@ -68,14 +51,14 @@ export default StyleSheet.create({
   amountInput: {
     width: width * 0.3,
     height: 48,
-    backgroundColor: colors.white,
-    borderColor: colors.grey,
-    borderRadius: 8,
-    paddingLeft: 20,
+    borderColor: colors.ultraLightGrey,
+    borderBottomWidth: 1,
+    borderRadius: 8
   },
   total: {
     flex: 0.1,
     justifyContent: 'center',
+    alignItems: 'center'
   },
   executeButton: {
     justifyContent: 'center',
@@ -83,7 +66,7 @@ export default StyleSheet.create({
     backgroundColor: colors.bright,
     borderRadius: 8,
     height: '40%',
-    width: '100%',
+    width: '60%',
   },
   disabledExecuteButton: {
     justifyContent: 'center',
@@ -93,27 +76,36 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     height: '40%',
-    width: '100%',
+    width: '60%',
   },
   execute: {
     flex: 0.2,
-    width: '60%',
+    width: '100%',
     marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  successMessage: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    padding: 10
   },
   // ----------------- Text ------------- //
   buyingPowerText: {
     textAlign: 'center',
     fontFamily: 'assistant',
     fontSize: 20,
-    color: colors.black,
+    color: colors.white,
     paddingBottom: 5,
   },
   totalText: {
     fontFamily: 'assistant',
     fontSize: 36,
-    color: colors.black,
+    color: colors.white,
+  },
+  buttonText: {
+    color: colors.white
   },
   executeButtonText: {
     fontFamily: 'assistant',
@@ -123,12 +115,12 @@ export default StyleSheet.create({
   disabledExecuteButtonText: {
     fontFamily: 'assistant',
     fontSize: 20,
-    color: colors.black,
+    color: colors.white,
   },
   successMessageText: {
     textAlign: 'center',
     fontFamily: 'assistant',
     fontSize: 36,
-    color: colors.black,
+    color: colors.white,
   },
 });

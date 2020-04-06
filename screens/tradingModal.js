@@ -1,32 +1,33 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
-  Text, TouchableOpacity, View, TextInput,
+  Modal, Text, TouchableOpacity, View, TextInput,
 } from 'react-native';
 import { ButtonGroup } from 'react-native-elements';
-import Lightbox from '../components/baseLightbox';
+import { Feather } from '@expo/vector-icons';
 import colors from '../style/colors';
 import styles from '../style/screens/tradingmodal';
 import { tradeStock } from '../api';
 import SpinningLoader from '../components/spinningloader';
 
-class TradingModal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      action: '',
-      amount: '',
-      loading: false,
-      complete: false,
-    };
-  }
+const TradingModal = ({
+  portfolios, chosenLeague, price, ticker, visible, closeModal
+}) => {
+  const [action, setAction] = useState("");
+  const [amount, setAmount] = useState("");
+  const [complete, setComplete] = useState(false);
+  const [actionIndex, setActionIndex] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const buyingPower = portfolios[chosenLeague].buyPower;
 
-  executeTrade = async () => {
-    const { amount, action } = this.state;
-    const {
-      navigation, portfolios, chosenLeague, updateOwnedAmt,
-    } = this.props;
-    const props = navigation.state.params;
+  useEffect(() => {
+    setComplete(false);
+    setActionIndex(null);
+    setAmount('');
+    setLoading(false);
+  }, [visible]);
+
+  const executeTrade = async () => {
 
     const isDisabled = !(amount && action) || amount <= 0;
     if (isDisabled) {
@@ -34,83 +35,69 @@ class TradingModal extends Component {
       return;
     }
 
-    this.setState({ loading: true });
-
     try {
       await tradeStock(
         parseInt(amount, 10),
-        props.ticker,
+        ticker,
         action.toUpperCase(),
         portfolios[chosenLeague].id,
       );
-      this.setState({ complete: true, loading: false });
-      // Give negative amount if selling
-      updateOwnedAmt(
-        action === 'Buy' ? parseInt(amount, 10) : parseInt(amount, 10) * -1,
-      );
+      setComplete(true);
+      setLoading(false);
     } catch (err) {
-      this.setState({ loading: false });
+      setLoading(false);
       alert(Object.values(err.response.data)[0]);
     }
   };
 
-  onChangeAction = (actionIndex) => {
+  const onChangeAction = (newActionIndex) => {
     const actions = ['Buy', 'Sell'];
-    this.setState({
-      actionIndex,
-      action: actions[actionIndex],
-    });
+    setActionIndex(newActionIndex);
+    setAction(actions[newActionIndex]);
   };
 
-  render() {
-    const {
-      price, ticker, portfolios, chosenLeague,
-    } = this.props;
+  if (!buyingPower && !price && !ticker) {
+    alert("Please reload the app.");
+    return <View />;
+  }
 
-    const {
-      complete, loading, action, amount, actionIndex,
-    } = this.state;
+  let total = amount ? price * parseInt(amount, 10) : 0;
+  total = total.toFixed(2);
 
-    const buyingPower = portfolios[chosenLeague].buyPower;
+  const isDisabled = !(amount && action) || amount <= 0;
+  const buttonStyle = isDisabled
+    ? styles.disabledExecuteButton
+    : styles.executeButton;
+  const buttonTextStyle = isDisabled
+    ? styles.disabledExecuteButtonText
+    : styles.executeButtonText;
 
-    if (!buyingPower && !price && !ticker) {
-      return <Lightbox verticalPercent={0.6} horizontalPercent={0.8} />;
-    }
+  const tickerInPortfolio = portfolios[chosenLeague].items.filter(
+    (portfolioItem) => portfolioItem.ticker === ticker,
+  );
 
-    if (complete) {
-      return (
-        <Lightbox verticalPercent={0.6} horizontalPercent={0.8}>
-          <View style={styles.outermostBaseContainer}>
-            <Text style={styles.successMessageText}>
-              {`You just ${
-                action === 'Buy' ? 'bought ' : 'sold '
-              } ${amount} shares of ${ticker}.`}
-            </Text>
-          </View>
-        </Lightbox>
-      );
-    }
-    let total = amount ? price * parseInt(amount, 10) : 0;
-    total = total.toFixed(2);
+  const numShares = tickerInPortfolio[0]
+    ? tickerInPortfolio[0].shareCount
+    : 0;
 
-    const isDisabled = !(amount && action) || amount <= 0;
-    const buttonStyle = isDisabled
-      ? styles.disabledExecuteButton
-      : styles.executeButton;
-    const buttonTextStyle = isDisabled
-      ? styles.disabledExecuteButtonText
-      : styles.executeButtonText;
+  let modalContents;
 
-    const tickerInPortfolio = portfolios[chosenLeague].items.filter(
-      (portfolioItem) => portfolioItem.ticker === ticker,
+  if (complete) {
+    modalContents = (
+      <>
+        <View style={styles.successMessage}>
+          <Text style={styles.successMessageText}>
+            {`You just ${
+              action === 'Buy' ? 'bought ' : 'sold '
+            } ${amount} shares of ${ticker}!`}
+          </Text>
+        </View>
+      </>
     );
-
-    const numShares = tickerInPortfolio[0]
-      ? tickerInPortfolio[0].shareCount
-      : 0;
-
-    return (
-      <Lightbox verticalPercent={0.6} horizontalPercent={0.8}>
+  }
+  else {
+    modalContents = (
+      <>
         <View style={styles.buyingPower}>
           <Text style={styles.buyingPowerText}>
             Buying Power: $
@@ -125,25 +112,27 @@ class TradingModal extends Component {
         </View>
         <View style={styles.inputs}>
           <ButtonGroup
-            onPress={this.onChangeAction}
+            onPress={onChangeAction}
             selectedIndex={actionIndex}
             buttons={['Buy', 'Sell']}
             containerStyle={styles.tradingButtonGroup}
             textStyle={styles.buttonText}
-            buttonStyle={styles.transparentBackground}
+            // buttonStyle={styles.transparentBackground}
             selectedButtonStyle={styles.buttonGroupSelected}
-            selectedTextStyle={{ color: 'white' }}
+            selectedTextStyle={{ color: colors.white }}
           />
           <TextInput
             style={styles.amountInput}
             keyboardType="number-pad"
             placeholder="Amount"
-            placeholderColor={colors.grey}
+            color={colors.white}
+            placeholderColor={colors.ultraLightGrey}
             value={amount}
             onChangeText={(amt) => {
-              this.setState({ amount: amt });
+              setAmount(amt);
             }}
             returnKeyType="done"
+            textAlign="center"
           />
         </View>
         <View style={styles.total}>
@@ -156,14 +145,32 @@ class TradingModal extends Component {
           {loading ? (
             <SpinningLoader color="grey" />
           ) : (
-            <TouchableOpacity style={buttonStyle} onPress={this.executeTrade}>
+            <TouchableOpacity style={buttonStyle} onPress={executeTrade}>
               <Text style={buttonTextStyle}>Execute</Text>
             </TouchableOpacity>
           )}
         </View>
-      </Lightbox>
-    );
+      </>
+    )
   }
+
+  return (
+    <View>
+      <Modal visible={visible} animationType="slide" transparent>
+        <View style={styles.outermostBaseContainer}>
+          <View style={styles.baseModal}>
+            <View style={styles.modalHeaders}>
+              <TouchableOpacity onPress={closeModal}>
+                <Feather name="x" size={30} color="white" />
+              </TouchableOpacity>
+            </View>
+            {modalContents}
+          </View>
+        </View>
+      </Modal>
+    </View>
+  );
+
 }
 
 const mapStateToProps = (state) => ({

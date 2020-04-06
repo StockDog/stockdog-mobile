@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { View, Animated, PanResponder, Dimensions } from 'react-native';
+import { View, Animated, PanResponder, Dimensions, TouchableOpacity } from 'react-native';
+import { Feather } from '@expo/vector-icons';
 import { Actions } from 'react-native-router-flux';
 import modalStyles from '../style/screens/tradingmodal';
+
 
 const { width, height } = Dimensions.get('window');
 
@@ -82,7 +84,9 @@ export default class BaseLightbox extends Component {
           }]}
         >
           <View style={modalStyles.modalHeaders}>
-            <View style={modalStyles.swipeline} />
+            <TouchableOpacity onPress={this.closeModal}>
+              <Feather name="x" size={30} color="white" />
+            </TouchableOpacity>
           </View>
           {children}
         </View>
