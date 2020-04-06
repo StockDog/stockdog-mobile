@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { Actions } from "react-native-router-flux";
 import styles from '../style/screens/league';
 import NavBar from '../components/navbar';
 import RankingList from '../components/rankingList';
+import AddMemberModal from "./addMemberModal";
 
 class League extends Component {
   constructor(props) {
@@ -13,6 +13,7 @@ class League extends Component {
     this.state = {
       title: '',
       members: [],
+      addMemberModalVisible: false
     };
   }
 
@@ -26,6 +27,7 @@ class League extends Component {
       prevProps.chosenLeagueId !== chosenLeagueId
       || prevProps.league !== league
     ) {
+      // console.log('leagues changed', chosenLeagueId, league);
       this.updateMembers();
     }
   };
@@ -46,12 +48,15 @@ class League extends Component {
     });
   };
 
-  openAddMemberModal = () => {
-    Actions.addMemberModal();
+  toggleMemberModal = () => {
+    const { addMemberModalVisible } = this.state;
+    this.setState({
+      addMemberModalVisible: !addMemberModalVisible
+    })
   }
 
   render() {
-    const { members, title } = this.state;
+    const { members, title, addMemberModalVisible } = this.state;
 
     return (
       <View style={styles.background}>
@@ -65,12 +70,13 @@ class League extends Component {
             </Text>
           </View>
           <View style={styles.addMember}>
-            <TouchableOpacity onPress={this.openAddMemberModal}>
+            <TouchableOpacity onPress={this.toggleMemberModal}>
               <Feather style={{ color: 'white' }} name='user-plus' size={25} />
             </TouchableOpacity>
           </View>
         </View>
         <RankingList members={members} />
+        <AddMemberModal visible={addMemberModalVisible} toggleModal={this.toggleMemberModal} />
       </View>
     );
   }

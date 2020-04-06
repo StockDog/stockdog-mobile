@@ -14,4 +14,5 @@ export default {
   black: '#484040',
   modalBackground: '#f7f8f9',
   swipeline: '#d6d6d6',
+  trueBlack: '#000000'
 };
