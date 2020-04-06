@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
-  Modal, Text, TouchableOpacity, View, TextInput,
+  Modal, Text, TouchableOpacity, View, TextInput, 
 } from 'react-native';
 import { ButtonGroup } from 'react-native-elements';
-import Lightbox from '../components/baseLightbox';
 import { Feather } from '@expo/vector-icons';
 import colors from '../style/colors';
 import styles from '../style/screens/tradingmodal';
@@ -12,7 +11,7 @@ import { tradeStock } from '../api';
 import SpinningLoader from '../components/spinningloader';
 
 const TradingModal = ({
-  navigation, portfolios, chosenLeague, updateOwnedAmt, price, ticker, visible, closeModal
+  portfolios, chosenLeague, updateOwnedAmt, price, ticker, visible, closeModal
 }) => {
   const [action, setAction] = useState("");
   const [amount, setAmount] = useState("");
@@ -22,7 +21,6 @@ const TradingModal = ({
   const buyingPower = portfolios[chosenLeague].buyPower;
 
   const executeTrade = async () => {
-    const props = navigation.state.params;
 
     const isDisabled = !(amount && action) || amount <= 0;
     if (isDisabled) {
@@ -33,7 +31,7 @@ const TradingModal = ({
     try {
       await tradeStock(
         parseInt(amount, 10),
-        props.ticker,
+        ticker,
         action.toUpperCase(),
         portfolios[chosenLeague].id,
       );
@@ -60,23 +58,6 @@ const TradingModal = ({
     return <View />;
   }
 
-  // if (complete) {
-  //   return (
-  //     // <Lightbox verticalPercent={0.6} horizontalPercent={0.8}>
-  //     <Modal visible={visible} animationType="slide" transparent={false}>
-  //       <View style={styles.baseModal}>
-  //         <View style={styles.outermostBaseContainer}>
-  //           <Text style={styles.successMessageText}>
-  //             {`You just ${
-  //               action === 'Buy' ? 'bought ' : 'sold '
-  //             } ${amount} shares of ${ticker}.`}
-  //           </Text>
-  //         </View>
-  //       </View>
-  //     </Modal>
-  //     // </Lightbox>
-  //   );
-  // }
   let total = amount ? price * parseInt(amount, 10) : 0;
   total = total.toFixed(2);
 
@@ -96,92 +77,96 @@ const TradingModal = ({
     ? tickerInPortfolio[0].shareCount
     : 0;
 
+  let modalContents;
+
+  if (complete) {
+    modalContents = (
+      <Fragment>
+        <View style={styles.modalHeaders}>
+          <TouchableOpacity onPress={closeModal}>
+            <Feather name="x" size={30} color="white" />
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.successMessageText}>
+          {`You just ${
+            action === 'Buy' ? 'bought ' : 'sold '
+            } ${amount} shares of ${ticker}.`}
+        </Text>
+      </Fragment>
+    );
+  }
+  else {
+    modalContents = (
+      <Fragment>
+        <View style={styles.modalHeaders}>
+          <TouchableOpacity onPress={closeModal}>
+            <Feather name="x" size={30} color="white" />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.buyingPower}>
+          <Text style={styles.buyingPowerText}>
+            Buying Power: $
+          {buyingPower.toFixed(2)}
+          </Text>
+          <Text style={styles.buyingPowerText}>
+            {`Current Price: $${price}`}
+          </Text>
+          <Text style={styles.buyingPowerText}>
+            {`Currently Owned: ${numShares} shares`}
+          </Text>
+        </View>
+        <View style={styles.inputs}>
+          <ButtonGroup
+            onPress={onChangeAction}
+            selectedIndex={actionIndex}
+            buttons={['Buy', 'Sell']}
+            containerStyle={styles.tradingButtonGroup}
+            textStyle={styles.buttonText}
+            // buttonStyle={styles.transparentBackground}
+            selectedButtonStyle={styles.buttonGroupSelected}
+            selectedTextStyle={{ color: colors.white }}
+          />
+          <TextInput
+            style={styles.amountInput}
+            keyboardType="number-pad"
+            placeholder="Amount"
+            color={colors.white}
+            placeholderColor={colors.ultraLightGrey}
+            value={amount}
+            onChangeText={(amt) => {
+              setAmount(amt);
+            }}
+            returnKeyType="done"
+            textAlign="center"
+          />
+        </View>
+        <View style={styles.total}>
+          <Text style={styles.totalText}>
+            Total: $
+          {total}
+          </Text>
+        </View>
+        <View style={styles.execute}>
+          {loading ? (
+            <SpinningLoader color="grey" />
+          ) : (
+              <TouchableOpacity style={buttonStyle} onPress={executeTrade}>
+                <Text style={buttonTextStyle}>Execute</Text>
+              </TouchableOpacity>
+            )}
+        </View>
+      </Fragment>
+    )
+  }
+
   return (
     <View>
       <Modal visible={visible} animationType="slide" transparent>
-        <View style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          flex: 1,
-          alignItems: 'center',
-        }}>
-          <View style={{
-            flex: 0.7,
-            backgroundColor: colors.grey,
-            width: '90%',
-            shadowColor: colors.black,
-            shadowOpacity: 75,
-            shadowOffset: {
-              height: 7,
-            },
-            borderRadius: 10,
-          }}>
-            <View style={styles.modalHeaders}>
-              <TouchableOpacity onPress={closeModal}>
-                <Feather name="x" size={30} color="white" />
-              </TouchableOpacity>
-            </View><View style={styles.buyingPower}>
-              <Text style={styles.buyingPowerText}>
-                Buying Power: $
-          {buyingPower.toFixed(2)}
-              </Text>
-              <Text style={styles.buyingPowerText}>
-                {`Current Price: $${price}`}
-              </Text>
-              <Text style={styles.buyingPowerText}>
-                {`Currently Owned: ${numShares} shares`}
-              </Text>
-            </View>
-            <View style={styles.inputs}>
-              <ButtonGroup
-                onPress={onChangeAction}
-                selectedIndex={actionIndex}
-                buttons={['Buy', 'Sell']}
-                containerStyle={styles.tradingButtonGroup}
-                textStyle={styles.buttonText}
-                // buttonStyle={styles.transparentBackground}
-                selectedButtonStyle={styles.buttonGroupSelected}
-                selectedTextStyle={{ color: colors.white }}
-              />
-              <TextInput
-                style={styles.amountInput}
-                keyboardType="number-pad"
-                placeholder="Amount"
-                placeholderColor={colors.grey}
-                value={amount}
-                onChangeText={(amt) => {
-                  setAmount(amt);
-                }}
-                returnKeyType="done"
-              />
-            </View>
-            <View style={styles.total}>
-              <Text style={styles.totalText}>
-                Total: $
-          {total}
-              </Text>
-            </View>
-            <View style={styles.execute}>
-              {loading ? (
-                <SpinningLoader color="grey" />
-              ) : (
-                  <TouchableOpacity style={buttonStyle} onPress={executeTrade}>
-                    <Text style={buttonTextStyle}>Execute</Text>
-                  </TouchableOpacity>
-                )}
-            </View>
+        <View style={styles.outermostBaseContainer}>
+          <View style={styles.baseModal}>
+            {modalContents}
           </View>
         </View>
-        {/* <View style={[styles.outerModal,
-          {
-            width: "60%",
-            height: "90%",
-          }]}
-        >
-          
-      
-      </View> */}
       </Modal>
     </View>
   );

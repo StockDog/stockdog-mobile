@@ -6,41 +6,28 @@ const { width, height } = Dimensions.get('window');
 export default StyleSheet.create({
   // ----------------- Containers ------------- //
   outermostBaseContainer: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
+    display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
+    flex: 1,
     alignItems: 'center',
   },
   baseModal: {
-    flex: 0.6,
-    right: 0,
-    left: 0,
+    flex: 0.7,
+    backgroundColor: colors.grey,
+    width: '90%',
+    shadowColor: colors.black,
+    shadowOpacity: 75,
+    shadowOffset: {
+      height: 7,
+    },
+    borderRadius: 10,
   },
   modalHeaders: {
     flex: 0.1,
     width: '90%',
     alignItems: 'flex-end',
     justifyContent: 'center',
-  },
-  innerModal: {
-    flex: 0.5,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-  outerModal: {
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: colors.grey,
-    borderRadius: 10,
-    shadowColor: colors.black,
-    shadowOpacity: 75,
-    shadowOffset: {
-      height: 3,
-    },
   },
   tradingButtonGroup: {
     height: height * 0.05,
@@ -64,14 +51,16 @@ export default StyleSheet.create({
   amountInput: {
     width: width * 0.3,
     height: 48,
-    backgroundColor: colors.ultraLightGrey,
-    borderColor: colors.grey,
+    // backgroundColor: colors.ultraLightGrey,
+    borderColor: colors.ultraLightGrey,
+    borderBottomWidth: 1,
     borderRadius: 8,
-    paddingLeft: 20,
+    // paddingLeft: 20
   },
   total: {
     flex: 0.1,
     justifyContent: 'center',
+    alignItems: 'center'
   },
   executeButton: {
     justifyContent: 'center',
@@ -79,7 +68,7 @@ export default StyleSheet.create({
     backgroundColor: colors.bright,
     borderRadius: 8,
     height: '40%',
-    width: '100%',
+    width: '60%',
   },
   disabledExecuteButton: {
     justifyContent: 'center',
@@ -89,11 +78,11 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     height: '40%',
-    width: '100%',
+    width: '60%',
   },
   execute: {
     flex: 0.2,
-    width: '60%',
+    width: '100%',
     marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
