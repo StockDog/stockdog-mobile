@@ -5,7 +5,7 @@ import styles from '../style/screens/portfolio';
 import PortfolioChart from '../components/portfolioChart.tsx';
 import NavBar from '../components/navbar';
 import PortfolioStockList from '../components/portfolioStockList';
-import LeagueSummaryModal from './leagueSummaryModal';
+// import LeagueSummaryModal from './leagueSummaryModal';
 
 const Portfolio = (props) => {
   const { chosenLeague, portfolios } = props;
