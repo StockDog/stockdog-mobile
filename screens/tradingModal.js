@@ -20,6 +20,14 @@ const TradingModal = ({
   const [loading, setLoading] = useState(false);
   const buyingPower = portfolios[chosenLeague].buyPower;
 
+  const exitModal = () => {
+    console.log('exiting modal');
+    setComplete(false);
+    setActionIndex(null);
+    setAmount('');
+    closeModal();
+  }
+
   const executeTrade = async () => {
 
     const isDisabled = !(amount && action) || amount <= 0;
@@ -82,11 +90,6 @@ const TradingModal = ({
   if (complete) {
     modalContents = (
       <Fragment>
-        <View style={styles.modalHeaders}>
-          <TouchableOpacity onPress={closeModal}>
-            <Feather name="x" size={30} color="white" />
-          </TouchableOpacity>
-        </View>
         <Text style={styles.successMessageText}>
           {`You just ${
             action === 'Buy' ? 'bought ' : 'sold '
@@ -98,11 +101,6 @@ const TradingModal = ({
   else {
     modalContents = (
       <Fragment>
-        <View style={styles.modalHeaders}>
-          <TouchableOpacity onPress={closeModal}>
-            <Feather name="x" size={30} color="white" />
-          </TouchableOpacity>
-        </View>
         <View style={styles.buyingPower}>
           <Text style={styles.buyingPowerText}>
             Buying Power: $
@@ -164,6 +162,11 @@ const TradingModal = ({
       <Modal visible={visible} animationType="slide" transparent>
         <View style={styles.outermostBaseContainer}>
           <View style={styles.baseModal}>
+            <View style={styles.modalHeaders}>
+              <TouchableOpacity onPress={exitModal}>
+                <Feather name="x" size={30} color="white" />
+              </TouchableOpacity>
+            </View>
             {modalContents}
           </View>
         </View>

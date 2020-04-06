@@ -51,11 +51,9 @@ export default StyleSheet.create({
   amountInput: {
     width: width * 0.3,
     height: 48,
-    // backgroundColor: colors.ultraLightGrey,
     borderColor: colors.ultraLightGrey,
     borderBottomWidth: 1,
-    borderRadius: 8,
-    // paddingLeft: 20
+    borderRadius: 8
   },
   total: {
     flex: 0.1,

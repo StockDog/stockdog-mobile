@@ -121,21 +121,6 @@ class Stock extends Component {
     }
 
     return (
-      // <View>
-      //   <View>
-      //     <TradingModal
-      //       // visible={tradingModalVisible}
-      //       visible
-      //       ticker={ticker}
-      //       price={currentPrice}
-      //       updateOwnedAmt={amt => {
-      //         this.setState({ ownedAmt: ownedAmt + amt });
-      //       }}
-      //       closeModal={
-      //         () => this.setState({ tradingModalVisible: false })
-      //       }
-      //     />
-      //   </View>
         <View
           style={styles.background}
         >
