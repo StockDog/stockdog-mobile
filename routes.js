@@ -1,5 +1,5 @@
 import React from "react";
-import { Scene, Tabs, Modal, Drawer, Lightbox } from "react-native-router-flux";
+import { Scene, Tabs, Modal, Drawer } from "react-native-router-flux";
 import { Provider } from "react-redux";
 import { AppearanceProvider } from 'react-native-appearance';
 import { PersistGate } from "redux-persist/integration/react";
@@ -8,7 +8,6 @@ import Login from "./screens/login";
 import Portfolio from "./screens/portfolio";
 import Stock from "./screens/stock";
 import League from "./screens/league";
-import AddMemberModal from "./screens/addMemberModal";
 // import Feed from './screens/feed';
 import NoLeagues from "./screens/noLeagues";
 import JoinLeague from "./screens/joinLeague";
@@ -72,14 +71,7 @@ const Routes = () => (
                   icon={TabIcon}
                   onEnter={League.onEnterLeague}
                 >
-                  <Lightbox>
-                    <Scene key="league" component={League} />
-                    <Scene
-                      key="addMemberModal"
-                      component={AddMemberModal}
-                      swipeDownToClose
-                    />
-                  </Lightbox>
+                  <Scene key="league" component={League} />
                 </Scene>
 
                 <Scene
