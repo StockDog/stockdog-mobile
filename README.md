@@ -4,4 +4,4 @@
 ## Learn to invest while competing with friends!
 
 ### Running locally
-This project was bootstrapped with Create React Native App. For instructions on how to run the project, refer to ![this README](https://github.com/StockDog/stockdog-mobile/tree/CRNA_README.md).
+This project was bootstrapped with Create React Native App. For instructions on how to run the project, refer to ![this README](https://github.com/StockDog/stockdog-mobile/blob/master/CRNA_README.md).
